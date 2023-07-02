@@ -18,13 +18,13 @@ class User(AbstractBaseUser):
         ('man',"مرد"),
         ('woman',"زن"),
     )
-    email = models.EmailField('آدرس ایمیل', max_length=255)
+    email = models.EmailField('آدرس ایمیل', max_length=255,unique=True)
     full_name = models.CharField('نام و نام خانوادگی', max_length=55)
     image = models.ImageField('تصویر', upload_to='images/users', null=True, blank=True)
     gender = models.CharField(max_length=10, choices=GENDER_CHOICES, verbose_name="جنسیت",null=True, blank=True)
     birth = models.DateField('تاریخ تولد',null=True, blank=True)
     language=models.CharField(max_length=10, choices=LANGUAGE_CHOICES, verbose_name="زبان",null=True, blank=True)
-    Subscription_plan=models.ForeignKey(Subscription, related_name="Subscription",on_delete=models.CASCADE,default=None, blank=True)
+    Subscription_plan=models.ForeignKey(Subscription, related_name="Subscription",on_delete=models.CASCADE,default=None,null=True, blank=True)
 
     date_joined = models.DateTimeField('تاریخ عضویت', auto_now_add=True)
     is_active = models.BooleanField('فعال', default=True)
@@ -60,3 +60,25 @@ class User(AbstractBaseUser):
     def has_module_perms(self, app_label):
         return True
 
+
+class Otp(models.Model):
+    email = models.CharField('آدرس ایمیل', max_length=50)
+    full_name = models.CharField('نام و نام خانوادگی', max_length=50)
+    password = models.CharField('گذرواژه', max_length=1000)
+    code = models.CharField('کد اعتبارسنجی', max_length=5)
+    token = models.CharField('توکن اعتبار سنجی', max_length=50)
+    expiration = models.DateTimeField('زمان انقضا', null=True, blank=True)
+
+    class Meta:
+        verbose_name_plural = "کدهای اعتبارسنجی"
+        verbose_name = "کد اعتبارسنجی"
+
+    # Check if OTP code is still valid
+    def is_not_expired(self):
+        if self.expiration >= timezone.localtime(timezone.now()):
+            return True
+        else:
+            return False
+
+    def __str__(self):
+        return self.email

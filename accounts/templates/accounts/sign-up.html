@@ -1,0 +1,120 @@
+{% load static %}
+<!doctype html>
+<html dir="rtl" lang="en-US">
+<head>
+   <!-- Required meta tags -->
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+   <title>قالب html فیلم و سریال</title>
+   <!-- Favicon -->
+   <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}"/>
+   <!-- Bootstrap CSS -->
+   <link rel="stylesheet" href="{% static 'Theme/css/bootstrap.min.css' %}"/>
+   <!-- Typography CSS -->
+   <link rel="stylesheet" href="{% static 'Theme/css/typography.css' %}">
+   <!-- Style -->
+   <link rel="stylesheet" href="{% static 'Theme/css/style.css' %}"/>
+   <!-- Responsive -->
+   <link rel="stylesheet" href="{% static 'Theme/css/responsive.css' %}"/>
+</head>
+<body>
+<div id="loading">
+   <div id="loading-center">
+   </div>
+</div>
+
+<!-- MainContent -->
+<section class="sign-in-page">
+   <div class="container">
+      <div class="row justify-content-center align-items-center height-self-center">
+         <div class="col-lg-7 col-md-12 align-self-center">
+            <div class="sign-user_card ">                    
+               <div class="sign-in-page-data">
+                  <div class="sign-in-from w-100 m-auto">
+                     {% for message in messages %}
+                     {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+                         <div class="alert-danger rounded"
+                              style="padding: 5px">
+                             {{ message }}
+                         </div>
+                     {% else %}
+                         <div class="alert-success rounded"
+                              style="padding: 5px">
+                             {{ message }}
+                         </div>
+                     {% endif %}
+                     {% endfor %}
+
+                     <form class="" action="{% url 'account:sign-up' %}" method="post">
+                        {% csrf_token %}
+                        <div class="row">
+                           <div class="col-md-6">
+                              <div class="form-group">
+                                 <label>نام کاربری</label>
+                                 {{form.full_name}}
+                              </div>
+                           </div>
+                           <div class="col-md-6">
+                              <div class="form-group">  
+                                 <label>ایمیل</label>                               
+                                 {{form.email}}
+                              </div>
+                           </div>
+                           <div class="col-md-6">
+                              <div class="form-group">   
+                                 <label>کلمه عبور</label>                              
+                                 {{form.password}}
+                              </div>
+                           </div>    
+                        </div>
+                        <div class="custom-control custom-radio mt-2">
+                           <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input">
+                           <label class="custom-control-label" for="customRadio1">ویژه-$39 / 3 ماهه
+                            با 5 روز آزمایش رایگان</label>
+                         </div>
+                         <div class="custom-control custom-radio mt-2">
+                           <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input">
+                           <label class="custom-control-label" for="customRadio2"> پایه- $19 / 1 ماه</label>
+                         </div>
+                         <div class="custom-control custom-radio mt-2">
+                           <input type="radio" id="customRadio3" name="customRadio" class="custom-control-input">
+                           <label class="custom-control-label" for="customRadio3">رایگان</label>
+                         </div>
+                      
+                        <button type="submit" class="btn btn-hover my-2">ثبت نام</button>
+                                                            
+                     </form>
+                  </div>
+               </div>    
+               <div class="mt-3">
+                  <div class="d-flex justify-content-center links">
+                    قبلاً حساب کاربری دارید؟ <a href="{% url 'account:sign-in' %}" class="text-primary ml-2">ورود</a>
+                  </div>                        
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</section>
+
+<!-- MainContent End-->
+<!-- jQuery, Popper JS -->
+<script src="{% static 'Theme/js/jquery-3.4.1.min.js' %}"></script>
+<script src="{% static 'Theme/js/popper.min.js' %}"></script>
+<!-- Bootstrap JS -->
+<script src="{% static 'Theme/js/bootstrap.min.js' %}"></script>
+<!-- Slick JS -->
+<script src="{% static 'Theme/js/slick.min.js' %}"></script>
+<!-- owl carousel Js -->
+<script src="{% static 'Theme/js/owl.carousel.min.js' %}"></script>
+<!-- select2 Js -->
+<script src="{% static 'Theme/js/select2.min.js' %}"></script>
+<!-- Magnific Popup-->
+<script src="{% static 'Theme/js/jquery.magnific-popup.min.js' %}"></script>
+<!-- Slick Animation-->
+<script src="{% static 'Theme/js/slick-animation.min.js' %}"></script>
+<!-- Custom JS-->
+<script src="{% static 'Theme/js/custom.js' %}"></script>
+</body>
+</html>
