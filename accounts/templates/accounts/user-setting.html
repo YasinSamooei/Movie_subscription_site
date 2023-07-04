@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    تنظیمات حساب کاربری
+{% endblock %}
+
+{% block meta %}
+    <meta name="robots" content="noindex"/>
+{% endblock %}
+
+{% block main %}
+    <!-- MainContent -->
+    <section class="m-profile setting-wrapper">        
+        <div class="container">
+            <h4 class="main-title mb-4">تنظیمات حساب</h4>
+            <div class="row">
+                <div class="col-lg-4 mb-3">
+                  {% for message in messages %}
+                  {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+                      <div class="alert-danger rounded"
+                           style="padding: 5px">
+                          {{ message }}
+                      </div>
+                  {% else %}
+                      <div class="alert-success rounded"
+                           style="padding: 5px">
+                          {{ message }}
+                      </div>
+                  {% endif %}
+                  {% endfor %}
+                    <div class="sign-user_card text-center">
+                        {% if request.user.image %}
+                        <img src="{{request.user.image.url}}" class="rounded-circle img-fluid d-block mx-auto mb-3" alt="userimage" style="height: 50px;width: 50px;">
+                        {% else %}
+                        <img src="{% static 'Theme/images/user/user.jpg' %}" class="rounded-circle img-fluid d-block mx-auto mb-3" alt="user">
+                        {% endif %}
+                        <h4 class="mb-3">{{ user.full_name }}</h4>
+                        <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است </p>
+                        <a href="{% url 'account:manage-profile' %}" class="edit-icon text-primary">ویرایش</a>
+                    </div>
+                </div>
+                <div class="col-lg-8">
+                    <div class="sign-user_card">
+                        <h5 class="mb-3 pb-3 a-border">مشخصات شخصی</h5>
+                        <div class="row align-items-center justify-content-between mb-3">
+                            <div class="col-md-8">
+                                <span class="text-light font-size-13">ایمیل</span>
+                                <p class="mb-0">{{ user.email }}</p>
+                            </div>   
+                            <div class="col-md-4 text-md-right text-left">                      
+                                <a href="#" class="text-primary">ویرایش</a>
+                            </div>
+                        </div>
+                        <div class="row align-items-center justify-content-between mb-3">
+                            <div class="col-md-8">
+                                <span class="text-light font-size-13">رمز عبور</span>
+                                <p class="mb-0">************</p>
+                            </div>   
+                            <div class="col-md-4 text-md-right text-left">
+                                <a href="{% url 'account:change-password' %}" class="text-primary">ویرایش رمز عبور</a>
+                            </div>
+                        </div>
+                        <div class="row align-items-center justify-content-between mb-3">
+                            <div class="col-md-8">
+                                <span class="text-light font-size-13">تاریخ ثبت نام</span>
+                                <p class="mb-0">{{ user.get_jalali_date }}</p>
+                            </div>
+                            <div class="col-md-4 text-md-right text-left">
+                                <a  class="text-primary"></a>
+                            </div>
+                        </div>
+                        <div class="row align-items-center justify-content-between">
+                            <div class="col-md-8">
+                                <span class="text-light font-size-13">زبان</span>
+                                {% if user.language %}
+                                <p class="mb-0">{{ user.language }}</p>
+                                {% else %}
+                                <p class="mb-0">زبان کاربر ثبت نشده است.</p>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-4 text-md-right text-left">
+                                <a href="{% url 'account:manage-profile' %}" class="text-primary">ویرایش</a>
+                            </div>
+                        </div>
+                        <h5 class="mb-3 mt-4 pb-3 a-border">جزئیات صورتحساب</h5>
+                        <div class="row justify-content-between mb-3">
+                            <div class="col-md-8 r-mb-15">
+                                <p>تاریخ بعدی صورت حساب شما 28 شهریور 1400 می باشد</p>
+                                <a href="#" class="btn btn-hover">لغو عضویت</a>
+                            </div>
+                            <div class="col-md-4 text-md-right text-left">
+                                <a href="#" class="text-primary">به روز رسانی اطلاعات پرداخت</a>
+                            </div>
+                        </div>
+                        <h5 class="mb-3 mt-4 pb-3 a-border">جزئیات طرح</h5>
+                        <div class="row justify-content-between mb-3">
+                            <div class="col-md-8">
+                                <p>ویژه</p>                                
+                            </div>
+                            <div class="col-md-4 text-md-right text-left">
+                                <a href="pricing-plan-1.html" class="text-primary">ویرایش طرح</a>
+                            </div>
+                        </div>
+                        <h5 class="mb-3 pb-3 mt-4 a-border">تنظیمات</h5>
+                        <div class="row">
+                            <div class="col-12 setting">
+                                <a href="#" class="text-body d-block mb-1">فعالیت جاری دستگاه اخیر</a>
+                                <a href="#" class="text-body d-block mb-1">خروج از سیستم همه دستگاه ها</a>
+                                <a href="#" class="text-body d-block">اطلاعات شخص خود را بارگیری کنید</a>
+                            </div>                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+      <!-- MainContent End-->
+      <!-- back-to-top -->
+      <div id="back-to-top">
+         <a class="top" href="#top" id="top"> <i class="fa fa-angle-up"></i> </a>
+      </div>
+      <!-- back-to-top End -->
+{% endblock %}

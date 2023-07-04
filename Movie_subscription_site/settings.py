@@ -40,10 +40,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
+    
     # local
     'home.apps.HomeConfig',
     'accounts',
+
+    #
+    'crispy_forms',
+    
 ]
 
 MIDDLEWARE = [
@@ -152,3 +156,6 @@ ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_EMAIL_REQUIRED = True
 
 LOGIN_URL = 'account/sign-in'
+LOGOUT_URL = 'account/logout'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'

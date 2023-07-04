@@ -10,19 +10,18 @@ class Subscription(models.Model):
 
 class User(AbstractBaseUser):
     LANGUAGE_CHOICES = (
-        ('Persian', "فارسی"),		
-        ('English', "انگلیسی"),	
-        ('German', "آلمانی"),
+        ('فارسی', "فارسی"),		
+        ('انگلیسی', "انگلیسی"),	
+        ('آلمانی', "آلمانی"),
     )
     GENDER_CHOICES=(
-        ('man',"مرد"),
-        ('woman',"زن"),
+        ('مرد',"مرد"),
+        ('زن',"زن"),
     )
     email = models.EmailField('آدرس ایمیل', max_length=255,unique=True)
     full_name = models.CharField('نام و نام خانوادگی', max_length=55)
     image = models.ImageField('تصویر', upload_to='images/users', null=True, blank=True)
     gender = models.CharField(max_length=10, choices=GENDER_CHOICES, verbose_name="جنسیت",null=True, blank=True)
-    birth = models.DateField('تاریخ تولد',null=True, blank=True)
     language=models.CharField(max_length=10, choices=LANGUAGE_CHOICES, verbose_name="زبان",null=True, blank=True)
     Subscription_plan=models.ForeignKey(Subscription, related_name="Subscription",on_delete=models.CASCADE,default=None,null=True, blank=True)
 
@@ -46,10 +45,6 @@ class User(AbstractBaseUser):
 
     get_jalali_date.short_description = 'تاریخ ثبت نام'
 
-    def get_jalali_birth(self):
-        return JalaliDate(self.birth, locale=('fa')).strftime('%c')
-
-    get_jalali_birth.short_description = 'تاریخ تولد'
 
     def __str__(self):
         return str(self.email)

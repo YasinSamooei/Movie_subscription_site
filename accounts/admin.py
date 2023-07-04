@@ -3,7 +3,7 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import Group
 from .models import User
 
-from .forms import SignUpForm, UserEditForm
+from .forms import SignUpForm
 
 admin.site.site_header = 'مدیریت سایت'
 admin.site.site_title = 'صفحه مدیریت'
@@ -12,7 +12,6 @@ admin.site.index_title = 'سایت اشتراک ویدئو'
 
 class UserAdmin(BaseUserAdmin):
     # The forms to add and change user instances
-    form = UserEditForm
     add_form = SignUpForm
 
     list_display = ( 'email', 'full_name', 'is_active', 'is_staff', 'is_superuser', 'get_jalali_date')
@@ -21,13 +20,13 @@ class UserAdmin(BaseUserAdmin):
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
         ('اطلاعات شخصی', {'fields': ('full_name', 'image', 'gender',
-                                     'get_jalali_birth', 'language', 'Subscription_plan')}),
+                                      'language', 'Subscription_plan')}),
         ('دسترسی‌ها', {'fields': ('is_active', 'is_staff', 'is_superuser')}),
     )
     add_fieldsets = (
         (None, {'fields': ('email', 'phone_number', 'password')}),
         ('اطلاعات شخصی', {'fields': ('full_name', 'image', 'gender',
-                                     'get_jalali_birth', 'language', 'Subscription_plan')}),
+                                    'language', 'Subscription_plan')}),
         ('دسترسی‌ها', {'fields': ('is_active', 'is_staff', 'is_superuser')}),
 
     )

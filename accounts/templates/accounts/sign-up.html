@@ -6,7 +6,7 @@
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-   <title>قالب html فیلم و سریال</title>
+   <title>خروج</title>
    <!-- Favicon -->
    <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}"/>
    <!-- Bootstrap CSS -->
@@ -45,7 +45,17 @@
                          </div>
                      {% endif %}
                      {% endfor %}
-
+                     
+                     {% if form.email.errors %}
+                     {% for error in form.email.errors %}
+                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                             {{ error }}
+                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                 <span aria-hidden="true">&times;</span>
+                             </button>
+                         </div>
+                     {% endfor %}
+                    {% endif %}
                      <form class="" action="{% url 'account:sign-up' %}" method="post">
                         {% csrf_token %}
                         <div class="row">

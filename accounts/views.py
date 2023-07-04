@@ -5,15 +5,17 @@ from django.urls import reverse_lazy
 from accounts.models import User
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
-from django.views.generic import CreateView, FormView, View
+from django.views.generic import CreateView, FormView, View,UpdateView
 from django.contrib.sites.shortcuts import get_current_site
 from django.template.loader import render_to_string
 from django.core.mail import EmailMessage
 from django.contrib import messages
 from uuid import uuid4
+from django.contrib.auth.views import PasswordChangeView
 import random
 from .models import *
 from .mixins import *
+from .forms import *
 
 class SignInView(FormView):
     template_name = 'accounts/sign-in.html'
@@ -73,9 +75,31 @@ class Activate(View):
         user.is_active = True
         user.save()
         login(request, user,backend='django.contrib.auth.backends.ModelBackend')
-        return render(request,"home/index.html")
+        messages.add_message(self.request, messages.SUCCESS, "حساب شما با موفقیت فعال گردید.")
+        return redirect("account:user-setting")
 
 
 def user_logout(request):
     logout(request)
-    return redirect('/')
+    return redirect('account:sign-in')
+
+
+class UserSettingsView(RequiredLoginMixin, View):
+    def get(self, request):
+        return render(request, 'accounts/user-setting.html', {'user': request.user})
+
+
+class ChangePasswordView(PasswordChangeView):
+    template_name = 'accounts/change_password.html'
+    success_url = reverse_lazy('account:user-setting')
+    form_class = ChangePasswordForm
+
+
+class ManageProfileView(FieldsMixin,UpdateView):
+    model = User
+    fields=['language', 'gender', 'full_name','image']
+    template_name = 'accounts/manage-profile.html'
+    success_url = reverse_lazy('account:user-setting')
+
+    def get_object(self):
+        return User.objects.get(pk=self.request.user.pk)

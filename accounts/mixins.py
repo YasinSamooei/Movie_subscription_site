@@ -14,16 +14,10 @@ class AuthenticatedMixin:
             return redirect("home:main")
         return super().dispatch(request, *args, **kwargs)
 
-
-class AuthenticatedOrNotTokenMixin:
-    def dispatch(self, request, *args, **kwargs):
-        if request.user.is_authenticated or not request.GET.get("token"):
-            return redirect("home:main")
-        return super().dispatch(request, *args, **kwargs)
-
-
-class NotAuthenticatedOrNotTokenMixin:
-    def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_authenticated or not request.GET.get("token"):
-            return redirect("home:main")
-        return super().dispatch(request, *args, **kwargs)
+class FieldsMixin():
+	def dispatch(self, request, *args, **kwargs):
+		self.fields = [
+			'language', 'gender',
+             'full_name','image'
+		]
+		return super().dispatch(request, *args, **kwargs)

@@ -1,0 +1,31 @@
+{% load static %}
+<html lang="en">
+
+<title>
+    {% block title %}
+    {% endblock %}
+</title>
+{% block meta %}
+{% endblock %}
+{% block metadescription %}
+{% endblock %}
+
+{% include 'includes/head.html' %}
+
+<body>
+
+<!-- header -->
+{% include 'includes/header.html' %}
+
+{% block main %}
+{% endblock %}
+
+<!-- footer -->
+{% include 'includes/footer.html' %}
+
+<!-- scripts -->
+{% include 'includes/scripts.html' %}
+
+</body>
+
+</html>
