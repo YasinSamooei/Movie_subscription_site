@@ -1,8 +1,5 @@
-from . import message
-from .forms import SignInForm , SignUpForm
-from django.contrib.auth import login , logout, authenticate
+from django.contrib.auth import login , authenticate
 from django.urls import reverse_lazy
-from accounts.models import User
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.views.generic import CreateView, FormView, View,UpdateView
@@ -14,9 +11,14 @@ from uuid import uuid4
 from django.contrib.auth.views import (PasswordChangeView,PasswordResetView,
 PasswordResetDoneView,PasswordResetConfirmView,PasswordResetCompleteView)
 import random
+
+#local
 from .models import *
 from .mixins import *
 from .forms import *
+from . import message
+from accounts.models import User
+
 
 class SignInView(FormView):
     template_name = 'accounts/sign-in.html'
@@ -32,6 +34,7 @@ class SignInView(FormView):
             else:
                 form.add_error('email', message.Wrong_Email_Or_Password)
         return render(req, self.template_name, {'form': form})
+
 
 
 class SignUpView(AuthenticatedMixin, CreateView):
@@ -68,23 +71,29 @@ class SignUpView(AuthenticatedMixin, CreateView):
 
 
 class Activate(View):
+    """view for activate user by email confirmation"""
     def get(self, request):
         token = request.GET.get("token")
         otp=Otp.objects.get(token=token)
-        email=otp.email
-        user = User.objects.get(email=email)
-        user.is_active = True
-        user.save()
-        login(request, user,backend='django.contrib.auth.backends.ModelBackend')
-        messages.add_message(self.request, messages.SUCCESS, "حساب شما با موفقیت فعال گردید.")
-        return redirect("account:user-setting")
+        if otp.is_not_expired:
+            email=otp.email
+            user = User.objects.get(email=email)
+            user.is_active = True
+            user.save()
+            login(request, user,backend='django.contrib.auth.backends.ModelBackend')
+            messages.add_message(self.request, messages.SUCCESS, "حساب شما با موفقیت فعال گردید.")
+            return redirect("account:user-setting")
+        else:
+            messages.add_message(self.request, messages.ERROR, "توکن شما منقضی شده لطفا دوباره تلاش کنید")
+            return redirect("account:user-setting")
 
+
+
+# user panel views
 
 class UserSettingsView(RequiredLoginMixin, View):
     def get(self, request):
         return render(request, 'accounts/user-setting.html', {'user': request.user})
-
-
 
 
 class ManageProfileView(FieldsMixin,UpdateView):
@@ -97,6 +106,9 @@ class ManageProfileView(FieldsMixin,UpdateView):
         return User.objects.get(pk=self.request.user.pk)
 
 
+
+# Customized password change and reset views
+
 class ChangePasswordView(PasswordChangeView):
     template_name = 'accounts/change_password.html'
     success_url = reverse_lazy('account:user-setting')
@@ -105,11 +117,14 @@ class ChangePasswordView(PasswordChangeView):
 class PasswordReset(PasswordResetView):
     template_name="accounts/password_reset_form.html"
     success_url=reverse_lazy("account:password_reset_done")
+
 class PasswordResetDone(PasswordResetDoneView):
     template_name="accounts/password_reset_done.html"
     success_url=reverse_lazy("account:password_reset_confirm")
+
 class PasswordResetConfirm(PasswordResetConfirmView):
     template_name="accounts/password_reset_confirm.html"
     success_url=reverse_lazy("account:password_reset_complete")
+
 class PasswordResetComplete(PasswordResetCompleteView):
     template_name="accounts/password_reset_complete.html"

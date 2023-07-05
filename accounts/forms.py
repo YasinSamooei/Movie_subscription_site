@@ -2,7 +2,7 @@ from django.core.exceptions import ValidationError
 from django import forms
 from .models import User
 from django.contrib.auth.forms import PasswordChangeForm
-
+from django.contrib.auth.forms import ReadOnlyPasswordHashField
 
 class SignUpForm(forms.ModelForm):
     email = forms.EmailField(
@@ -48,3 +48,15 @@ class ChangePasswordForm(PasswordChangeForm):
         if not self.user.check_password(old_password):
             raise ValidationError("گذرواژه فعلی تان اشتباه وارد شد. لطفا دوباره تلاش کنید")
         return old_password
+
+
+class UserChangeForm(forms.ModelForm):
+    """A form for updating users. Includes all the fields on
+    the user, but replaces the password field with admin's
+    disabled password hash display field.
+    """
+    password = ReadOnlyPasswordHashField()
+
+    class Meta:
+        model = User
+        fields = ('email', 'password', 'full_name', 'is_active', 'is_superuser','gender','language','image','Subscription_plan','is_staff')

@@ -6,7 +6,17 @@ from django.db import models
 
 
 class Subscription(models.Model):
-    pass
+    title=models.CharField('عنوان', max_length=100,default="رایگان")
+    price=models.PositiveIntegerField('قیمت',default=0)
+    time=models.PositiveSmallIntegerField('مدت زمان',default=None)
+    quality=models.CharField('کیفیت فیلم ها', max_length=10,default='SD(480p)')
+    advertise=models.BooleanField('دارای تبلیغ',default=True)
+    new_films=models.BooleanField('دسترسی به فیلم های جدید',default=False)
+
+    class Meta:
+        verbose_name_plural = "طرح اشتراکی"
+        verbose_name = "طرح های اشتراکی"
+
 
 class User(AbstractBaseUser):
     LANGUAGE_CHOICES = (

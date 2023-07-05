@@ -44,8 +44,9 @@ INSTALLED_APPS = [
     # local
     'home.apps.HomeConfig',
     'accounts',
+    'info.apps.InfoConfig',
 
-    #
+    # 3rd party
     'crispy_forms',
     'widget_tweaks',
     

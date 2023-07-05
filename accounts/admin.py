@@ -1,9 +1,9 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import Group
-from .models import User
+from .models import User , Subscription,Otp
 
-from .forms import SignUpForm
+from .forms import SignUpForm,UserChangeForm
 
 admin.site.site_header = 'مدیریت سایت'
 admin.site.site_title = 'صفحه مدیریت'
@@ -13,6 +13,7 @@ admin.site.index_title = 'سایت اشتراک ویدئو'
 class UserAdmin(BaseUserAdmin):
     # The forms to add and change user instances
     add_form = SignUpForm
+    form = UserChangeForm
 
     list_display = ( 'email', 'full_name', 'is_active', 'is_staff', 'is_superuser', 'get_jalali_date')
     list_filter = ('is_active', 'is_superuser', 'is_staff'
@@ -69,8 +70,14 @@ class UserAdmin(BaseUserAdmin):
         return qs.filter(id=user.id)
 
 
+
+
 # Now register the new UserAdmin...
 admin.site.register(User, UserAdmin)
 # ... and, since we're not using Django's built-in permissions,
 # unregister the Group model from admin.
 admin.site.unregister(Group)
+
+
+admin.site.register(Subscription)
+admin.site.register(Otp)
