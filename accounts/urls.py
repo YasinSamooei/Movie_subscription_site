@@ -14,6 +14,7 @@ urlpatterns = [
 
     path('user/setting',views.UserSettingsView.as_view(),name="user-setting"),
     path('manage/profile',views.ManageProfileView.as_view(),name="manage-profile"),
+    path('pricing/plan',views.PricingPlanView.as_view(),name="pricing-plan"),
 
 
     path('change/password',views.ChangePasswordView.as_view(),name="change-password"),

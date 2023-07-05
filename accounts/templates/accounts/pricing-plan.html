@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load social_share %}
+{% block title %}
+    طرح های اشتراکی
+{% endblock %}
+
+{% block meta %}
+    <meta name="robots" content="index , follow"/>
+{% endblock %}
+
+{% block main %}
+   
+   <!-- Main container -->  
+   <main id="main" class="site-main">
+    <div class="container">
+       <div class="row">
+        <div class="col-lg-12 col-sm-12">
+
+            <div class="iq-pricing-card">
+                <div class="table-responsive iq-pricing pt-2">
+                    <table id="my-table" class="table" data-active="premium">
+                       <thead>
+                            <tr>
+                                <th class="text-center iq-price-head">
+                                </th>
+                                {% for sub in subscription %}
+                                <th class="text-center iq-price-head free">
+                                   <div class="iq-price-box">
+                                      <h3 class="iq-price-rate text-white">${{sub.price}}<small> / {{sub.time}}ماه</small></h3>
+                                      <span class="type">{{sub.title}}</span>
+                                   </div>
+                                </th>
+                                {% endfor %}
+                             </tr>
+                       </thead>
+                       <tbody>                
+                          <tr>
+                             <th class="text-center" scope="row"> سرگرمی بدون آگهی</th>
+                             {% for sub in subscription %}
+                                {% if sub.advertise %}
+                                <td class="text-center iq-child-cell">
+                                    <i class="fa fa-times-circle"></i>
+                                </td>
+                                {% else %}
+                                <td class="text-center iq-child-cell">
+                                    <i class="fa fa-check-circle"></i>
+                                </td>
+                                {% endif %}
+                            {% endfor %}
+                          </tr>
+                          <tr>
+                             <th class="text-center" scope="row"> فیلم های جدید</th>
+                             {% for sub in subscription %}
+                                {% if not sub.new_films %}
+                                <td class="text-center iq-child-cell">
+                                    <i class="fa fa-times-circle"></i>
+                                </td>
+                                {% else %}
+                                <td class="text-center iq-child-cell ">
+                                    <i class="fa fa-check-circle"></i>
+                                </td>
+                                {% endif %}
+                             {% endfor %}
+                          </tr>
+                          <tr>
+                             <th class="text-center" scope="row"> کیفیت ویدئو</th>
+                             {% for sub in subscription %}
+                             <td class="text-center iq-child-cell">
+                                {{sub.quality}}
+                             </td>
+                             {% endfor %}
+                          </tr>
+                       </tbody>
+                    </table>
+                    <div class="text-center" style="position: relative;bottom: 20px;" >
+                        <div class="align-items-center r-mb-23" data-animation-in="fadeInUp" data-delay-in="1.3">
+                            <div class="dropdown">
+                                <a class="btn btn-hover iq-button"><span><i class="fa fa-share-alt" id="style-share"></i> اشتراک گذاری</span></a>
+                                <div class="dropdown-content">
+                                    <span class="post_to_social">{% post_to_whatsapp sub.get_absolute_url '<i class="fa fa-whatsapp"></i>' %}</span>
+                                    <span>{% post_to_telegram '' sub.get_absolute_url '<i class="fa fa-telegram telegram1"></i>' %}</span>
+                                    <span>{% post_to_reddit '' sub.get_absolute_url '<i class="fa fa-reddit"></i>' %}</span>
+                                    <span>{% post_to_twitter '' sub.get_absolute_url '<i class="fa fa-twitter" id="twitter"></i>' %}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+              </div>
+           </div>
+        </div>   
+     </div>
+  </main>
+
+    <!-- Main container end -->
+{% endblock %}

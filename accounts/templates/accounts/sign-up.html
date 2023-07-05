@@ -1,4 +1,5 @@
 {% load static %}
+{% load widget_tweaks %}
 <!doctype html>
 <html dir="rtl" lang="en-US">
 <head>
@@ -79,19 +80,10 @@
                            </div>    
                         </div>
                         <div class="custom-control custom-radio mt-2">
-                           <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input">
-                           <label class="custom-control-label" for="customRadio1">ویژه-$39 / 3 ماهه
-                            با 5 روز آزمایش رایگان</label>
+         
+                           {{form.Subscription_plan|add_class:"form-control"}}
                          </div>
-                         <div class="custom-control custom-radio mt-2">
-                           <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input">
-                           <label class="custom-control-label" for="customRadio2"> پایه- $19 / 1 ماه</label>
-                         </div>
-                         <div class="custom-control custom-radio mt-2">
-                           <input type="radio" id="customRadio3" name="customRadio" class="custom-control-input">
-                           <label class="custom-control-label" for="customRadio3">رایگان</label>
-                         </div>
-                      
+                     
                         <button type="submit" class="btn btn-hover my-2">ثبت نام</button>
                                                             
                      </form>

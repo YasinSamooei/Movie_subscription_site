@@ -17,6 +17,8 @@ class Subscription(models.Model):
         verbose_name_plural = "طرح اشتراکی"
         verbose_name = "طرح های اشتراکی"
 
+    def __str__(self):
+        return str(self.title)
 
 class User(AbstractBaseUser):
     LANGUAGE_CHOICES = (
@@ -33,7 +35,7 @@ class User(AbstractBaseUser):
     image = models.ImageField('تصویر', upload_to='images/users', null=True, blank=True)
     gender = models.CharField(max_length=10, choices=GENDER_CHOICES, verbose_name="جنسیت",null=True, blank=True)
     language=models.CharField(max_length=10, choices=LANGUAGE_CHOICES, verbose_name="زبان",null=True, blank=True)
-    Subscription_plan=models.ForeignKey(Subscription, related_name="Subscription",on_delete=models.CASCADE,default=None,null=True, blank=True)
+    Subscription_plan=models.ForeignKey(Subscription, related_name="Subscription",on_delete=models.CASCADE,default=None,null=True, blank=True,verbose_name="طرح اشتراک")
 
     date_joined = models.DateTimeField('تاریخ عضویت', auto_now_add=True)
     is_active = models.BooleanField('فعال', default=True)

@@ -2,7 +2,8 @@ from django.contrib.auth import login , authenticate
 from django.urls import reverse_lazy
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
-from django.views.generic import CreateView, FormView, View,UpdateView
+from django.views.generic import (CreateView, FormView, View,
+UpdateView,ListView)
 from django.contrib.sites.shortcuts import get_current_site
 from django.template.loader import render_to_string
 from django.core.mail import EmailMessage
@@ -17,7 +18,7 @@ from .models import *
 from .mixins import *
 from .forms import *
 from . import message
-from accounts.models import User
+from accounts.models import User,Subscription
 
 
 class SignInView(FormView):
@@ -104,6 +105,15 @@ class ManageProfileView(FieldsMixin,UpdateView):
 
     def get_object(self):
         return User.objects.get(pk=self.request.user.pk)
+
+
+class PricingPlanView(ListView):
+    model=Subscription
+    template_name="accounts/pricing-plan.html"
+    context_object_name="subscription"
+    def get_queryset(self):
+        return Subscription.objects.all()
+
 
 
 

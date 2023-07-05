@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     # 3rd party
     'crispy_forms',
     'widget_tweaks',
+    'django_social_share',
     
 ]
 

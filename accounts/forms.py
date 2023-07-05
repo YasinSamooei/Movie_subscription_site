@@ -12,13 +12,15 @@ class SignUpForm(forms.ModelForm):
     full_name = forms.CharField(widget=forms.TextInput(attrs={"class": "email-input",
                                                               "placeholder": "نام و نام خانوادگی خود را وارد کنید"}))
 
+    Subscription_plan = forms.TextInput()
+
     password = forms.CharField(max_length=50, widget=forms.PasswordInput(attrs={
         "class": "password-input", "placeholder": "گذرواژه خود را وارد کنید"
     }))
 
     class Meta:
         model = User
-        fields = ('email', 'full_name', 'password')
+        fields = ('email', 'full_name', 'password','Subscription_plan')
 
     def clean_email(self):
         if User.objects.filter(email=self.cleaned_data.get("email")).exists():
