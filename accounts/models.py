@@ -20,6 +20,8 @@ class Subscription(models.Model):
     def __str__(self):
         return str(self.title)
 
+
+
 class User(AbstractBaseUser):
     LANGUAGE_CHOICES = (
         ('فارسی', "فارسی"),		
@@ -80,7 +82,7 @@ class Otp(models.Model):
         verbose_name_plural = "کدهای اعتبارسنجی"
         verbose_name = "کد اعتبارسنجی"
 
-    # Check if OTP code is still valid
+    # Check OTP code is still valid or not.
     def is_not_expired(self):
         if self.expiration >= timezone.localtime(timezone.now()):
             return True
