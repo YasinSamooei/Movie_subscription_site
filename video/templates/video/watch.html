@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load hitcount_tags %}
+
+{% block title %}
+      لیست تماشا
+{% endblock %}
+
+{% block meta %}
+    <meta name="robots" content="noindex"/>
+{% endblock %}
+
+{% block main %}
+<div class="iq-breadcrumb-one  iq-bg-over iq-over-dark-50"
+style="background-image: url({% static 'Theme/images/about-us/01.jpg' %});">
+<div class="container-fluid">
+    <div class="row align-items-center">
+        <div class="col-sm-12">
+            <nav aria-label="breadcrumb" class="text-center iq-breadcrumb-two">
+                <h2 class="title">لیست تماشا</h2>
+                <ol class="breadcrumb main-bg">
+                    <li class="breadcrumb-item"><a href="{% url 'home:main' %}">خانه</a></li>
+                    <li class="breadcrumb-item active">لیست تماشا</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+</div>
+</div>
+
+    <!-- MainContent -->
+    {% if object_list %}
+        {% for video in object_list %}
+        <div class="block-images position-relative">
+            <div class="img-box">
+               <img src="{{ video.image.url }}" class="img-fluid" alt="">
+            </div>
+            <div class="block-description">
+               <h6 class="iq-title"><a href="{% url "video:video_detail" video.slug %}">{{ video.title }}</a></h6>
+               <div class="movie-time d-flex align-items-center my-2">
+                 <div class="badge badge-secondary p-1 mr-2">{{ video.age }}</div>
+                  <span class="text-white">{{ video.time }}</span>
+               </div>
+               <div class="hover-buttons">
+                  <span class="btn btn-hover"><i class="fa fa-play mr-1" aria-hidden="true"></i>
+                     <a href="{% url "video:video_detail" video.slug %}">تماشا کن</a></span>
+               </div>
+            </div>
+            <div class="block-social-info">
+               <ul class="list-inline p-0 m-0 music-play-lists">
+                     <li><span><i class="ri-heart-fill"></i></span>
+                   <span class="count-box">{{ video.like_count }}</span></li>
+                  </ul>
+            </div>
+         </div>
+        {% endfor %}
+    </div>
+
+{% else %}
+
+    <div class="d-flex align-items-center justify-content-between mb-3">
+        <h4 class="title-section"> موردی برای نمایش وجود ندارد </h2>
+    </div>
+
+{% endif %}
+
+
+
+{% if page_obj.has_other_pages %}
+
+    <div class="d-flex align-items-center justify-content-center mb-3 pagination">
+
+        {% if page_obj.has_previous %}
+            <a href="?page=
+
+                    {{ page_obj.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}"
+               class="mx-1"><i class="fa fa-chevron-right"></i></a>
+        {% endif %}
+
+        {% for page in page_obj.paginator.page_range %}
+            {% if page_obj.number == page %}
+                <a href="?page={{ page }}" class="active mx-1">{{ page }}</a>
+            {% elif page > page_obj.number|add:'-3' and page < page_obj.number|add:'3' %}
+                <a href="?page={{ page }}" class="mx-1">{{ page }}</a>
+            {% endif %}
+        {% endfor %}
+
+
+        {% if page_obj.has_next %}
+            <a href="?page=
+
+                    {{ page_obj.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}"
+               class="mx-1"><i class="fa fa-chevron-left"></i></a>
+        {% endif %}
+
+    </div>
+
+{% endif %}
+
+</div>
+{% endblock %}

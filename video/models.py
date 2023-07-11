@@ -29,9 +29,9 @@ class Category(models.Model):
 class Video(models.Model):
 
     AGE_CHOICES = (
-        ('بزرگسال','بزرگسال' ),		
-        ('نوجوان','نوجوان' ),	
-        ('کودک', 'کودک'),
+        ('20','+20' ),		
+        ('14','+14' ),	
+        ('10', '+10'),
     )
 
     title = models.CharField('عنوان', max_length=50)

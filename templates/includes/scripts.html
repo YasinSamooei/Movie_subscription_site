@@ -23,3 +23,63 @@
  <script src="{% static 'Theme/js/slick-animation.min.js' %}"></script>
  <!-- Custom JS-->
  <script src="{% static 'Theme/js/custom.js' %}"></script>
+
+<script>
+function Warning() {
+    Swal.fire({
+        position: 'top-end-right',
+        icon: 'warning',
+        text: "برای اضافه کردن این آموزش به علاقه مندی ها وارد حساب کاربری خود شوید",
+        confirmButtonText: 'باشه',
+        confirmButtonColor: '#112031',
+    }).then(function () {
+        location.href = "{% url 'account:sign-in' %}";
+    })
+}
+
+
+$(document).on("click", "#like_button", function (e) {
+    e.preventDefault();
+    $.ajax({
+        type: "POST",
+        url: "{% url "video:like" %}",
+        data: {
+            videoid: $("#like_button").val(),
+            csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val(),
+            action: "post"
+        },
+        success: function (json) {
+            document.getElementById("like_count").innerHTML = json["result"]
+            if (json["liked"] === true) {
+                document.getElementById("heart").className = "fa fa-heart";
+            } else {
+                document.getElementById("heart").className = "fa fa-heart-o";
+            }
+        },
+        error: function (xhr, errmsg, err) {
+
+        }
+    });
+})
+
+function favorite(id) {
+        var element = document.getElementById('favorite')
+        $.get(`/add-favorite/${id}`).then(response => {
+            if (response["response"] === "added") {
+                element.className = 'fa fa-bookmark'
+                Swal.fire({
+                    position: 'top-end-right',
+                    icon: 'success',
+                    text: 'این آموزش به علاقه مندی های شما اضافه شد',
+                    showConfirmButton: false,
+                    confirmButtonColor: '#112031',
+                    timer: 1500
+                })
+
+            } else {
+                element.className = 'fa fa-bookmark-o'
+            }
+        })
+    }
+
+</script>

@@ -26,5 +26,8 @@ urlpatterns = [
     path('', include('accounts.urls')),
     path('', include('info.urls')),
     path('', include('video.urls')),
-
+    # additional apps
+    path('hitcount/', include(('hitcount.urls', 'hitcount'), namespace='hitcount')),
+    path('ratings/', include('star_ratings.urls', namespace='ratings')),
+    
 ]+ static(settings.MEDIA_URL , document_root = settings.MEDIA_ROOT)

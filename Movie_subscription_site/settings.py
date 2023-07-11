@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'widget_tweaks',
     'django_social_share',
+    'django_cleanup.apps.CleanupConfig',
     'hitcount',
     'star_ratings',
     
@@ -183,3 +184,14 @@ LOGIN_URL = 'account/sign-in'
 LOGOUT_URL = 'account/logout'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+STAR_RATINGS_STAR_HEIGHT=20
+STAR_RATINGS_RERATE = True
+
+"""FILE_STORAGE_SETTINGS"""
+
+# DEFAULT_FILE_STORAGE="django_s3_storage.storage.S3Storage"
+# AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
+# AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
+# AWS_S3_ENDPOINT_URL = config('AWS_S3_ENDPOINT_URL')
+# AWS_S3_BUCKET_NAME = "your bucket name"
