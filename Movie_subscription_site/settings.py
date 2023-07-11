@@ -45,11 +45,14 @@ INSTALLED_APPS = [
     'home.apps.HomeConfig',
     'accounts',
     'info.apps.InfoConfig',
+    'video.apps.VideoConfig',
 
     # 3rd party
     'crispy_forms',
     'widget_tweaks',
     'django_social_share',
+    'hitcount',
+    'star_ratings',
     
 ]
 
@@ -94,6 +97,24 @@ DATABASES = {
     }
 }
 
+"""settings for mysql"""
+
+"""
+
+DATABASES = {
+   
+   
+     'default': {
+       'ENGINE': 'django.db.backends.mysql',
+       'NAME': 'django_mysql',
+       'USER': 'root',
+       'HOST': '127.0.0.1',
+       'PORT': '3306',
+
+     }
+}
+
+"""
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators

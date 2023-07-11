@@ -13,10 +13,10 @@
                                     <a href="#">شرایط استفاده</a>
                                 </li>
                                 <li id="menu-item-7316" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7316">
-                                    <a href="../html/privacy-policy.html">سیاست حفظ حریم خصوصی</a>
+                                    <a href="{% url 'info:privacy-policy' %}">سیاست حفظ حریم خصوصی</a>
                                 </li>
                                 <li id="menu-item-7118" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7118">
-                                   <a href="../html/faq.html">سوالات متداول</a>
+                                   <a href="{% url 'info:faq' %}">سوالات متداول</a>
                                </li>
                                 <li id="menu-item-7118" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-7118">
                                     <a href="../html/watch-video.html">لیست تماشا</a>
@@ -48,9 +48,9 @@
                             <h6 class="footer-link-title">اپلیکیشن ما</h6>
                             <div class="d-flex align-items-center">
                                 <a class="app-image" href="#">
-                                    <img src="Theme/images/footer/01.jpg" alt="play-store">
+                                    <img src="{% static 'Theme/images/footer/01.jpg' %}" alt="play-store">
                                 </a><br>
-                                <a class="ml-3 app-image" href="#"><img src="Theme/images/footer/02.jpg" alt="app-store"></a>
+                                <a class="ml-3 app-image" href="#"><img src="{% static 'Theme/images/footer/02.jpg' %}" alt="app-store"></a>
                             </div>
                         </div>
                     </div>

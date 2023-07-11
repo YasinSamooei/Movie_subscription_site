@@ -1,10 +1,10 @@
 from django.shortcuts import redirect
-from django.views.generic import CreateView
+from django.views.generic import CreateView,TemplateView,ListView
 from django.contrib import messages
 
 # local
 from .forms import ContactForm
-
+from accounts.models import User
 
 class ContactView(CreateView):
     template_name = 'info/contact.html'
@@ -16,3 +16,12 @@ class ContactView(CreateView):
         return redirect("info:contact")
 
 
+class PrivacyPolicyView(TemplateView):
+    template_name='info/privacy-policy.html'
+
+class AboutUsView(ListView):
+    template_name='info/about-us.html'
+    queryset = User.objects.filter(is_staff=True)
+
+class FaqView(TemplateView):
+    template_name='info/faq.html'
