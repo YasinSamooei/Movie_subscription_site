@@ -10,6 +10,19 @@ from star_ratings.models import Rating
 # local
 from accounts.models import User
 
+class Actors(models.Model):
+    name= models.CharField('نام', max_length=30)
+    slug = models.SlugField('اسلاگ', allow_unicode=True, blank=True, null=True, unique=True)
+    created_at = models.DateTimeField('تاریخ آپلود دسته بندی', auto_now_add=True, null=True)
+    updated_at = models.DateTimeField('تاریخ به روز رسانی دسته بندی', auto_now=True, null=True)
+
+    class Meta:
+        verbose_name = 'بازیگر'
+        verbose_name_plural = 'بازیگران'
+        ordering = ['-updated_at']
+
+    def __str__(self):
+        return self.name
 
 class Category(models.Model):
     title = models.CharField('عنوان', max_length=30)
@@ -36,10 +49,13 @@ class Video(models.Model):
 
     title = models.CharField('عنوان', max_length=50)
     category = models.ManyToManyField(Category, related_name='videos', verbose_name='دسته بندی')
+    actors = models.ManyToManyField(Actors, related_name='videos', verbose_name='بازیگران')
     description = models.TextField('توضیحات')
     meta_description = models.CharField('متادیسکریپشن', max_length=3000)
     image = models.ImageField('تصویر ویدئو', upload_to='images/thumbnails', null=True)
     video = models.FileField('ویدئو', upload_to='videos/', null=True, validators=[
+        FileExtensionValidator(allowed_extensions=['MOV', 'avi', 'mp4', 'webm', 'mkv'])])
+    trailer=models.FileField('تریلر', upload_to='videos/', null=True, validators=[
         FileExtensionValidator(allowed_extensions=['MOV', 'avi', 'mp4', 'webm', 'mkv'])])
     likes = models.ManyToManyField(User, related_name="likes", default=None, blank=True)
     like_count = models.BigIntegerField('تعداد لایک‌ها', default="0")
@@ -77,3 +93,27 @@ class Video(models.Model):
 
     def get_absolute_url(self):
         return reverse('video:video_detail', kwargs={'slug': self.slug})
+
+
+class Notification(models.Model):
+    user=models.ForeignKey(User,on_delete=models.CASCADE , related_name='notifs',verbose_name="کاربر")
+    created_at=models.DateTimeField(auto_now_add=True,verbose_name="زمان ایجاد")
+    video = models.ForeignKey(Video, on_delete=models.CASCADE,related_name='videos',verbose_name='فیلم')
+   
+    class Meta:
+        verbose_name="خبر"
+        verbose_name_plural="اخبار"
+        ordering = ('-created_at',)
+
+    def get_jalali_date(self):
+        return JalaliDate(self.created_at, locale=('fa')).strftime("%c")
+
+    def __str__(self):
+        return f"{self.user} , {self.video.title}"
+
+    
+   
+
+    
+
+

@@ -46,6 +46,7 @@
                                        </form>
                                       </div>
                                    </li>
+                                 {% if request.user.is_authenticated %}
                                    <li class="nav-item nav-icon">
                                       <a href="#" class="search-toggle position-relative">
                                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22"
@@ -59,37 +60,20 @@
                                       <div class="iq-sub-dropdown">
                                          <div class="iq-card shadow-none m-0">
                                             <div class="iq-card-body">
-                                               <a href="#" class="iq-sub-card">
+                                             {% for notif in user.notifs.all %}
+                                               <a href="" class="iq-sub-card" onclick="delete_notif('{{notif.id}}')">
                                                   <div class="media align-items-center">
-                                                     <img src="{% static 'Theme/images/notify/thumb-1.jpg' %}" class="img-fluid mr-3"
-                                                        alt="streamit" />
+                                                     <img src="{{notif.video.image.url}}" class="img-fluid mr-3"
+                                                        alt="streamit" / width="50px" height="50px">
                                                      <div class="media-body">
-                                                        <h6 class="mb-0 ">Boop Bitty</h6>
-                                                        <small class="font-size-12">همین الان</small>
+                                                        <h6 class="mb-0 ">{{notif.video.title}}</h6>
+                                                        <small class="font-size-12">{{notif.get_jalali_date}}</small>
                                                      </div>
                                                   </div>
                                                </a>
-                                               <a href="#" class="iq-sub-card">
-                                                  <div class="media align-items-center">
-                                                     <img src="{% static 'Theme/images/notify/thumb-2.jpg' %}" class="img-fluid mr-3"
-                                                        alt="streamit" />
-                                                     <div class="media-body">
-                                                        <h6 class="mb-0 ">The Last Breath</h6>
-                                                        <small class="font-size-12">15 دقیقه قبل</small>
-                                                     </div>
-                                                  </div>
-                                               </a>
-                                               <a href="#" class="iq-sub-card">
-                                                  <div class="media align-items-center">
-                                                     <img src="{% static 'Theme/images/notify/thumb-3.jpg' %}" class="img-fluid mr-3"
-                                                        alt="streamit" />
-                                                     <div class="media-body">
-                                                        <h6 class="mb-0 ">The Hero Camp</h6>
-                                                        <small class="font-size-12">1 ساعت قبل</small>
-                                                     </div>
-                                                  </div>
-                                               </a>
+                                             {% endfor %}
                                             </div>
+                                          
                                          </div>
                                       </div>
                                    </li>
@@ -158,6 +142,26 @@
                                          </div>
                                       </div>
                                    </li>
+                                 {% else %}
+                                 <li>
+                                    <div class="iq-sub-dropdown iq-user-dropdown">
+                                       <div class="iq-card shadow-none m-0">
+                                          <div class="iq-card-body p-0 pl-3 pr-3">
+                                             <a href="{% url 'account:login' %}" class="iq-sub-card setting-dropdown">
+                                                <div class="media align-items-center">
+                                                   <div class="right-icon">
+                                                      <i class="ri-logout-circle-line text-primary"></i>
+                                                   </div>
+                                                   <div class="media-body ml-3">
+                                                      <h6 class="mb-0">خروج</h6>
+                                                   </div>
+                                                </div>
+                                             </a>
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </li>
+                                 {% endif %}
                                 </ul>
                              </div>
                           </div>
@@ -226,38 +230,22 @@
                                 </a>
                                 <div class="iq-sub-dropdown">
                                    <div class="iq-card shadow-none m-0">
-                                      <div class="iq-card-body">
-                                         <a href="#" class="iq-sub-card">
-                                            <div class="media align-items-center">
-                                               <img src="{% static 'Theme/images/notify/thumb-1.jpg' %}" class="img-fluid mr-3"
-                                                  alt="streamit" />
-                                               <div class="media-body">
-                                                  <h6 class="mb-0 ">Boot Bitty</h6>
-                                                  <small class="font-size-12">همین الان</small>
-                                               </div>
-                                            </div>
-                                         </a>
-                                         <a href="#" class="iq-sub-card">
-                                            <div class="media align-items-center">
-                                               <img src="{% static 'Theme/images/notify/thumb-2.jpg' %}" class="img-fluid mr-3"
-                                                  alt="streamit" />
-                                               <div class="media-body">
-                                                  <h6 class="mb-0 ">The Last Breath</h6>
-                                                  <small class="font-size-12">15 دقیقه قبل</small>
-                                               </div>
-                                            </div>
-                                         </a>
-                                         <a href="#" class="iq-sub-card">
-                                            <div class="media align-items-center">
-                                               <img src="{% static 'Theme/images/notify/thumb-3.jpg' %}" class="img-fluid mr-3"
-                                                  alt="streamit" />
-                                               <div class="media-body">
-                                                  <h6 class="mb-0 ">The Hero Camp</h6>
-                                                  <small class="font-size-12">1 ساعت قبل</small>
-                                               </div>
-                                            </div>
-                                         </a>
-                                      </div>
+                                    {% if request.user.is_authenticated %}
+                                    <div class="iq-card-body">
+                                     {% for notif in user.notifs.all %}
+                                       <a href="" class="iq-sub-card" onclick="delete_notif('{{notif.id}}')">
+                                          <div class="media align-items-center">
+                                             <img src="{{notif.video.image.url}}" class="img-fluid mr-3"
+                                                alt="streamit" / width="50px" height="50px">
+                                             <div class="media-body">
+                                                <h6 class="mb-0 ">{{notif.video.title}}</h6>
+                                                <small class="font-size-12">{{notif.get_jalali_date}}</small>
+                                             </div>
+                                          </div>
+                                       </a>
+                                     {% endfor %}
+                                    </div>
+                                  {% endif %}
                                    </div>
                                 </div>
                              </li>
@@ -335,5 +323,10 @@
               </div>
            </div>
         </div>
+        <script>
+         function delete_notif(id){
+         $.get(`/delete/notif/${id}`).then(response=>{"delete-notif"})
+         }
+         </script>
      </header>
      <!-- Header End -->

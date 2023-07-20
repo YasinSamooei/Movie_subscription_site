@@ -10,5 +10,6 @@ urlpatterns = [
     path("like", views.LikeView.as_view(), name="like"),
     path('search', views.SearchView.as_view(), name='search'),
     path("watch", views.WatchListView.as_view(), name="watch"),
+    path('delete/notif/<int:pk>',views.delete_notification,name="delete-notif"),
 
 ]

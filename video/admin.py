@@ -10,6 +10,13 @@ class CategoryAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('title',)}
 
 
+@admin.register(Actors)
+class ActorsAdmin(admin.ModelAdmin):
+    list_display = ('name',)
+    search_fields = ['name']
+    prepopulated_fields = {'slug': ('name',)}
+
+
 @admin.register(Video)
 class VideoAdmin(admin.ModelAdmin):
     search_fields = ['title', 'description', 'creator']
@@ -21,3 +28,7 @@ class VideoAdmin(admin.ModelAdmin):
 
 
 
+@admin.register(Notification)
+class NotificationAdmin(admin.ModelAdmin):
+    list_display = ('user','video')
+    search_fields = ['video']

@@ -9,9 +9,18 @@ class HomeView(RequiredLoginMixin,TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(HomeView, self).get_context_data(**kwargs)
+
         context['latest_videos'] = Video.objects.all()[:6]
-        popular_videos=Video.objects.order_by('-hit_count_generic__hits')
+
+        most_visited=Video.objects.order_by('-hit_count_generic__hits')
+        context['most_visited'] = most_visited[:6]
+
+        popular_videos=Video.objects.order_by('-like_count')
         context['popular_videos'] = popular_videos[:6]
+
+        context['is_liked']="video.likes.filter(email=self.request.user.email).exists()"
+        context['is_favorite']="video.favorites.filter(id=request.user.id).exists()"
+        
         return context
 
 

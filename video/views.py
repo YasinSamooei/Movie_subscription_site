@@ -105,3 +105,9 @@ class WatchListView(ListView):
 
     def get_queryset(self):
         return Video.objects.filter(favorites=self.request.user)
+
+
+def delete_notification(request,pk):
+    notif=Notification.objects.get(id=pk)
+    notif.delete()
+    return JsonResponse({"response":"deleted"})
