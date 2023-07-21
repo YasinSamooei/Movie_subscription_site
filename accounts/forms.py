@@ -1,8 +1,11 @@
-from django.core.exceptions import ValidationError
 from django import forms
+from django.contrib.auth.forms import (PasswordChangeForm,
+                                       ReadOnlyPasswordHashField)
+from django.core.exceptions import ValidationError
+
 from .models import User
-from django.contrib.auth.forms import PasswordChangeForm
-from django.contrib.auth.forms import ReadOnlyPasswordHashField
+from django.core import validators
+
 
 class SignUpForm(forms.ModelForm):
     email = forms.EmailField(
@@ -38,6 +41,11 @@ class SignInForm(forms.Form):
         widget=forms.TextInput(attrs={"class":"form-control","placeholder": "ایمیل خود را وارد کنید"}))
     password = forms.CharField(
         widget=forms.PasswordInput(attrs={"class": "form-control", "placeholder": "گذرواژه خود را وارد کنید"}))
+
+
+class CheckOTPForm(forms.Form):
+    code = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'کد تایید را وارد کنید'}),
+                           validators=[validators.MaxLengthValidator(4)])
 
 
 class ChangePasswordForm(PasswordChangeForm):

@@ -6,10 +6,10 @@ urlpatterns = [
 
     path('sign-in/', views.SignInView.as_view(), name='sign-in'),
     path('sign-up/', views.SignUpView.as_view(), name='sign-up'),
+    path('verify-otp/', views.CheckOTPView.as_view(), name='verify-otp'),
 
 
     path('logout/', LogoutView.as_view(next_page='home:main'), name='logout'),
-    path('activate/',views.Activate.as_view(),name='ativate'),
   
 
     path('user/setting',views.UserSettingsView.as_view(),name="user-setting"),

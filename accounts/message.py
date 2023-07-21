@@ -1,5 +1,5 @@
 Otp_Expires = 'کد ارسالی شما منقضی شده لطفا مجدد تلاش کنید!'
-InvalidOtpCode = 'کد وارد شده صحیح نمیباشد!'
+InvalidOtpCode = 'کد وجود ندارد یا نامعتبر است'
 Wrong_Email_Or_Password = 'ایمیل یا گذرواژه وارد شده صحیح نمیباشد!'
 Success_Change_Password = 'گذرواژه شما با موفقیت تغییر یافت'
 Success_Change_Info = 'اطلاعات شما با موفقیت تغییر یافت'
