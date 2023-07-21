@@ -25,7 +25,7 @@ class UserAdmin(BaseUserAdmin):
         ('دسترسی‌ها', {'fields': ('is_active', 'is_staff', 'is_superuser')}),
     )
     add_fieldsets = (
-        (None, {'fields': ('email', 'phone_number', 'password')}),
+        (None, {'fields': ('email', 'password')}),
         ('اطلاعات شخصی', {'fields': ('full_name', 'image', 'gender',
                                     'language', 'Subscription_plan')}),
         ('دسترسی‌ها', {'fields': ('is_active', 'is_staff', 'is_superuser')}),
