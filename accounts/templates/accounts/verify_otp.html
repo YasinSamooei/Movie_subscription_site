@@ -1,0 +1,107 @@
+{% load static %}
+<!doctype html>
+<html dir="rtl" lang="en-US">
+<head>
+   <!-- Required meta tags -->
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+   <title>تایید کد</title>
+   <!-- Favicon -->
+   <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}"/>
+   <!-- Bootstrap CSS -->
+   <link rel="stylesheet" href="{% static 'Theme/css/bootstrap.min.css' %}"/>
+   <!-- Typography CSS -->
+   <link rel="stylesheet" href="{% static 'Theme/css/typography.css' %}">
+   <!-- Style -->
+   <link rel="stylesheet" href="{% static 'Theme/css/style.css' %}"/>
+   <!-- Responsive -->
+   <link rel="stylesheet" href="{% static 'Theme/css/responsive.css' %}"/>
+</head>
+<body>
+
+<!-- loader Start -->
+<!-- <div id="loading">
+   <div id="loading-center">
+   </div>
+</div> -->
+<!-- loader END -->
+<!-- MainContent -->
+<section class="sign-in-page">
+   <div class="container">
+      <div class="row justify-content-center align-items-center height-self-center">
+         <div class="col-lg-5 col-md-12 align-self-center">
+            <div class="sign-user_card ">                    
+               <div class="sign-in-page-data">
+                  <div class="sign-in-from w-100 m-auto">
+                     <h3 class="mb-3 text-center">تایید کد</h3>
+                     {% if messages %}
+                  
+                        {% for message in messages %}
+                           <div class="alert-danger rounded"
+                                 style="padding: 5px">
+                              {{ message }}
+                           </div>
+                        {% endfor %}
+                     {% endif %}
+                     <hr>
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                     کد تایید به ایمیل شما ارسال شد لطفا ایمیل خود را برسی کنید!
+
+                     </div>
+                     <form class="mt-4" action="" method="post">
+                        {% csrf_token %}
+                        <div class="form-group">      
+                            {{ form.code }}                           
+                           <!-- <input type="email" class="form-control mb-0" id="exampleInputEmail1" placeholder="ایمیل" autocomplete="off" required> -->
+                        </div>
+                        <div class="form-group">    
+                           <!-- <input type="password" class="form-control mb-0" id="exampleInputPassword2" placeholder="رمز عبور" required> -->
+                        </div>
+                        
+                           <div class="sign-info">
+                              <button type="submit" class="btn btn-hover">ورود</button>
+                              <div class="custom-control custom-checkbox d-inline-block">
+                                 <input type="checkbox" class="custom-control-input" id="customCheck">
+                              </div>                                
+                           </div>                                    
+                        
+                     </form>
+                  </div>
+               </div>
+               <div class="mt-3">
+                  <!-- <div class="d-flex justify-content-center links">
+                   حساب ندارید ؟ <a href="{% url 'account:sign-up' %}" class="text-primary ml-2">ثبت نام</a>
+                  </div>
+                  <div class="d-flex justify-content-center links">
+                     <a href="{% url 'account:password_reset' %}" class="f-link">رمز عبور خود را فراموش کرده اید؟</a>
+                  </div> -->
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</section>
+<!-- MainContent End-->
+
+
+<!-- back-to-top End -->
+<!-- jQuery, Popper JS -->
+<script src="{% static 'Theme/js/jquery-3.4.1.min.js' %}"></script>
+<script src="{% static 'Theme/js/popper.min.js' %}"></script>
+<!-- Bootstrap JS -->
+<script src="{% static 'Theme/js/bootstrap.min.js' %}"></script>
+<!-- Slick JS -->
+<script src="{% static 'Theme/js/slick.min.js' %}"></script>
+<!-- owl carousel Js -->
+<script src="{% static 'Theme/js/owl.carousel.min.js' %}"></script>
+<!-- select2 Js -->
+<script src="{% static 'Theme/js/select2.min.js' %}"></script>
+<!-- Magnific Popup-->
+<script src="{% static 'Theme/js/jquery.magnific-popup.min.js' %}"></script>
+<!-- Slick Animation-->
+<script src="{% static 'Theme/js/slick-animation.min.js' %}"></script>
+<!-- Custom JS-->
+<script src="{% static 'Theme/js/custom.js' %}"></script>
+</body>
+</html>
