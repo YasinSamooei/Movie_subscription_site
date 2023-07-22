@@ -96,16 +96,13 @@ style="background-image: url({% static 'Theme/images/about-us/01.jpg' %});">
                     {% endif %}
 
                    {% if request.user.is_authenticated %}
-                        <li><span><a 
-                            id="like_button" value="{{ video.id }}">
-                                {% if is_liked %}
-                                    <i class="fa fa-heart" id="heart" type='button'
-                                        aria-hidden="true"></i>
-                                {% else %}
-                                    <i class="fa fa-heart-o" id="heart" type='button'
-                                            aria-hidden="true"></i>
-                                {% endif %}
-                        </a></span></li>
+                        <li><span>
+                           {% if liked %}
+                           <a onclick="like('{{video.slug}}','{{video.id}}')"><i class="fa fa-heart" type='button' id="like" aria-hidden="true"></i></a>
+                           {% else %}
+                           <a onclick="like('{{video.slug}}','{{video.id}}')"><i class="fa fa-heart-o" type='button' id="like" aria-hidden="true"></i></a>
+                           {% endif %}
+                        </span></li>
                     {% else %}
                         <li><span><a 
                             id="" href="{% url "account:sign-in" %}">

@@ -16,29 +16,32 @@ class VideoDetailView(HitCountDetailView):
     with comment and reply capability
     """    
     count_hit=True
-    def get(self, request, slug):
-        slug = unquote_plus(slug)
-        video = get_object_or_404(Video, slug=slug)
+    model=Video
+    slug_field = 'slug'
+
+    def get_context_data(self,**kwargs):
+        context= super().get_context_data(**kwargs)
+        request=self.request
+        video = self.get_object()
         suggested_videos = Video.objects.filter(category__in=video.category.all().reverse()).distinct()[:3]
         suggested_videos = set(suggested_videos)  
         context = {
-            "video": video,
+            "video":video,
             "suggested_videos": suggested_videos,
         }
         # Check if the video is liked by the user
-        if request.user.is_authenticated:
-            if video.likes.filter(email=request.user.email).exists():
-                context["is_liked"] = True
-            else:
-                context["is_liked"] = False
+
+        if self.request.user.likes.filter(video__slug=self.object.slug,user_id=self.request.user.id).exists():
+            context["liked"]=True
+        else:
+            context["liked"]=False
 
         # Check if video is added to favorites by user
         if video.favorites.filter(id=request.user.id).exists():
             context["is_fav"] = True
         else:
             context["is_fav"] = False
-
-        return render(request, "video/video_detail.html", context)
+        return context
 
 
 class SearchView(ListView):
@@ -68,33 +71,6 @@ class AddFavoriteView(View):
             return JsonResponse({"response": "added"})
 
 
-class LikeView(View):
-    """
-    View to like videos with ajax
-    """
-
-    def post(self, request):
-        result = ""
-        id = int(request.POST.get("videoid"))
-        video = get_object_or_404(Video, id=id)
-
-        # If user has already liked the video, so unlike it.
-        if video.likes.filter(id=request.user.id).exists():
-            video.likes.remove(request.user)
-            video.like_count -= 1
-            result = video.like_count,
-            liked = False
-            video.save()
-        # If user hasn't liked the video yet, like it.
-        else:
-            video.likes.add(request.user)
-            video.like_count += 1
-            result = video.like_count
-            liked = True
-            video.save()
-
-        return JsonResponse({"result": result, "liked": liked})
-
 
 class WatchListView(ListView):
     template_name = 'video/watch.html'
@@ -109,3 +85,16 @@ def delete_notification(request,pk):
     notif=Notification.objects.get(id=pk)
     notif.delete()
     return JsonResponse({"response":"deleted"})
+
+
+def like(request,slug,pk):
+    if request.user.is_authenticated:
+        try:
+            like=Like.objects.get(video__slug=slug,user_id=request.user.id)
+            like.delete()
+            return JsonResponse({"response":"unliked"})
+        except:
+            Like.objects.create(video_id=pk,user_id=request.user.id)
+            return JsonResponse({"response":"liked"})
+    else:
+        return redirect("accounts:login")

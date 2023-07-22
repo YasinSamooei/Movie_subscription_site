@@ -37,30 +37,20 @@ function Warning() {
     })
 }
 
-
-$(document).on("click", "#like_button", function (e) {
-    e.preventDefault();
-    $.ajax({
-        type: "POST",
-        url: "{% url "video:like" %}",
-        data: {
-            videoid: $("#like_button").val(),
-            csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val(),
-            action: "post"
-        },
-        success: function (json) {
-            document.getElementById("like_count").innerHTML = json["result"]
-            if (json["liked"] === true) {
-                document.getElementById("heart").className = "fa fa-heart";
-            } else {
-                document.getElementById("heart").className = "fa fa-heart-o";
+function like(slug,id){
+    var element=document.getElementById("like");
+    var count=document.getElementById("count");
+    $.get(`/like/${slug}/${id}`).then(response=>{
+        if(response['response']==="liked"){
+            element.className="fa fa-heart";
+            count.innerText=Number(count.innerText)+1;
             }
-        },
-        error: function (xhr, errmsg, err) {
-
-        }
-    });
-})
+        else{
+            element.className="fa fa-heart-o";
+            count.innerText=Number(count.innerText)-1;
+            }
+        })
+    }
 
 function favorite(id) {
         var element = document.getElementById('favorite')

@@ -57,8 +57,6 @@ class Video(models.Model):
         FileExtensionValidator(allowed_extensions=['MOV', 'avi', 'mp4', 'webm', 'mkv'])])
     trailer=models.FileField('تریلر', upload_to='videos/', null=True, validators=[
         FileExtensionValidator(allowed_extensions=['MOV', 'avi', 'mp4', 'webm', 'mkv'])])
-    likes = models.ManyToManyField(User, related_name="likes", default=None, blank=True)
-    like_count = models.BigIntegerField('تعداد لایک‌ها', default="0")
     ratings = GenericRelation(Rating, related_query_name='stars')
     hit_count_generic = GenericRelation(HitCount, object_id_field='object_pk',related_query_name='hit_count_generic_relation')
     favorites = models.ManyToManyField(User, default=None, blank=None, related_name="favorites",
@@ -111,8 +109,20 @@ class Notification(models.Model):
     def __str__(self):
         return f"{self.user} , {self.video.title}"
 
-    
-   
+
+class Like(models.Model):
+    user=models.ForeignKey(User,on_delete=models.CASCADE , related_name='likes',verbose_name="کاربر")
+    video=models.ForeignKey(Video,on_delete=models.CASCADE , related_name='likes',verbose_name="ویدئو")
+    created_at=models.DateTimeField(auto_now_add=True,verbose_name="زمان ایجاد")
+
+    #Methods
+    def __str__(self):
+        return f"{self.user} , {self.video}"
+
+    class Meta:
+        verbose_name="پسند"
+        verbose_name_plural="پسندها "
+        ordering = ('created_at',)  
 
     
 

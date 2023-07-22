@@ -15,7 +15,7 @@ class HomeView(RequiredLoginMixin,TemplateView):
         most_visited=Video.objects.order_by('-hit_count_generic__hits')
         context['most_visited'] = most_visited[:6]
 
-        popular_videos=Video.objects.order_by('-like_count')
+        popular_videos=Video.objects.order_by('-hit_count_generic__hits')
         context['popular_videos'] = popular_videos[:6]
         
         return context

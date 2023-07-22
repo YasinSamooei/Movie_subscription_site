@@ -10,4 +10,6 @@ def category(request):
     categories = Category.objects.all()
     context = {"categories": categories}
 
+    # Check if the video is liked by the user
+ 
     return context
