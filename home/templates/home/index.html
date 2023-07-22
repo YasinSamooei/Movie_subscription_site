@@ -145,7 +145,7 @@
                                            </li>
 
                                             {% if request.user.is_authenticated %}
-                                                {% if is_favorite %}
+                                                {% if is_fav %}
                                                 <li><span><a 
                                                       onclick="favorite({{ video.id }})">
                                                       <i class="fa fa-bookmark" id="favorite"></i>
@@ -248,7 +248,7 @@
                                            </li>
 
                                             {% if request.user.is_authenticated %}
-                                                {% if is_favorite %}
+                                                {% if is_fav %}
                                                 <li><span><a 
                                                       onclick="favorite({{ video.id }})">
                                                       <i class="fa fa-bookmark" id="favorite"></i>
@@ -351,7 +351,7 @@
                                            </li>
 
                                             {% if request.user.is_authenticated %}
-                                                {% if is_favorite %}
+                                                {% if is_fav %}
                                                 <li><span><a 
                                                       onclick="favorite({{ video.id }})">
                                                       <i class="fa fa-bookmark" id="favorite"></i>

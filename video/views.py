@@ -14,9 +14,8 @@ class VideoDetailView(HitCountDetailView):
     """
     View for video detail view
     with comment and reply capability
-    """
-    # set to True to count the hit
-    count_hit = True      
+    """    
+    count_hit=True
     def get(self, request, slug):
         slug = unquote_plus(slug)
         video = get_object_or_404(Video, slug=slug)
@@ -26,7 +25,6 @@ class VideoDetailView(HitCountDetailView):
             "video": video,
             "suggested_videos": suggested_videos,
         }
-
         # Check if the video is liked by the user
         if request.user.is_authenticated:
             if video.likes.filter(email=request.user.email).exists():

@@ -17,9 +17,6 @@ class HomeView(RequiredLoginMixin,TemplateView):
 
         popular_videos=Video.objects.order_by('-like_count')
         context['popular_videos'] = popular_videos[:6]
-
-        context['is_liked']="video.likes.filter(email=self.request.user.email).exists()"
-        context['is_favorite']="video.favorites.filter(id=request.user.id).exists()"
         
         return context
 

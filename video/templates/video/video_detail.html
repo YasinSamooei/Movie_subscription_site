@@ -140,31 +140,48 @@ style="background-image: url({% static 'Theme/images/about-us/01.jpg' %});">
                    <ul class="list-inline favorites-slider row p-0 mb-0">
                     {% for suggested_video in suggested_videos %}
                     {% if suggested_video.id != video.id %}
-                      <li class="slide-item">
-                         
-                            <div class="block-images position-relative">
-                               <div class="img-box">
-                                  <img src="{{ suggested_video.image.url }}" class="img-fluid" alt="">
-                               </div>
-                               <div class="block-description">
-                                  <h6 class="iq-title"><a href="{% url "video:video_detail" suggested_video.slug %}">{{ suggested_video.title }}</a></h6>
-                                  <div class="movie-time d-flex align-items-center my-2">
-                                    <div class="badge badge-secondary p-1 mr-2">{{ suggested_video.age }}</div>
-                                     <span class="text-white">{{ suggested_video.time }}</span>
+                    <li class="slide-item">
+                              
+                     <div class="block-images position-relative">
+                        <div class="img-box">
+                           <img src="{{suggested_video.image.url}}" class="img-fluid" alt="">
+                        </div>
+                        <div class="block-description">
+                           <h6 class="iq-title"><a href="{% url 'video:video_detail' suggested_video.slug %}">{{suggested_video.title}}</a></h6>
+                           <div class="movie-time d-flex align-items-center my-2 iq-ltr-direction">
+                              <div class="badge badge-secondary p-1 mr-2">{{suggested_video.age}}+</div>
+                              <span class="text-white">{{suggested_video.time}}</span>
+                           </div>
+                           <div class="hover-buttons">
+                              <a href="{% url 'video:video_detail' suggested_video.slug %}" role="button" class="btn btn-hover iq-button">
+                              <i class="fa fa-play mr-1" aria-hidden="true"></i>
+                              تماشا کردن
+                              </a>
+                           </div>
+                        </div>
+         
+                        <div class="block-social-info">
+                            <ul class="list-inline p-0 m-0 music-play-lists">
+                               <li class="share">
+                                  <span><i class="ri-share-fill"></i></span>
+                                  <div class="share-box">
+                                     <div class="d-flex align-items-center">
+                                       {% post_to_whatsapp suggested_video.get_absolute_url '<i class="ri-whatsapp-fill"></i>' %}
+                                       {% post_to_facebook suggested_video.get_absolute_url '<i class="ri-facebook-fill"></i>' %}
+                                       {% post_to_telegram '' suggested_video.get_absolute_url '<i class="ri-telegram-fill"></i>' %}
+                                     </div>
                                   </div>
-                                  <div class="hover-buttons">
-                                     <span class="btn btn-hover"><i class="fa fa-play mr-1" aria-hidden="true"></i>
-                                       <a href="{% url "video:video_detail" video.slug %}">تماشا کن</a></span>
-                                  </div>
-                               </div>
-                               <div class="block-social-info">
-                                  <ul class="list-inline p-0 m-0 music-play-lists">
-                                        <li><span><i class="ri-heart-fill"></i></span>
-                                      <span class="count-box">{{ suggested_video.like_count }}</span></li>
-                                     </ul>
-                               </div>
-                            </div>
-                      </li>
+                               </li>
+         
+                                <li><span><a 
+                                    onclick="favorite({{ suggested_video.id }})">
+                                    <i class="fa fa-bookmark" id="favorite"></i>
+                                </a></span></li>
+                            </ul>
+                         </div>
+                     </div>
+                  </a>
+               </li>
                       {% endif %}
                       {% endfor %}
                    </ul>
