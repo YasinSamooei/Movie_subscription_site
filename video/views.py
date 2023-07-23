@@ -1,9 +1,10 @@
 from django.shortcuts import render
 from django.db.models import Q
 from django.views import View
-from urllib.parse import unquote_plus
+from urllib.parse import unquote
 from django.shortcuts import *
 from hitcount.views import HitCountDetailView
+from django.core.paginator import Paginator
 from django.http import JsonResponse
 from django.views.generic import ListView
 # local 
@@ -98,3 +99,24 @@ def like(request,slug,pk):
             return JsonResponse({"response":"liked"})
     else:
         return redirect("accounts:login")
+
+
+
+class CategoryDetailView(View):
+    """
+    View for returning videos
+    of the selected category
+    """
+
+    def get(self, request, slug):
+        slug = unquote(slug)
+        category = get_object_or_404(Category, slug=slug)
+        videos = Video.objects.filter(category__title=category)
+
+        # pagination
+        page_number = request.GET.get('page')
+        paginator = Paginator(videos, 15)
+        objects_list = paginator.get_page(page_number)
+
+        context = {"videos": objects_list, "category": category}
+        return render(request, 'video/video_category.html', context)

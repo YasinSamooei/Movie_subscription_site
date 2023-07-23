@@ -177,7 +177,15 @@
                                    <a href="{% url 'home:main' %}">خانه</a>
                                 </li>
                                 <li class="menu-item">
-                                   <a href="movie-category.html">فیلم ها</a>
+                                    <a class="" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                                       aria-haspopup="true" aria-expanded="false">
+                                       ژانرها
+                                 </a>
+                                    <div class="dropdown-menu three-column" aria-labelledby="dropdownMenuButton">
+                                        {% for category in categories %}
+                                       <a class="dropdown-item" href="{% url 'video:category_detail' category.slug %}">{{category.title}}</a>
+                                       {% endfor %}
+                                    </div>
                                 </li> 
                                 <li class="menu-item">
                                    <a href="show-category.html">برنامه های تلویزیونی</a>

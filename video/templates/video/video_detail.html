@@ -29,7 +29,7 @@ style="background-image: url({% static 'Theme/images/about-us/01.jpg' %});">
                 <ol class="breadcrumb main-bg">
                     <li class="breadcrumb-item"><a href="{% url 'home:main' %}">خانه</a></li>
                     <li class="breadcrumb-item"><a
-                        href="">{{ video.category.last }}</a>
+                        href="{% url 'video:category_detail' video.category.last.slug %}">{{ video.category.last }}</a>
                     </li>
                     <li class="breadcrumb-item"><a
                         href="{% url 'video:video_detail' video.slug %}">{{ video.slug }}</a>
@@ -59,7 +59,7 @@ style="background-image: url({% static 'Theme/images/about-us/01.jpg' %});">
                 <h1 class="trending-text big-title text-uppercase mt-0">{{ video.title }}</h1>
                 <ul class="p-0 list-inline d-flex align-items-center movie-content">
                     {% for category in video.category.all %}
-                   <li class="text-white">{{category.title}}</li>
+                   <li class="text-white"><a href="{% url 'video:category_detail' category.slug %}">{{category.title}}</a></li>
                     {% endfor %}
                 </ul>
                 <div class="d-flex align-items-center text-white text-detail">

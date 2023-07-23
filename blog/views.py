@@ -18,13 +18,6 @@ class BlogDetailView(HitCountDetailView):
     template_name="blog/blog_detail.html"
     context_object_name="blog"
 
-    def get_context_data(self, **kwargs):
-        context = super(BlogDetailView, self).get_context_data(**kwargs)
-
-        context['latest_blogs'] = Blog.objects.all()[:6]
-        context['tags']=Tag.objects.all()
-        return context
-
 
 
 class SearchView(ListView):
@@ -44,24 +37,12 @@ class BlogListView(ListView):
     paginate_by = 10
     context_object_name="blogs"
     
-    def get_context_data(self, **kwargs):
-        context = super(BlogListView, self).get_context_data(**kwargs)
-
-        context['latest_blogs'] = Blog.objects.all()[:6]
-        context['tags']=Tag.objects.all()
-        return context
 
 
 class PopularBlogListView(ListView):
-    template_name = "blog/blog_list.html"
+    template_name = "blog/papular-blog.html"
     model = Blog
     paginate_by = 10
     context_object_name="blogs"
     queryset=Blog.objects.order_by('-hit_count_generic__hits')
 
-    def get_context_data(self, **kwargs):
-        context = super(PopularBlogListView, self).get_context_data(**kwargs)
-
-        context['latest_blogs'] = Blog.objects.all()[:6]
-        context['tags']=Tag.objects.all()
-        return context

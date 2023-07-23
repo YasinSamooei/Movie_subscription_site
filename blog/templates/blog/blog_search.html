@@ -45,12 +45,12 @@ style="background-image: url({% static 'Theme/images/about-us/01.jpg' %});">
                                      <img src="{{blog.image.url}}" class="img-fluid" alt="">
                                   </div>
                                   <div class="block-description">
-                                     <h6 class="iq-title"><a href="{% url 'blog:blog_detail' blog.slug %}">{{blog.title}}</a></h6>
+                                     <h6 class="iq-title"><a href="{% url 'blog:blog-detail' blog.slug %}">{{blog.title}}</a></h6>
                                      <div class="movie-time d-flex align-items-center my-2 iq-ltr-direction">
                                         <div class="badge badge-secondary p-1 mr-2">{{blog.age}}+</div>
                                      </div>
                                      <div class="hover-buttons">
-                                        <a href="{% url 'blog:blog_detail' blog.slug %}" role="button" class="btn btn-hover iq-button">
+                                        <a href="{% url 'blog:blog-detail' blog.slug %}" role="button" class="btn btn-hover iq-button">
                                         <i class="fa fa-book mr-1" aria-hidden="true"></i>
                                         مشاهده
                                         </a>
