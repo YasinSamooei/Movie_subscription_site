@@ -55,7 +55,7 @@
                             </div>
                             <div class="text-primary title genres">
                                 ژانرها: <span class="text-body"> {% for category in video.category.all %}
-                                 {{category.title}}
+                                <a href="{% url 'video:category_detail' category.slug %}"> {{category.title}}</a>
                                   {% endfor %}</span>
                             </div>
                         </div>

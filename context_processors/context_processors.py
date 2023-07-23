@@ -1,15 +1,15 @@
-
+from blog.models import*
 from video.models import *
 from django.shortcuts import *
 
 def category(request):
     """
-    To have categories
+    To have categories and tags
     """
     
     categories = Category.objects.all()
     context = {"categories": categories}
+    context['latest_blogs'] = Blog.objects.all()[:6]
+    context['tags']=Tag.objects.all()
 
-    # Check if the video is liked by the user
- 
     return context

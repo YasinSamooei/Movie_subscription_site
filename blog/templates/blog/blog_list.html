@@ -13,7 +13,7 @@
 {% endblock %}
 
 {% block main %}
-<div class="iq-breadcrumb-one  iq-bg-over iq-over-dark-50 my-5"
+<div class="iq-breadcrumb-one  iq-bg-over iq-over-dark-50 "
 style="background-image: url({% static 'Theme/images/about-us/01.jpg' %});">
 <div class="container-fluid">
     <div class="row align-items-center">
@@ -74,7 +74,7 @@ style="background-image: url({% static 'Theme/images/about-us/01.jpg' %});">
                               <i class="fa fa-tags" aria-hidden="true"></i> برچسب ها:						
                            </li>
                            {% for tag in blog.tag.all %}
-                           <li><a href="#">{{tag.title}}</a></li>
+                           <li><a href="{% url 'blog:tag-detail' tag.slug %}">{{tag.title}}</a></li>
                            {% endfor %}
                         </ul>
                      </div>
@@ -99,64 +99,7 @@ style="background-image: url({% static 'Theme/images/about-us/01.jpg' %});">
             </div>
                {% endfor %}
              </div>
-            <div class="col-lg-4 col-sm-12">
-                <div class="widget-area" aria-label="Blog Sidebar">
-                    <div id="search-2" class="widget widget_search">
-                        <form method="get" class="search-form" action="{% url 'blog:blog-search' %}" autocomplete="off">
-                            <label for="search-form">
-                                <span class="input-group screen-reader-text">جستجو برای:</span>
-                            </label>
-                            <input type="search" class="search-field search__input"  placeholder="جستجو" value="{% if request.GET.q %}{{ request.GET.q }}{% endif %}" required name="q">
-                           <button type="submit" class="search-submit">
-                              <i class="ri-search-line"></i>
-                              <span class="screen-reader-text">جستجو</span>
-                           </button>
-                        </form>
-                    </div>
-                    <div class="iq-widget-menu widget">
-                        <h5 class="widget-title">پست اخیر</h5>              
-                        <div class="list-inline iq-widget-menu">
-                           <ul class="iq-post">
-                              {% for item in latest_blogs %}
-                              <li>
-                                 <div class="post-img">
-                                    <div class="post-img-holder">
-                                       <a href="#" style="background-image: url('{{item.image.url}}');"></a>
-                                    </div>
-                                    <div class="post-blog">
-                                       <div class="blog-box">
-                                          <ul class="list-inline">
-                                             <li class="list-inline-item  mr-3">
-                                                <a class="date-widget" href="#"><i class="fa fa-calendar mr-2" aria-hidden="true"></i>{{item.get_jalali_date}}</a>
-                                             </li>
-                                          </ul>
-                                          <a class="new-link" href="#"><h6>{{item.title}}</h6></a>
-                                       </div>
-                                    </div>
-                                 </div>
-                              </li>
-                              {% endfor %}
-                           </ul>
-                        </div>
-                     </div>
-                     <div id="archives-2" class="widget widget_archive">
-                        <h5 class="widget-title">بایگانی</h5>
-                        <ul>
-                           {% for item in latest_blogs %}
-                           <li><a href="#">{{item.get_jalali_date}}</a></li>
-                           {% endfor %}
-                        </ul>
-                     </div>
-                     <div id="tag_cloud-2" class="widget widget_tag_cloud"><h5 class="widget-title">برچسب ها</h5><div class="tagcloud">
-                        <ul class="wp-tag-cloud" role="list">
-                           {% for tag in tags %}
-                           <li><a href="#" class="tag-cloud-link " >{{tag.title}}</a></li>
-                           {% endfor %}
-                        </ul>
-                     </div>
-                  </div>
-               </div>
-            </div>
+             {% include 'blog/sidebar.html' %}
         </div>
     </div>
 </main>

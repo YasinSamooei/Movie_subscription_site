@@ -3,6 +3,9 @@ from django.db.models import Q
 from django.shortcuts import *
 from hitcount.views import HitCountDetailView
 from django.views.generic import ListView
+from django.views import View
+from django.core.paginator import Paginator
+from urllib.parse import unquote
 # local 
 from blog.models import *
 
@@ -18,12 +21,6 @@ class BlogDetailView(HitCountDetailView):
     template_name = "blog/blog_detail.html"
     context_object_name = "blog"
 
-    def get_context_data(self, **kwargs):
-        context = super(BlogDetailView, self).get_context_data(**kwargs)
-
-        context['latest_blogs'] = Blog.objects.all()[:6]
-        context['tags'] = Tag.objects.all()
-        return context
 
 
 class SearchView(ListView):
@@ -43,22 +40,33 @@ class BlogListView(ListView):
     paginate_by = 10
     context_object_name = "blogs"
 
-    def get_context_data(self, **kwargs):
-        context = super(BlogListView, self).get_context_data(**kwargs)
-        context['latest_blogs'] = self.object_list.all()[:6]
-        context['tags'] = Tag.objects.all()
-        return context
 
 
 class PopularBlogListView(ListView):
-    template_name = "blog/blog_list.html"
+    template_name = "blog/papular-blog.html"
     model = Blog
     paginate_by = 10
     context_object_name = "blogs"
     queryset = Blog.objects.order_by('-hit_count_generic__hits')
 
-    def get_context_data(self, **kwargs):
-        context = super(PopularBlogListView, self).get_context_data(**kwargs)
-        context['latest_blogs'] = Blog.objects.all()[:6]
-        context['tags'] = Tag.objects.all()
-        return context
+
+
+class TagDetailView(View):
+    """
+    View for returning videos
+    of the selected category
+    """
+
+    def get(self, request, slug):
+        slug = unquote(slug)
+        tag = get_object_or_404(Tag, slug=slug)
+        blogs = Blog.objects.filter(tag__title=tag)
+
+        # pagination
+        page_number = request.GET.get('page')
+        paginator = Paginator(blogs, 15)
+        objects_list = paginator.get_page(page_number)
+
+        context = {"blogs": objects_list, "tag": tag}
+        return render(request, 'blog/blog-tags.html', context)
+
