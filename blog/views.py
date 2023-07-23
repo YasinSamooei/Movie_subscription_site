@@ -3,6 +3,9 @@ from django.db.models import Q
 from django.shortcuts import *
 from hitcount.views import HitCountDetailView
 from django.views.generic import ListView
+from django.views import View
+from django.core.paginator import Paginator
+from urllib.parse import unquote
 # local 
 from blog.models import *
 
@@ -46,3 +49,22 @@ class PopularBlogListView(ListView):
     context_object_name="blogs"
     queryset=Blog.objects.order_by('-hit_count_generic__hits')
 
+
+class TagDetailView(View):
+    """
+    View for returning videos
+    of the selected category
+    """
+
+    def get(self, request, slug):
+        slug = unquote(slug)
+        tag = get_object_or_404(Tag, slug=slug)
+        blogs = Blog.objects.filter(tag__title=tag)
+
+        # pagination
+        page_number = request.GET.get('page')
+        paginator = Paginator(blogs, 15)
+        objects_list = paginator.get_page(page_number)
+
+        context = {"blogs": objects_list, "tag": tag}
+        return render(request, 'blog/blog-tags.html', context)
