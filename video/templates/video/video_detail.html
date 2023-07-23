@@ -170,10 +170,14 @@ style="background-image: url({% static 'Theme/images/about-us/01.jpg' %});">
                                   </div>
                                </li>
          
-                                <li><span><a 
-                                    onclick="favorite({{ suggested_video.id }})">
-                                    <i class="fa fa-bookmark" id="favorite"></i>
-                                </a></span></li>
+                               <li>
+                                 <span><i class="fa fa-eye"></i></span>
+                                 <span class="count-box">{% get_hit_count for suggested_video %}+</span>
+                         </li>
+             <li>
+                 <span><i class="ri-heart-fill"></i></span>
+                 <span class="count-box">{{suggested_video.likes.all.count}}+</span>
+             </li>
                             </ul>
                          </div>
                      </div>
