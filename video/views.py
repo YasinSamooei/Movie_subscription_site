@@ -15,33 +15,36 @@ class VideoDetailView(HitCountDetailView):
     """
     View for video detail view
     with comment and reply capability
-    """    
-    count_hit=True
-    model=Video
+    """
+    count_hit = True
+    model = Video
     slug_field = 'slug'
 
-    def get_context_data(self,**kwargs):
-        context= super().get_context_data(**kwargs)
-        request=self.request
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        request = self.request
         video = self.get_object()
-        suggested_videos = Video.objects.filter(category__in=video.category.all().reverse()).distinct()[:3]
-        suggested_videos = set(suggested_videos)  
-        context = {
-            "video":video,
-            "suggested_videos": suggested_videos,
-        }
-        # Check if the video is liked by the user
+        video_categories = video.category.all()
+        suggested_videos = Video.objects.filter(
+            Q(category__in=video_categories) &
+            ~Q(id=video.id)  # Exclude the current video from the results
+        ).order_by('?').distinct()[:5]
 
-        if self.request.user.likes.filter(video__slug=self.object.slug,user_id=self.request.user.id).exists():
-            context["liked"]=True
+        # Check if the video is liked by the user
+        if self.request.user.likes.filter(video__slug=self.object.slug, user_id=self.request.user.id).exists():
+            context["liked"] = True
         else:
-            context["liked"]=False
+            context["liked"] = False
 
         # Check if video is added to favorites by user
         if video.favorites.filter(id=request.user.id).exists():
             context["is_fav"] = True
         else:
             context["is_fav"] = False
+        context = {
+                "video": video,
+                "suggested_videos": suggested_videos,
+            }
         return context
 
 
@@ -72,7 +75,6 @@ class AddFavoriteView(View):
             return JsonResponse({"response": "added"})
 
 
-
 class WatchListView(ListView):
     template_name = 'video/watch.html'
     model = Video
@@ -82,23 +84,24 @@ class WatchListView(ListView):
         return Video.objects.filter(favorites=self.request.user)
 
 
-def delete_notification(request,pk):
-    notif=Notification.objects.get(id=pk)
+def delete_notification(request, pk):
+    notif = Notification.objects.get(id=pk)
     notif.delete()
-    return JsonResponse({"response":"deleted"})
+    return JsonResponse({"response": "deleted"})
 
 
-def like(request,slug,pk):
+def like(request, slug, pk):
     if request.user.is_authenticated:
         try:
-            like=Like.objects.get(video__slug=slug,user_id=request.user.id)
+            like = Like.objects.get(video__slug=slug, user_id=request.user.id)
             like.delete()
-            return JsonResponse({"response":"unliked"})
+            return JsonResponse({"response": "unliked"})
         except:
-            Like.objects.create(video_id=pk,user_id=request.user.id)
-            return JsonResponse({"response":"liked"})
+            Like.objects.create(video_id=pk, user_id=request.user.id)
+            return JsonResponse({"response": "liked"})
     else:
         return redirect("accounts:login")
+
 
 
 
@@ -120,3 +123,4 @@ class CategoryDetailView(View):
 
         context = {"videos": objects_list, "category": category}
         return render(request, 'video/video_category.html', context)
+
