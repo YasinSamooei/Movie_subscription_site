@@ -65,4 +65,4 @@ class Blog(models.Model):
         return JalaliDate(self.created_at, locale=('fa')).strftime("%c")
 
     def get_absolute_url(self):
-        return reverse('blog:blog_detail', kwargs={'slug': self.slug})
+        return reverse('blog:blog-detail', kwargs={'slug': self.slug})

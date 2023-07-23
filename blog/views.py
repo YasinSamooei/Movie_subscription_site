@@ -27,8 +27,6 @@ class BlogDetailView(HitCountDetailView):
 
 
 
-
-
 class SearchView(ListView):
     template_name = "blog/blog_search.html"
     model = Blog
@@ -40,3 +38,30 @@ class SearchView(ListView):
             Q(title__icontains=q) | Q(description__icontains=q))
 
 
+class BlogListView(ListView):
+    template_name = "blog/blog_list.html"
+    model = Blog
+    paginate_by = 10
+    context_object_name="blogs"
+    
+    def get_context_data(self, **kwargs):
+        context = super(BlogListView, self).get_context_data(**kwargs)
+
+        context['latest_blogs'] = Blog.objects.all()[:6]
+        context['tags']=Tag.objects.all()
+        return context
+
+
+class PopularBlogListView(ListView):
+    template_name = "blog/blog_list.html"
+    model = Blog
+    paginate_by = 10
+    context_object_name="blogs"
+    queryset=Blog.objects.order_by('-hit_count_generic__hits')
+
+    def get_context_data(self, **kwargs):
+        context = super(PopularBlogListView, self).get_context_data(**kwargs)
+
+        context['latest_blogs'] = Blog.objects.all()[:6]
+        context['tags']=Tag.objects.all()
+        return context

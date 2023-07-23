@@ -185,8 +185,8 @@
                                 <li class="menu-item">
                                    <a href="#">وبلاگ</a>
                                    <ul class="sub-menu">
-                                      <li class="menu-item"><a href="blog.html">وبلاگ</a></li>
-                                      <li class="menu-item"><a href="{blog-details.html}">جزئیات وبلاگ</a></li>
+                                      <li class="menu-item"><a href="{% url 'blog:blog-list' %}">تمام مقالات</a></li>
+                                      <li class="menu-item"><a href="{% url 'blog:papular-blogs' %}">پربازدید ترین مقالات</a></li>
                                    </ul>
                                 </li>
                                 <li class="menu-item">
