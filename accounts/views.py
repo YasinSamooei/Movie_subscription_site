@@ -10,7 +10,6 @@ from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.views import generic
 
-from accounts.models import Subscription, User
 
 from . import message
 from .forms import *
@@ -62,21 +61,16 @@ class CheckOTPView(generic.View):
             data = form.cleaned_data
             data_cache = cache.get(key='register')
             otp_obj = OTP()
-            print(0)
             if data is None:
-                print(2)
                 messages.add_message(request, messages.WARNING, 'کد وجود ندارد یا نامعتبر است')
             try:
-                print(1)
                 if otp_obj.verify_otp(otp=data['code'], data=data_cache['email']):
-                    print(3)
                     user = User.objects.create_user(email=data_cache['email'], full_name=data_cache['full_name'], password=data_cache['password'])
                     login(request, user, backend='django.contrib.auth.backends.ModelBackend')
                     return redirect('home:main')
                 else:
                     messages.add_message(request, messages.WARNING, 'کد وجود ندارد یا نامعتبر است')
             except:
-                print(4)
                 messages.add_message(request, messages.WARNING, 'کد وجود ندارد یا نامعتبر است')
                 return render(request, 'accounts/verify_otp.html', {'form': form})
 
@@ -131,3 +125,4 @@ class PasswordResetConfirm(PasswordResetConfirmView):
 
 class PasswordResetComplete(PasswordResetCompleteView):
     template_name="accounts/password_reset_complete.html"
+
