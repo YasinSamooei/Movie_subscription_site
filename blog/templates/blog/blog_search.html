@@ -1,0 +1,127 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load social_share %}
+{% load hitcount_tags %}
+{% block title %}
+ جست و جو برای {{ request.GET.q }}
+{% endblock %}
+
+{% block meta %}
+    <meta name="robots" content="noindex"/>
+{% endblock %}
+
+{% block main %}
+<div class="iq-breadcrumb-one  iq-bg-over iq-over-dark-50 my-4"
+style="background-image: url({% static 'Theme/images/about-us/01.jpg' %});">
+<div class="container-fluid">
+    <div class="row align-items-center">
+        <div class="col-sm-12">
+            <nav aria-label="breadcrumb" class="text-center iq-breadcrumb-two">
+                <h2 class="title">جست و جو</h2>
+                <ol class="breadcrumb main-bg">
+                    <li class="breadcrumb-item"><a href="{% url 'home:main' %}">خانه</a></li>
+                    <li class="breadcrumb-item active">جست و جو برای {{ request.GET.q }}</li>
+                    
+                </ol>
+            </nav>
+        </div>
+    </div>
+</div>
+</div>
+
+    <!-- MainContent -->
+        <section id="iq-favorites">
+            <div class="container-fluid">
+               <div class="row">
+                  <div class="col-sm-12 overflow-hidden">
+                     <div class="favorites-contens">
+                        <ul class="favorites-slider list-inline  row p-0 mb-0 iq-rtl-direction">
+                            {% for blog in object_list %}
+                            {% if blog %}
+                           <li class="slide-item">
+                               
+                               <div class="block-images position-relative">
+                                  <div class="img-box">
+                                     <img src="{{blog.image.url}}" class="img-fluid" alt="">
+                                  </div>
+                                  <div class="block-description">
+                                     <h6 class="iq-title"><a href="{% url 'blog:blog_detail' blog.slug %}">{{blog.title}}</a></h6>
+                                     <div class="movie-time d-flex align-items-center my-2 iq-ltr-direction">
+                                        <div class="badge badge-secondary p-1 mr-2">{{blog.age}}+</div>
+                                     </div>
+                                     <div class="hover-buttons">
+                                        <a href="{% url 'blog:blog_detail' blog.slug %}" role="button" class="btn btn-hover iq-button">
+                                        <i class="fa fa-book mr-1" aria-hidden="true"></i>
+                                        مشاهده
+                                        </a>
+                                     </div>
+                                  </div>
+ 
+                                  <div class="block-social-info">
+                                      <ul class="list-inline p-0 m-0 music-play-lists">
+                                         <li class="share">
+                                            <span><i class="ri-share-fill"></i></span>
+                                            <div class="share-box">
+                                               <div class="d-flex align-items-center">
+                                                 {% post_to_whatsapp blog.get_absolute_url '<i class="ri-whatsapp-fill"></i>' %}
+                                                 {% post_to_facebook blog.get_absolute_url '<i class="ri-facebook-fill"></i>' %}
+                                                 {% post_to_telegram '' blog.get_absolute_url '<i class="ri-telegram-fill"></i>' %}
+                                               </div>
+                                            </div>
+                                         </li>
+                                                 <li>
+                                                         <span><i class="fa fa-eye"></i></span>
+                                                         <span class="count-box">{% get_hit_count for blog %}+</span>
+                                                 </li>
+                                      </ul>
+                                   </div>
+                               </div>
+                            </a>
+                         </li>
+                         {% else %}
+                         <h4 class="main-title">محتوایی وجود ندارد</h4>
+                         {% endif %}
+                         {% endfor %}
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+        </section>
+
+
+
+{% if page_obj.has_other_pages %}
+
+    <div class="d-flex align-items-center justify-content-center mb-3 pagination">
+
+        {% if page_obj.has_previous %}
+            <a href="?page=
+
+                    {{ page_obj.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}"
+               class="mx-1"><i class="fa fa-chevron-right"></i></a>
+        {% endif %}
+
+        {% for page in page_obj.paginator.page_range %}
+            {% if page_obj.number == page %}
+                <a href="?page={{ page }}" class="active mx-1">{{ page }}</a>
+            {% elif page > page_obj.number|add:'-3' and page < page_obj.number|add:'3' %}
+                <a href="?page={{ page }}" class="mx-1">{{ page }}</a>
+            {% endif %}
+        {% endfor %}
+
+
+        {% if page_obj.has_next %}
+            <a href="?page=
+
+                    {{ page_obj.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}"
+               class="mx-1"><i class="fa fa-chevron-left"></i></a>
+        {% endif %}
+
+    </div>
+
+{% endif %}
+
+</div>
+{% endblock %}

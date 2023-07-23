@@ -23,7 +23,7 @@ class VideoAdmin(admin.ModelAdmin):
     list_display = ['title', 'creator', 'show_image']
     list_filter = ['category']
     ordering = ['-created_at']
-    exclude = ['likes', 'hit_count_generic', 'like_count', 'favorites']
+    exclude = ['likes', 'hit_count_generic', 'favorites']
     prepopulated_fields = {'slug': ('title',)}
 
 

@@ -24,6 +24,7 @@ LOCAL_APPS = [
     'accounts.apps.AccountsConfig',
     'info.apps.InfoConfig',
     'video.apps.VideoConfig',
+    'blog.apps.BlogConfig',
 ]
 
 THIRD_PARTY_APPS = [

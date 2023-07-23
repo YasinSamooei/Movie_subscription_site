@@ -1,0 +1,172 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load social_share %}
+{% load hitcount_tags %}
+
+{% block title %}
+        {{blog.title}}
+{% endblock %}
+
+{% block metadescription %}
+    <meta name="description" content="{{ blog.meta_description }}">
+{% endblock %}
+
+{% block meta %}
+   <meta name="robots" content="index , follow"/>
+{% endblock %}
+
+{% block main %}
+<div class="iq-breadcrumb-one  iq-bg-over iq-over-dark-50 my-5"
+style="background-image: url({% static 'Theme/images/about-us/01.jpg' %});">
+<div class="container-fluid">
+    <div class="row align-items-center">
+        <div class="col-sm-12">
+            <nav aria-label="breadcrumb" class="text-center iq-breadcrumb-two">
+                <h2 class="title">{{blog.title}}</h2>
+                <ol class="breadcrumb main-bg">
+                    <li class="breadcrumb-item"><a href="{% url 'home:main' %}">خانه</a></li>
+                    <li class="breadcrumb-item"><a
+                        href="">{{ blog.tag.last }}</a>
+                    </li>
+                    <li class="breadcrumb-item"><a
+                        href="{% url 'blog:blog_detail' blog.slug %}">{{ blog.slug }}</a>
+                    </li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+</div>
+</div>
+
+<!-- Main container --> 
+<main id="main" class="site-main">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-sm-12">
+                <article>
+                    <div class="iq-blog-box">
+                       <div class="iq-blog-image">
+                          <img width="1920" height="1080" src="{{blog.image.url}}" >				
+                       </div>
+                       <div class="iq-blog-detail">
+                            <div class="iq-blog-meta">
+                                <ul class="list-inline">
+                                <li class="list-inline-item">
+                                    <a href="#" class="iq-user"><i class="fa fa-user-o mr-1" aria-hidden="true"></i>{{blog.auther.full_name}}</a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <i class="fa fa-calendar mr-1" aria-hidden="true"></i>
+                                    <span class="screen-reader-text">نوشته شده در</span>
+                                    <a href="#" rel="bookmark">
+                                        <time  datetime="2019-02-02T12:46:15+00:00">{{blog.get_jalali_date}}</time>
+                                    </a>					
+                                </li>
+                                </ul>
+                            </div>
+                            <div class="blog-content">
+                                <p>{{blog.description|safe}}</p>
+                        </div>
+                        <div class="comments-area validate-form">
+                            <div  class="comment-respond">
+                                <h3  class="comment-reply-title">پاسخ دهید <small><a href="" style="display:none;">لغو پاسخ</a></small></h3>
+                                <form action="#" method="post"  class="comment-form" novalidate="">آدرس ایمیل شما منتشر نخواهد شد. فیلدهای مورد نیاز علامت گذاری شده اند *<div class="comment-form-comment"><textarea name="comment" aria-required="true" placeholder="اظهار نظر"></textarea></div>
+                                    <div class="row">
+                                        <div class="col-lg-4">
+                                            <div class="comment-form-author">
+                                                <input id="author" name="author" aria-required="true" placeholder="نام*">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="comment-form-email">
+                                                <input id="email" name="email" placeholder="پست الکترونیک*">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="comment-form-url">
+                                                <input id="url" name="url" placeholder="سایت اینترنتی">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <p class="comment-form-cookies-consent">
+                                        <input  name="wp-comment-cookies-consent" type="checkbox" value="yes">
+                                        <label for="wp-comment-cookies-consent">نام ، ایمیل و وب سایت من را برای دفعه بعد که نظر می دهم در این مرورگر ذخیره کنید.</label>
+                                    </p>
+                                    <p class="form-submit">
+                                        <button name="submit" type="submit" id="submit" class="submit" value="Post Comment">
+                                            <span class="iq-btn-text-holder">ارسال نظر</span>
+                                        </button>
+                                        <input type="hidden" name="comment_post_ID" value="661" id="comment_post_ID">
+                                        <input type="hidden" name="comment_parent" id="comment_parent" value="0">
+                                    </p>
+                                </form>	
+                            </div>
+                            <div class="wpcf7-response-output error-msg" aria-hidden="true" style="display: none;">
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            <div class="col-lg-4 col-sm-12">
+                <div class="widget-area" aria-label="Blog Sidebar">
+                    <div id="search-2" class="widget widget_search">
+                        <form method="get" class="search-form" action="{% url 'blog:blog-search' %}" autocomplete="off">
+                            <label for="search-form">
+                                <span class="input-group screen-reader-text">جستجو برای:</span>
+                            </label>
+                            <input type="search" class="search-field search__input"  placeholder="جستجو" value="{% if request.GET.q %}{{ request.GET.q }}{% endif %}" required name="q">
+                           <button type="submit" class="search-submit">
+                              <i class="ri-search-line"></i>
+                              <span class="screen-reader-text">جستجو</span>
+                           </button>
+                        </form>
+                    </div>
+                    <div class="iq-widget-menu widget">
+                        <h5 class="widget-title">پست اخیر</h5>              
+                        <div class="list-inline iq-widget-menu">
+                           <ul class="iq-post">
+                              {% for item in latest_blogs %}
+                              <li>
+                                 <div class="post-img">
+                                    <div class="post-img-holder">
+                                       <a href="#" style="background-image: url('{{item.image.url}}');"></a>
+                                    </div>
+                                    <div class="post-blog">
+                                       <div class="blog-box">
+                                          <ul class="list-inline">
+                                             <li class="list-inline-item  mr-3">
+                                                <a class="date-widget" href="#"><i class="fa fa-calendar mr-2" aria-hidden="true"></i>{{item.get_jalali_date}}</a>
+                                             </li>
+                                          </ul>
+                                          <a class="new-link" href="#"><h6>{{item.title}}</h6></a>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </li>
+                              {% endfor %}
+                           </ul>
+                        </div>
+                     </div>
+                     <div id="archives-2" class="widget widget_archive">
+                        <h5 class="widget-title">بایگانی</h5>
+                        <ul>
+                           {% for item in latest_blogs %}
+                           <li><a href="#">{{item.get_jalali_date}}</a></li>
+                           {% endfor %}
+                        </ul>
+                     </div>
+                     <div id="tag_cloud-2" class="widget widget_tag_cloud"><h5 class="widget-title">برچسب ها</h5><div class="tagcloud">
+                        <ul class="wp-tag-cloud" role="list">
+                           {% for tag in tags %}
+                           <li><a href="#" class="tag-cloud-link " >{{tag.title}}</a></li>
+                           {% endfor %}
+                        </ul>
+                     </div>
+                  </div>
+               </div>
+            </div>
+        </div>
+    </div>
+</main>
+<!-- Main container end -->
+{% endblock %}
