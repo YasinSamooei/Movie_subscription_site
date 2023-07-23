@@ -25,10 +25,16 @@ class VideoDetailView(HitCountDetailView):
         request = self.request
         video = self.get_object()
         video_categories = video.category.all()
+        
         suggested_videos = Video.objects.filter(
             Q(category__in=video_categories) &
             ~Q(id=video.id)  # Exclude the current video from the results
         ).order_by('?').distinct()[:5]
+
+        context = {
+                "video": video,
+                "suggested_videos": suggested_videos,
+            }
 
         # Check if the video is liked by the user
         if self.request.user.likes.filter(video__slug=self.object.slug, user_id=self.request.user.id).exists():
@@ -41,10 +47,6 @@ class VideoDetailView(HitCountDetailView):
             context["is_fav"] = True
         else:
             context["is_fav"] = False
-        context = {
-                "video": video,
-                "suggested_videos": suggested_videos,
-            }
         return context
 
 
