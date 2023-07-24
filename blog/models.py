@@ -4,7 +4,8 @@ from django.contrib.contenttypes.fields import GenericRelation
 from persiantools.jdatetime import JalaliDate
 from django.utils.html import format_html
 from django.urls import reverse
-
+from django.utils.timezone import utc
+import datetime
 # local
 from accounts.models import User
 
@@ -66,3 +67,40 @@ class Blog(models.Model):
 
     def get_absolute_url(self):
         return reverse('blog:blog-detail', kwargs={'slug': self.slug})
+
+
+
+class Comment(models.Model):
+    blog = models.ForeignKey(Blog, on_delete=models.CASCADE, related_name='comments', verbose_name='مقاله مربوطه')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='comments', verbose_name='کاربر')
+    parent = models.ForeignKey('self', on_delete=models.CASCADE, related_name='replies', null=True, blank=True,
+                               verbose_name='کامنت پدر')
+    body = models.TextField('متن کامنت')
+    created_at = models.DateTimeField('تاریخ و زمان', auto_now_add=True)
+
+    class Meta:
+        verbose_name = 'کامنت'
+        verbose_name_plural = 'کامنت‌ها'
+        ordering = ["-blog__id", "parent__id"]
+
+    def get_time_diff(self):
+
+        if self.created_at:
+            now = datetime.datetime.utcnow().replace(tzinfo=utc)
+            timediff = now - self.created_at
+
+            if timediff.days > 365:
+                return f'{timediff.days // 365} سال پیش'
+            elif timediff.days > 30:
+                return f'{timediff.days // 30} ماه پیش'
+            elif timediff.days > 0:
+                return f'{timediff.days} روز پیش '
+            elif timediff.seconds > 3600:
+                return f'{timediff.seconds // 3600} ساعت پیش'
+            elif timediff.seconds > 60:
+                return f'{timediff.seconds // 60} دقیقه پیش'
+            else:
+                return f'{timediff.seconds} ثانیه پیش'
+
+    def show_body(self):
+        return self.body[:25]

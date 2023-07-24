@@ -21,6 +21,27 @@ class BlogDetailView(HitCountDetailView):
     template_name = "blog/blog_detail.html"
     context_object_name = "blog"
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        blog=self.get_object()
+        comment = blog.comments.all().order_by('-created_at')
+        context = {
+                "comments": comment,
+                "blog":blog,
+            }
+        return context
+
+    def post(self, request, slug):
+        if not request.user.is_authenticated:
+            return redirect("account:sign-in")
+        slug = unquote(slug)
+        blog = get_object_or_404(Blog, slug=slug)
+        parent_id = request.POST.get("parent_id")
+        body = request.POST.get("body")
+        Comment.objects.create(body=body, blog=blog, user=request.user, parent_id=parent_id)
+        return redirect(reverse("blog:blog-detail",kwargs={"slug": slug}))
+
+
 
 
 class SearchView(ListView):
@@ -70,3 +91,11 @@ class TagDetailView(View):
         context = {"blogs": objects_list, "tag": tag}
         return render(request, 'blog/blog-tags.html', context)
 
+
+class RemoveCommentView(View):
+    
+    def get(self, req, **kwargs):
+        comment_obj = Comment.objects.get(id=self.kwargs.get('pk'))
+        comment_obj.delete()
+        return redirect('home:main')
+        

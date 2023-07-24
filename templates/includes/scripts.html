@@ -23,6 +23,7 @@
  <script src="{% static 'Theme/js/slick-animation.min.js' %}"></script>
  <!-- Custom JS-->
  <script src="{% static 'Theme/js/custom.js' %}"></script>
+ <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
 function Warning() {
@@ -69,6 +70,69 @@ function favorite(id) {
             } else {
                 element.className = 'fa fa-bookmark-o'
             }
+        })
+    }
+
+function reply(id, pk1, pk2, full_name) {
+
+document.getElementById("parent_id").value = id;
+document.getElementById("sender").value = pk1;
+document.getElementById("receiver").value = pk2;
+var MySection = document.getElementById("scroll");
+MySection.scrollIntoView({block: 'start', behavior: 'smooth', inline: 'start'});
+document.getElementById("get_fullname").placeholder = ` پاسخ به نظر ${full_name}`;
+var div = document.getElementById("cansel_button");
+var button = document.createElement('BUTTON');
+var text = document.createTextNode(" لغو پاسخ ");
+button.className = "btn btn-success"
+button.id = 'button';
+button.appendChild(text);
+
+if (!document.getElementById('button')) {
+    div.appendChild(button);
+}
+}
+
+function CanselButton() {
+var button = document.getElementById('button');
+button.parentNode.removeChild(button);
+document.getElementById("parent_id").value = null;
+document.getElementById("get_fullname").placeholder = "دیدگاه خود را بنویسید";
+}
+
+
+// function set_value(id){
+//       document.getElementById('parent_id').value=id
+//       window.location.href="#body"
+//       document.getElementById('body').ariaPlaceholder="پاسخ به این نظر"
+//     }
+
+    function RemoveComment(id) {
+        Swal.fire({
+            title: 'هشدار!!',
+            text: 'آیااز حذف اطمینان دارید؟',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            cancelButtonText: 'خیر',
+            confirmButtonText: 'بله',
+
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.get(`/remove/${id}`).then(response => {
+                    Swal.fire({
+                        text: 'عملیات با موفقیت انجام شد',
+                        icon: 'success',
+                        confirmButtonText: 'باشه',
+                        confirmButtonColor: '#112031',
+                    }).then(function () {
+                        location.reload();
+                    })
+
+                })
+            }
+
         })
     }
 

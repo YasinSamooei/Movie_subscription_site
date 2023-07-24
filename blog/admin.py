@@ -18,3 +18,4 @@ class VideoAdmin(admin.ModelAdmin):
     exclude = ['hit_count_generic']
     prepopulated_fields = {'slug': ('title',)}
 
+admin.site.register(Comment)

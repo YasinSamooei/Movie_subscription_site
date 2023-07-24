@@ -64,44 +64,119 @@ style="background-image: url({% static 'Theme/images/about-us/01.jpg' %});">
                                 </li>
                                 </ul>
                             </div>
-                            <div class="blog-content">
+                            <div class="blog-content" id="scroll">
                                 <p>{{blog.description|safe}}</p>
                         </div>
                         <div class="comments-area validate-form">
                             <div  class="comment-respond">
-                                <h3  class="comment-reply-title">پاسخ دهید <small><a href="" style="display:none;">لغو پاسخ</a></small></h3>
-                                <form action="#" method="post"  class="comment-form" novalidate="">آدرس ایمیل شما منتشر نخواهد شد. فیلدهای مورد نیاز علامت گذاری شده اند *<div class="comment-form-comment"><textarea name="comment" aria-required="true" placeholder="اظهار نظر"></textarea></div>
-                                    <div class="row">
-                                        <div class="col-lg-4">
-                                            <div class="comment-form-author">
-                                                <input id="author" name="author" aria-required="true" placeholder="نام*">
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4">
-                                            <div class="comment-form-email">
-                                                <input id="email" name="email" placeholder="پست الکترونیک*">
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4">
-                                            <div class="comment-form-url">
-                                                <input id="url" name="url" placeholder="سایت اینترنتی">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <p class="comment-form-cookies-consent">
-                                        <input  name="wp-comment-cookies-consent" type="checkbox" value="yes">
-                                        <label for="wp-comment-cookies-consent">نام ، ایمیل و وب سایت من را برای دفعه بعد که نظر می دهم در این مرورگر ذخیره کنید.</label>
-                                    </p>
+                                {% if request.user.is_authenticated %}
+                                <h3  class="comment-reply-title">نظر دهید </h3>
+                                <form action="#" method="post"  class="comment-form" novalidate=""><div class="comment-form-comment"><textarea name="body" aria-required="true" id="get_fullname" placeholder="دیدگاه خود را ثبت کنید:" required ></textarea></div>
+                                    {% csrf_token %}
                                     <p class="form-submit">
                                         <button name="submit" type="submit" id="submit" class="submit" value="Post Comment">
                                             <span class="iq-btn-text-holder">ارسال نظر</span>
                                         </button>
-                                        <input type="hidden" name="comment_post_ID" value="661" id="comment_post_ID">
-                                        <input type="hidden" name="comment_parent" id="comment_parent" value="0">
+                                        <input id="parent_id" name="parent_id" value="" type="hidden">
+                                        <input id="sender" name="sender" value="" type="hidden">
+                                        <input id="receiver" name="receiver" value="" type="hidden">
                                     </p>
-                                </form>	
+                                   
+                                </form>
+                                <div onclick="CanselButton()" id="cansel_button" style="margin-left: 5px;margin-top: 5px; "></div>	
+                                {% else %}
+                                <h3  class="comment-reply-title btn btn-danger">برای ثبت دیدگاه ابتدا وارد شوید<a href="{% url 'account:sign-in' %}">ورود</a></h3>
+                                {% endif %}
                             </div>
                             <div class="wpcf7-response-output error-msg" aria-hidden="true" style="display: none;">
+                            </div>
+                            <div class="infinite-container">
+                                {% for comment in comments %}
+                                    {% if comment.parent == None %}
+                                        <div class="comment my-3 p-2 infinite-item" id="comment_{{ comment.id }}">
+                                            <div class=" d-flex align-items-center justify-content-between">
+                                                <div class="d-flex align-items-center justify-content-center">
+                                                    {% if comment.user.image %}
+                                                        <img src="{{ comment.user.image.url }}" alt="user"
+                                                             class="" style="border-radius: 50%;width: 50px;height: 50px;">
+                                                    {% else %}
+                                                        <img src="{% static 'Theme/images/user/user.jpg' %}"
+                                                             alt="user"
+                                                             class="" style="border-radius: 50%;width: 50px;height: 50px;">
+                                                    {% endif %}
+                                                    {% if comment.user.full_name %}
+                                                        <p class="user-name pr-2">{{ comment.user.full_name }}</p>
+                                                    {% else %}
+                                                        <p class="user-name pr-2">کاربر ناشناس</p>
+                                                    {% endif %}
+
+                                                    {% if request.user == comment.user %}
+
+                                                        <a onclick="RemoveComment({{ comment.id }})" style="background-color: transparent;margin-bottom: 10px;" class="a">
+                                                            <i class="fa fa-trash text-danger mr-4"></i>    
+                                                        </a>
+                                                        <p class="comment-date-time text-danger">{{ comment.get_time_diff }}</p>
+                                                    {% endif %}
+
+                                                </div>
+
+                                            </div>
+                                            <p class="px-4 py-2 comment-text text-justify">{{ comment.body }}</p>
+
+                                            <div class="d-flex align-items-center justify-content-end reply"
+                                                 type='button'>
+
+                                                {% if request.user.is_authenticated %}
+                                                <button onclick="reply('{{ comment.id }}', '{{ request.user.id }}', '{{ comment.user.id }}','{{ comment.user.full_name }}')" class="btn btn-primary">
+                                                <i class="fa fa-reply"></i>
+                                                پاسخ به این نظر
+                                                </button>
+                                                {% endif %}
+
+                                            </div>
+
+
+                                        </div>
+                                        {% for reply in comment.replies.all %}
+                                            <div class="comment my-3 p-2 comment-child">
+                                                <div class=" d-flex align-items-center justify-content-between">
+                                                    <div class="d-flex align-items-center justify-content-center">
+                                                        {% if reply.user.image %}
+                                                            <img src="{{ reply.user.image.url }}"
+                                                                 alt="user"
+                                                                 class="" style="border-radius: 50%;width: 50px;height: 50px;">
+                                                        {% else %}
+                                                            <img src="{% static 'Theme/images/user/user.jpg' %}"
+                                                                 alt="user"
+                                                                 class="" style="border-radius: 50%;width: 50px;height: 50px;">
+                                                        {% endif %}
+                                                        {% if reply.user.full_name %}
+                                                            <p class="user-name pr-2">{{ reply.user.full_name }}</p>
+                                                        {% else %}
+                                                            <p class="user-name pr-2">کاربر ناشناس</p>
+                                                        {% endif %}
+
+                                                        {% if request.user == reply.user %}
+
+
+
+                                                        <a onclick="RemoveComment({{ reply.id }})" style="background-color: transparent;margin-bottom: 10px;" class="a">
+                                                            <i class="fa fa-trash text-danger mr-4"></i>    
+                                                        </a>
+                                                        <p class="comment-date-time text-danger">{{ reply.get_time_diff }}</p>
+
+                                                        {% endif %}
+
+                                                    </div>
+
+                                                </div>
+                                                <p class="px-4 py-2 comment-text text-justify">
+                                                    {{ reply.body }}
+                                                </p>
+                                            </div>
+                                        {% endfor %}
+                                    {% endif %}
+                                {% endfor %}
                             </div>
                         </div>
                     </div>
