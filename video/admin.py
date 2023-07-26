@@ -30,5 +30,5 @@ class VideoAdmin(admin.ModelAdmin):
 
 @admin.register(Notification)
 class NotificationAdmin(admin.ModelAdmin):
-    list_display = ('user','video')
-    search_fields = ['video']
+    list_display = ('user','all_user', 'created_at')
+    search_fields = ['message']
