@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    تغییر ایمیل
+{% endblock %}
+
+{% block main %}
+    <main>
+        <section class="sign-in-page">
+            <div class="container">
+               <div class="row justify-content-center align-items-center height-self-center">
+                    <div class="col-lg-5 col-md-12 align-self-center">
+                        <div class="sign-user_card ">                    
+                            <div class="sign-in-page-data">
+                                <div class="sign-in-from w-100 m-auto">
+                                <h3 class="mb-3 text-center">تغییر ایمیل</h3>
+                                {% if messages %}
+                  
+                                {% for message in messages %}
+                                   <div class="alert-danger rounded"
+                                         style="padding: 5px">
+                                      {{ message }}
+                                   </div>
+                                {% endfor %}
+                                {% endif %}
+                                {% if form.errors %}
+                            	<div class="alert alert-danger">{{form.errors}}</div>
+                            	{% endif %}
+                                <form class="" method="post" id="change-password-form">
+                                {% csrf_token %}
+
+                                {% for field in form %}
+                                    <div class="field">
+                                        <i class="fa fa-lock"></i>
+                                        {{ field }}
+                                    </div>
+                                {% endfor %}
+
+                                <div class="my-3">
+                                    <button class="btn custom-btn w-100">تغییر ایمیل</button>
+                                </div>
+                                </form>
+                                </div>
+                            </div>  
+                        </div>
+                    </div>
+                </div>      
+                                
+            </div>                
+        </section>
+    </main>
+
+{% endblock %}
+
