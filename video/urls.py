@@ -6,6 +6,8 @@ app_name = 'video'
 urlpatterns = [
 
     path('<str:slug>/', views.VideoDetailView.as_view(), name='video_detail'),
+    path('serial/<str:slug>/', views.SerialDetailView.as_view(), name='serial_detail'),
+    path('serial_list', views.SerialListView.as_view(), name='serial_list'),
     path('category/<str:slug>', views.CategoryDetailView.as_view(), name='category_detail'),
     path("add-favorite/<int:pk>", views.AddFavoriteView.as_view(), name="favorite_add"),
     path('search', views.SearchView.as_view(), name='search'),

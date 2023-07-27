@@ -2,7 +2,7 @@ from django.views.generic import TemplateView
 from accounts.mixins import RequiredLoginMixin
 
 # local
-from video.models import Video
+from video.models import Video,Serial
 
 class HomeView(RequiredLoginMixin,TemplateView):
     template_name = 'home/index.html'
@@ -17,7 +17,10 @@ class HomeView(RequiredLoginMixin,TemplateView):
 
         popular_videos=Video.objects.order_by('-hit_count_generic__hits')
         context['popular_videos'] = popular_videos[:6]
-        
+
+        serial=Serial.objects.all()
+        context['serial']=serial[:6]
+               
         return context
 
 

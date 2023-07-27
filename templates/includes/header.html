@@ -151,7 +151,7 @@
                                     <div class="iq-sub-dropdown iq-user-dropdown">
                                        <div class="iq-card shadow-none m-0">
                                           <div class="iq-card-body p-0 pl-3 pr-3">
-                                             <a href="{% url 'account:login' %}" class="iq-sub-card setting-dropdown">
+                                             <a href="{% url 'account:sign-in' %}" class="iq-sub-card setting-dropdown">
                                                 <div class="media align-items-center">
                                                    <div class="right-icon">
                                                       <i class="ri-logout-circle-line text-primary"></i>
@@ -188,7 +188,7 @@
                                     </div>
                                 </li> 
                                 <li class="menu-item">
-                                   <a href="show-category.html">برنامه های تلویزیونی</a>
+                                   <a href="{% url 'video:serial_list' %}">سریال ها</a>
                                 </li>                                                              
                                 <li class="menu-item">
                                    <a href="#">وبلاگ</a>
