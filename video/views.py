@@ -152,3 +152,10 @@ class SerialListView(ListView):
     template_name = "video/serial-list.html"
     model = Serial
     paginate_by = 10
+
+
+class VideoListView(ListView):
+    template_name = 'video/video_list.html'
+    model = Video
+    paginate_by = 10
+

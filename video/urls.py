@@ -4,7 +4,7 @@ from . import views
 app_name = 'video'
 
 urlpatterns = [
-
+    path('video-list', views.VideoListView.as_view(), name='video-list'),
     path('<str:slug>/', views.VideoDetailView.as_view(), name='video_detail'),
     path('serial/<str:slug>/', views.SerialDetailView.as_view(), name='serial_detail'),
     path('serial_list', views.SerialListView.as_view(), name='serial_list'),
