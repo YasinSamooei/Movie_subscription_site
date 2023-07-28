@@ -98,6 +98,7 @@ class Notification(models.Model):
     all_user = models.BooleanField(default=False)
     created_at=models.DateTimeField(auto_now_add=True,verbose_name="زمان ایجاد")
     message = models.TextField()
+    image=models.ImageField('عکس',blank=True,null=True)
     url = models.CharField(max_length=255, null=True, blank=True)
 
     class Meta:

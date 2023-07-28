@@ -49,7 +49,7 @@
                                  {% if request.user.is_authenticated %}
                                    <li class="nav-item nav-icon">
                                       <a href="#" class="search-toggle position-relative">
-                                       {% if user.notifs.all %}
+                                       {% if notifications or user.notifs.all %}
                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22"
                                        class="noti-svg">
                                        <path fill="none" d="M0 0h24v24H0z" />
@@ -64,11 +64,35 @@
                                       <div class="iq-sub-dropdown">
                                          <div class="iq-card shadow-none m-0">
                                             <div class="iq-card-body">
+                                             {% for notif in notifications %}
+                                               <a href="" class="iq-sub-card" onclick="delete_notif('{{notif.id}}')">
+                                                  <div class="media align-items-center">
+                                                   {% if notif.image %}
+                                                   <img src="{{notif.image.url}}" class="img-fluid mr-3"
+                                                      alt="streamit" / width="50px" height="50px">
+                                                    {% else %}
+                                                    <img src="{% static 'Theme/images/notif.png' %}" class="img-fluid mr-3"
+                                                    alt="streamit" / width="50px" height="50px">
+                                                    {% endif %}
+                                                     <div class="media-body">
+                                                        <h6 class="mb-0 ">{{notif.message}}</h6>
+                                                        <small class="font-size-12">{{notif.get_jalali_date}}</small>
+                                                     </div>
+                                                  </div>
+                                               </a>
+                                             {% endfor %}
+                                            </div>
+                                            <div class="iq-card-body">
                                              {% for notif in user.notifs.all %}
                                                <a href="" class="iq-sub-card" onclick="delete_notif('{{notif.id}}')">
                                                   <div class="media align-items-center">
-                                                     <!-- <img src="{{notif.video.image.url}}" class="img-fluid mr-3"
-                                                        alt="streamit" / width="50px" height="50px"> -->
+                                                  {% if notif.image %}
+                                                     <img src="{{notif.image.url}}" class="img-fluid mr-3"
+                                                        alt="streamit"  width="50px" height="50px">
+                                                      {% else %}
+                                                      <img src="{% static 'Theme/images/notif.png' %}" class="img-fluid mr-3"
+                                                      alt="streamit"  width="50px" height="50px">
+                                                      {% endif %}
                                                      <div class="media-body">
                                                         <h6 class="mb-0 ">{{notif.message}}</h6>
                                                         <small class="font-size-12">{{notif.get_jalali_date}}</small>
@@ -232,7 +256,7 @@
                              </li>
                              <li class="nav-item nav-icon">
                                 <a href="#" class="search-toggle" data-toggle="search-toggle">
-                                 {% if user.notifs.all %}
+                                 {% if notifications or user.notifs.all %}
                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22"
                                       class="noti-svg">
                                       <path fill="none" d="M0 0h24v24H0z" />
@@ -248,34 +272,45 @@
                                    <div class="iq-card shadow-none m-0">
                                     {% if request.user.is_authenticated %}
                                     <div class="iq-card-body">
-                                     {% for notif in user.notifs.all %}
-                                       <a href="{% url 'video:delete-notif' notif.id %}" class="iq-sub-card" onclick="">
-                                          <div class="media align-items-center">
-                                             <img src="{{notif.video.image.url}}" class="img-fluid mr-3"
-                                                alt="streamit" / width="50px" height="50px">
-                                             <div class="media-body">
-                                                <h6 class="mb-0 ">{{notif.message}}</h6>
-                                                <small class="font-size-12">{{notif.get_jalali_date}}</small>
-                                             </div>
-                                          </div>
-                                       </a>
-                                     {% endfor %}
-                                    </div>
-                                  {% endif %}
-                                  <div class="iq-card-body">
-                                    {% for notif in notifications %}
-                                      <a href="" class="iq-sub-card" onclick="">
-                                         <div class="media align-items-center">
-                                            <!-- <img src="{{notif.video.image.url}}" class="img-fluid mr-3"
-                                               alt="streamit" / width="50px" height="50px"> -->
-                                            <div class="media-body">
-                                               <h6 class="mb-0 ">{{notif.message}}</h6>
-                                               <small class="font-size-12">{{notif.get_jalali_date}}</small>
+                                       {% for notif in notifications %}
+                                         <a href="" class="iq-sub-card" onclick="delete_notif('{{notif.id}}')">
+                                            <div class="media align-items-center">
+                                            {% if notif.image %}
+                                               <img src="{{notif.image.url}}" class="img-fluid mr-3"
+                                                  alt="streamit"  width="50px" height="50px">
+                                                {% else %}
+                                                <img src="{% static 'Theme/images/notif.png' %}" class="img-fluid mr-3"
+                                                alt="streamit"  width="50px" height="50px">
+                                                {% endif %}
+                                               <div class="media-body">
+                                                  <h6 class="mb-0 ">{{notif.message}}</h6>
+                                                  <small class="font-size-12">{{notif.get_jalali_date}}</small>
+                                               </div>
                                             </div>
-                                         </div>
-                                      </a>
-                                    {% endfor %}
-                                   </div>
+                                         </a>
+                                       {% endfor %}
+                                      </div>
+                                      <div class="iq-card-body">
+                                       {% for notif in user.notifs.all %}
+                                         <a href="" class="iq-sub-card" onclick="delete_notif('{{notif.id}}')">
+                                            <div class="media align-items-center">
+                                            {% if notif.image %}
+                                               <img src="{{notif.image.url}}" class="img-fluid mr-3"
+                                                  alt="streamit"  width="50px" height="50px">
+                                                {% else %}
+                                                <img src="{% static 'Theme/images/notif.png' %}" class="img-fluid mr-3"
+                                                alt="streamit"  width="50px" height="50px">
+                                                {% endif %}
+                                               <div class="media-body">
+                                                  <h6 class="mb-0 ">{{notif.message}}</h6>
+                                                  <small class="font-size-12">{{notif.get_jalali_date}}</small>
+                                               </div>
+                                            </div>
+                                         </a>
+                                       {% endfor %}
+                                      </div>
+                                  {% endif %}
+                                
                                    </div>
                                 </div>
                              </li>
@@ -354,4 +389,9 @@
            </div>
         </div>
      </header>
+     <script>
+      function delete_notif(id){
+      $.get(`/delete-notif/${id}`).then(response=>{"delete-notif"})
+      }
+  </script>
      <!-- Header End -->

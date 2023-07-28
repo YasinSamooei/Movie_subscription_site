@@ -116,8 +116,8 @@ style="background-image: url({% static 'Theme/images/about-us/01.jpg' %});">
                                                         <a onclick="RemoveComment({{ comment.id }})" style="background-color: transparent;margin-bottom: 10px;" class="a">
                                                             <i class="fa fa-trash text-danger mr-4"></i>    
                                                         </a>
-                                                        <p class="comment-date-time text-danger">{{ comment.created_at|naturaltime }}</p>
                                                     {% endif %}
+                                                    <p class="comment-date-time text-danger mx-2">{{ comment.created_at|naturaltime }}</p>
 
                                                 </div>
 
@@ -164,9 +164,9 @@ style="background-image: url({% static 'Theme/images/about-us/01.jpg' %});">
                                                         <a onclick="RemoveComment({{ reply.id }})" style="background-color: transparent;margin-bottom: 10px;" class="a">
                                                             <i class="fa fa-trash text-danger mr-4"></i>    
                                                         </a>
-                                                        <p class="comment-date-time text-danger">{{ reply.get_time_diff }}</p>
 
                                                         {% endif %}
+                                                        <p class="comment-date-time text-danger mx-2">{{ reply.created_at|naturaltime }}</p>
 
                                                     </div>
 

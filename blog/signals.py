@@ -11,6 +11,6 @@ def create_article_notification_signal(sender, instance, created, *args, **kwarg
     """
     if created and instance.parent_id:
         url = instance.blog.slug
-
-        message = 'کاربری به کامنت شما پاسخ داد'
-        Notification.objects.create(user=instance.parent.user, message=message, url=url)
+        image=instance.blog.image
+        message = f'کاربری به کامنت شما در مقاله {instance.blog.title} پاسخ داد'
+        Notification.objects.create(user=instance.parent.user, message=message, url=url,image=image)

@@ -10,4 +10,5 @@ def create_video_notification_signal(sender, instance, created, *args, **kwargs)
     """
     if created:
         message = f'فیلم {instance.title} منتشر شد'
-        Notification.objects.create(all_user=True, message=message)
+        image=instance.image
+        Notification.objects.create(all_user=True, message=message,image=image)

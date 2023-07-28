@@ -11,7 +11,7 @@ The video subscription purchase website project includes the following sections:
 ### 5)Blog section
 ### 6)Special panel for authors of articles and owners of videos
 ### 7)share in social madia
-### 8)notification system
+### 8)notification system with signals
 ### 9) hit-count and star ratings system for videos
 ### 10) mysql settings
 ### 11) file_storage(S3Storage)
