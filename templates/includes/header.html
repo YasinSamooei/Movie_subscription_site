@@ -262,6 +262,20 @@
                                      {% endfor %}
                                     </div>
                                   {% endif %}
+                                  <div class="iq-card-body">
+                                    {% for notif in notifications %}
+                                      <a href="" class="iq-sub-card" onclick="">
+                                         <div class="media align-items-center">
+                                            <!-- <img src="{{notif.video.image.url}}" class="img-fluid mr-3"
+                                               alt="streamit" / width="50px" height="50px"> -->
+                                            <div class="media-body">
+                                               <h6 class="mb-0 ">{{notif.message}}</h6>
+                                               <small class="font-size-12">{{notif.get_jalali_date}}</small>
+                                            </div>
+                                         </div>
+                                      </a>
+                                    {% endfor %}
+                                   </div>
                                    </div>
                                 </div>
                              </li>
