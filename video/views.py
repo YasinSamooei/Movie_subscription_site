@@ -126,3 +126,36 @@ class CategoryDetailView(View):
         context = {"videos": objects_list, "category": category}
         return render(request, 'video/video_category.html', context)
 
+
+class SerialDetailView(HitCountDetailView):
+    """
+    View for serial detail view
+    with parts of serial
+    """
+    count_hit = True
+    model = Serial
+    slug_field = 'slug'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        serial = self.get_object()
+        videos = serial.video.all()
+
+        context = {
+                "serial": serial,
+                "videos": videos,
+            }
+        return context
+
+class SerialListView(ListView):
+    template_name = "video/serial-list.html"
+    model = Serial
+    paginate_by = 10
+
+
+class VideoListView(ListView):
+    template_name = 'video/video_list.html'
+    model = Video
+    paginate_by = 10
+

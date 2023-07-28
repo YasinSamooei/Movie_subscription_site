@@ -36,7 +36,6 @@
                                     </div>
                                     <div class="d-flex align-items-center mt-2 mt-md-3">
                                        <span class="badge badge-secondary p-2">{{video.age}}+</span>
-                                       <span class="ml-3">2 فصل</span>
                                     </div>
                             </div>
 
@@ -105,7 +104,7 @@
                   <div class="col-sm-12 overflow-hidden">
                      <div class="iq-main-header d-flex align-items-center justify-content-between">
                         <h4 class="main-title">جدیدترین فیلم ها</h4>
-                        <a class="iq-view-all" href="movie-category.html">مشاهده همه</a>                   
+                        <a class="iq-view-all" href="{% url 'video:video-list' %}">مشاهده همه</a>                   
                      </div>
                      <div class="favorites-contens">
                         <ul class="favorites-slider list-inline  row p-0 mb-0 iq-rtl-direction">
@@ -172,7 +171,6 @@
                   <div class="col-sm-12 overflow-hidden">
                      <div class="iq-main-header d-flex align-items-center justify-content-between">                        
                         <h4 class="main-title">پربازدید ترین ها</h4>
-                        <a class="iq-view-all" href="movie-category.html">مشاهده همه</a>
                      </div>
                      <div class="upcoming-contens">
                         <ul class="favorites-slider list-inline row p-0 mb-0 iq-rtl-direction">
@@ -239,7 +237,6 @@
                   <div class="col-sm-12 overflow-hidden">
                      <div class="iq-main-header d-flex align-items-center justify-content-between">                        
                         <h4 class="main-title">محبوب ترین ها</h4>
-                        <a class="iq-view-all" href="movie-category.html">مشاهده همه</a>
                      </div>
                      <div class="upcoming-contens">
                         <ul class="favorites-slider list-inline row p-0 mb-0 iq-rtl-direction">
@@ -285,6 +282,70 @@
                                         <span><i class="ri-heart-fill"></i></span>
                                         <span class="count-box">{{video.likes.all.count}}+</span>
                                     </li>
+                                     </ul>
+                                  </div>
+                              </div>
+                           </a>
+                        </li>
+                        {% else %}
+                        <h4 class="main-title">محتوایی وجود ندارد</h4>
+                        {% endif %}
+                        {% endfor %}
+                        </ul>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </section>
+         <section id="iq-upcoming-movie">
+            <div class="container-fluid">
+               <div class="row">
+                  <div class="col-sm-12 overflow-hidden">
+                     <div class="iq-main-header d-flex align-items-center justify-content-between">                        
+                        <h4 class="main-title"> سریال ها</h4>
+                        <a class="iq-view-all" href="{% url 'video:serial_list' %}">مشاهده همه</a>
+                     </div>
+                     <div class="upcoming-contens">
+                        <ul class="favorites-slider list-inline row p-0 mb-0 iq-rtl-direction">
+                           {% for ser in serial %}
+                           {% if ser %}
+                           <li class="slide-item">
+                              
+                              <div class="block-images position-relative">
+                                 <div class="img-box">
+                                    <img src="{{ser.image.url}}" class="img-fluid" alt="">
+                                 </div>
+                                 <div class="block-description">
+                                    <h6 class="iq-title"><a href="{% url 'video:serial_detail' ser.slug %}">{{ser.name}}</a></h6>
+                                    <div class="movie-time d-flex align-items-center my-2 iq-ltr-direction">
+                                       <div class="badge badge-primary p-1 mr-2">شمار قسمت ها: {{ser.video.all.count}}</div>
+                                       <div class="badge badge-secondary p-1 mr-2">{{ser.age}}+</div>
+                                       <span class="text-white p-1 btn btn-danger">{{ser.year}}</span>
+                                    </div>
+                                    <div class="hover-buttons">
+                                       <a href="{% url 'video:serial_detail' ser.slug %}" role="button" class="btn btn-hover iq-button">
+                                       <i class="fa fa-play mr-1" aria-hidden="true"></i>
+                                       تماشا سریال
+                                       </a>
+                                    </div>
+                                 </div>
+
+                                 <div class="block-social-info">
+                                     <ul class="list-inline p-0 m-0 music-play-lists">
+                                        <li class="share">
+                                           <span><i class="ri-share-fill"></i></span>
+                                           <div class="share-box">
+                                              <div class="d-flex align-items-center">
+                                                {% post_to_whatsapp ser.get_absolute_url '<i class="ri-whatsapp-fill"></i>' %}
+                                                {% post_to_facebook ser.get_absolute_url '<i class="ri-facebook-fill"></i>' %}
+                                                {% post_to_telegram '' ser.get_absolute_url '<i class="ri-telegram-fill"></i>' %}
+                                              </div>
+                                           </div>
+                                        </li>
+                                        <li>
+                                          <span><i class="fa fa-eye"></i></span>
+                                          <span class="count-box">{% get_hit_count for ser %}+</span>
+                                  </li>
                                      </ul>
                                   </div>
                               </div>

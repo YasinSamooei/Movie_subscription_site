@@ -42,6 +42,10 @@ class SignInForm(forms.Form):
     password = forms.CharField(
         widget=forms.PasswordInput(attrs={"class": "form-control", "placeholder": "گذرواژه خود را وارد کنید"}))
 
+class ChangeEmailForm(forms.Form):
+    email = forms.EmailField(
+        widget=forms.TextInput(attrs={"class":"form-control","placeholder": "ایمیل خود را وارد کنید"}))
+
 
 class CheckOTPForm(forms.Form):
     code = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'کد تایید را وارد کنید'}),
@@ -69,4 +73,4 @@ class UserChangeForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ('email', 'password', 'full_name', 'is_active', 'is_superuser','gender','language','image','Subscription_plan','is_staff')
+        fields = ('email', 'password', 'full_name', 'is_active', 'is_superuser','gender','language','image','Subscription_plan','is_staff','bio')

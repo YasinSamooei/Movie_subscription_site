@@ -126,6 +126,43 @@ class Like(models.Model):
         verbose_name_plural="پسندها "
         ordering = ('created_at',)  
 
+
+class Serial(models.Model):
+    AGE_CHOICES = (
+        ('20','+20' ),		
+        ('14','+14' ),	
+        ('10', '+10'),
+    )
+    video = models.ManyToManyField(Video , related_name='playes' , verbose_name='ویدیوها')
+    name = models.CharField(max_length=120 , null=True , blank=True , verbose_name='نام سریال')
+    image = models.ImageField(upload_to='serial' , verbose_name='تصویر جلد سریال')
+    slug = models.SlugField('اسلاگ', unique=True, null=True, blank=True, allow_unicode=True)
+    hit_count_generic = GenericRelation(HitCount, object_id_field='object_pk',related_query_name='hit_count_generic_relation')
+    created_at = models.DateTimeField('تاریخ آپلود سریال ',auto_now_add=True )
+    age=models.CharField(max_length=10, choices=AGE_CHOICES, verbose_name="رده سنی",null=True, blank=True)
+    year=models.IntegerField('سال ساخت سریال',null=True, blank=True)
+
+    def __str__(self) :
+        return self.name
+
+    def get_jalali_date(self):
+        return JalaliDate(self.created_at, locale=('fa')).strftime("%c")
     
+    def show_image(self):
+        if self.image:
+            return format_html(f'<img src="{self.image.url}" width="60px" height="50px">')
+        else:
+            return format_html('<h3 style="color: red">بدون تصویر</h3>')
+
+    show_image.short_description = 'تصویر'
+    
+    def get_absolute_url(self):
+        return reverse('video:serial_detail', kwargs={'slug': self.slug})
+
+    class Meta:
+        verbose_name = 'سریال'
+        verbose_name_plural = 'سریال ها'
+        ordering = ["-created_at"]
+
 
 

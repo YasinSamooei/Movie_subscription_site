@@ -28,7 +28,7 @@ class SignInView(generic.FormView):
             clean_data = form.cleaned_data
             user = authenticate(username=clean_data['email'], password=clean_data['password'])
             if  user is not None:
-                login(self.request, user, backend='django.contrib.auth.backends.ModelBackend')
+                login(self.request, user)
                 return redirect('home:main')
             else:
                 form.add_error('email', message.Wrong_Email_Or_Password)
@@ -66,7 +66,7 @@ class CheckOTPView(generic.View):
             try:
                 if otp_obj.verify_otp(otp=data['code'], data=data_cache['email']):
                     user = User.objects.create_user(email=data_cache['email'], full_name=data_cache['full_name'], password=data_cache['password'])
-                    login(request, user, backend='django.contrib.auth.backends.ModelBackend')
+                    login(request, user)
                     return redirect('home:main')
                 else:
                     messages.add_message(request, messages.WARNING, 'کد وجود ندارد یا نامعتبر است')
@@ -77,6 +77,50 @@ class CheckOTPView(generic.View):
         return render(request, 'accounts/verify_otp.html', {'form': form})
 
 
+class ChangeEmailView(generic.FormView):
+    template_name = 'accounts/change-email.html'
+    form_class = ChangeEmailForm
+
+    def form_valid(self, form):
+        data = form.cleaned_data
+        otp_service = OTP()
+        otp_service.generate_otp(data['email'])
+        cache.set(key='change', value={'email': data['email']}, timeout=300)
+        if User.objects.filter(email=data['email']):
+            messages.add_message(self.request, messages.WARNING, 'ایمیل وارد شده قبلا توسط کاربر دیگری استفاده شده.')
+            return redirect('account:change-email')
+        else:
+            return redirect('account:change-otp')
+
+class ChangeOTPView(generic.View):
+    form_class = CheckOTPForm
+
+    def get(self, request):
+        form = self.form_class()
+        return render(request, 'accounts/change-otp.html', {'form': form})
+
+    def post(self, request):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            data = form.cleaned_data
+            data_cache = cache.get(key='change')
+            otp_obj = OTP()
+            if data is None:
+                messages.add_message(request, messages.WARNING, 'کد وجود ندارد یا نامعتبر است')
+            try:
+                if otp_obj.verify_otp(otp=data['code'], data=data_cache['email']):
+                    user =request.user
+                    user.email=data_cache['email']
+                    user.save()
+                    return redirect('home:main')
+                else:
+                    messages.add_message(request, messages.WARNING, 'کد وجود ندارد یا نامعتبر است')
+            except:
+                messages.add_message(request, messages.WARNING, 'کد وجود ندارد یا نامعتبر است')
+                return render(request, 'accounts/change-otp.html', {'form': form})
+
+        return render(request, 'accounts/change-otp.html', {'form': form})
+
 # user panel views
 
 class UserSettingsView(RequiredLoginMixin, generic.View):
@@ -86,7 +130,7 @@ class UserSettingsView(RequiredLoginMixin, generic.View):
 
 class ManageProfileView(FieldsMixin, generic.UpdateView):
     model = User
-    fields=['language', 'gender', 'full_name','image']
+    fields=['language', 'gender', 'full_name','image','bio']
     template_name = 'accounts/manage-profile.html'
     success_url = reverse_lazy('account:user-setting')
 

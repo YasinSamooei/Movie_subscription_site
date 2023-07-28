@@ -38,6 +38,7 @@ class User(AbstractBaseUser):
     gender = models.CharField(max_length=10, choices=GENDER_CHOICES, verbose_name="جنسیت",null=True, blank=True)
     language=models.CharField(max_length=10, choices=LANGUAGE_CHOICES, verbose_name="زبان",null=True, blank=True)
     Subscription_plan=models.ForeignKey(Subscription, related_name="Subscription",on_delete=models.CASCADE,default=None,null=True, blank=True,verbose_name="طرح اشتراک")
+    bio = models.CharField('بیوگرافی', null=True, blank=True , max_length=500)
 
     date_joined = models.DateTimeField('تاریخ عضویت', auto_now_add=True)
     is_active = models.BooleanField('فعال', default=True)

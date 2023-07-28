@@ -52,8 +52,16 @@ style="background-image: url({% static 'Theme/images/about-us/01.jpg' %});">
                         {% else %}
                         <img src="{% static 'Theme/images/user/user.jpg' %}" class="rounded-circle img-fluid d-block mx-auto mb-3" alt="user">
                         {% endif %}
+                        {% if user.full_name %}
                         <h4 class="mb-3">{{ user.full_name }}</h4>
-                        <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است </p>
+                        {% else %}
+                        <h4 class="mb-3">بدون نام</h4>
+                        {% endif %}
+                        {% if user.bio %}
+                        <p>{{user.bio}}</p>
+                        {% else %}
+                        <p>بیوگرافی ثبت نشده</p>
+                        {% endif %}
                         <a href="{% url 'account:manage-profile' %}" class="edit-icon text-primary">ویرایش</a>
                     </div>
                 </div>
@@ -66,7 +74,7 @@ style="background-image: url({% static 'Theme/images/about-us/01.jpg' %});">
                                 <p class="mb-0">{{ user.email }}</p>
                             </div>   
                             <div class="col-md-4 text-md-right text-left">                      
-                                <a href="#" class="text-primary">ویرایش</a>
+                                <a href="{% url 'account:change-email' %}" class="text-primary">ویرایش</a>
                             </div>
                         </div>
                         <div class="row align-items-center justify-content-between mb-3">

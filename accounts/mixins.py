@@ -18,6 +18,6 @@ class FieldsMixin():
 	def dispatch(self, request, *args, **kwargs):
 		self.fields = [
 			'language', 'gender',
-             'full_name','image'
+             'full_name','image','bio'
 		]
 		return super().dispatch(request, *args, **kwargs)

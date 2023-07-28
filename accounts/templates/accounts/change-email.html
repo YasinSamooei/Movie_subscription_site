@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}
-    تغییر گذرواژه
+    تغییر ایمیل
 {% endblock %}
 
 {% block main %}
@@ -14,7 +14,16 @@
                         <div class="sign-user_card ">                    
                             <div class="sign-in-page-data">
                                 <div class="sign-in-from w-100 m-auto">
-                                <h3 class="mb-3 text-center">تغییر رمز عبور</h3>
+                                <h3 class="mb-3 text-center">تغییر ایمیل</h3>
+                                {% if messages %}
+                  
+                                {% for message in messages %}
+                                   <div class="alert-danger rounded"
+                                         style="padding: 5px">
+                                      {{ message }}
+                                   </div>
+                                {% endfor %}
+                                {% endif %}
                                 {% if form.errors %}
                             	<div class="alert alert-danger">{{form.errors}}</div>
                             	{% endif %}
@@ -29,7 +38,7 @@
                                 {% endfor %}
 
                                 <div class="my-3">
-                                    <button class="btn custom-btn w-100">تغییر گذرواژه</button>
+                                    <button class="btn custom-btn w-100">تغییر ایمیل</button>
                                 </div>
                                 </form>
                                 </div>
