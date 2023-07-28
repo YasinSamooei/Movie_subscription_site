@@ -89,7 +89,7 @@ class WatchListView(ListView):
 def delete_notification(request, pk):
     notif = Notification.objects.get(id=pk)
     notif.delete()
-    return JsonResponse({"response": "deleted"})
+    return redirect(reverse('blog:blog-detail', kwargs={'slug': notif.url}))
 
 
 def like(request, slug, pk):

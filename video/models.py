@@ -94,10 +94,12 @@ class Video(models.Model):
 
 
 class Notification(models.Model):
-    user=models.ForeignKey(User,on_delete=models.CASCADE , related_name='notifs',verbose_name="کاربر")
+    user=models.ForeignKey(User,on_delete=models.CASCADE, null=True, blank=True, related_name='notifs',verbose_name="کاربر")
+    all_user = models.BooleanField(default=False)
     created_at=models.DateTimeField(auto_now_add=True,verbose_name="زمان ایجاد")
-    video = models.ForeignKey(Video, on_delete=models.CASCADE,related_name='videos',verbose_name='فیلم')
-   
+    message = models.TextField()
+    url = models.CharField(max_length=255, null=True, blank=True)
+
     class Meta:
         verbose_name="خبر"
         verbose_name_plural="اخبار"
@@ -107,7 +109,7 @@ class Notification(models.Model):
         return JalaliDate(self.created_at, locale=('fa')).strftime("%c")
 
     def __str__(self):
-        return f"{self.user} , {self.video.title}"
+        return f"{self.user} , {self.message[:10]}"
 
 
 class Like(models.Model):

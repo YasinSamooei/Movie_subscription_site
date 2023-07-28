@@ -3,7 +3,7 @@
 {% load static %}
 {% load social_share %}
 {% load hitcount_tags %}
-
+{% load humanize %}
 {% block title %}
         {{blog.title}}
 {% endblock %}
@@ -71,15 +71,16 @@ style="background-image: url({% static 'Theme/images/about-us/01.jpg' %});">
                             <div  class="comment-respond">
                                 {% if request.user.is_authenticated %}
                                 <h3  class="comment-reply-title">نظر دهید </h3>
-                                <form action="#" method="post"  class="comment-form" novalidate=""><div class="comment-form-comment"><textarea name="body" aria-required="true" id="get_fullname" placeholder="دیدگاه خود را ثبت کنید:" required ></textarea></div>
+                                <form action="" method="post"  class="comment-form" novalidate=""><div class="comment-form-comment">
                                     {% csrf_token %}
+                                    <textarea name="body" aria-required="true" id="get_fullname" placeholder="دیدگاه خود را ثبت کنید:" required ></textarea></div>
                                     <p class="form-submit">
                                         <button name="submit" type="submit" id="submit" class="submit" value="Post Comment">
                                             <span class="iq-btn-text-holder">ارسال نظر</span>
                                         </button>
-                                        <input id="parent_id" name="parent_id" value="" type="hidden">
-                                        <input id="sender" name="sender" value="" type="hidden">
-                                        <input id="receiver" name="receiver" value="" type="hidden">
+                                        <input id="parent_id" name="parent_id" type="hidden">
+                                        <input id="sender" name="sender" type="hidden">
+                                        <input id="receiver" name="receiver" type="hidden">
                                     </p>
                                    
                                 </form>
@@ -115,7 +116,7 @@ style="background-image: url({% static 'Theme/images/about-us/01.jpg' %});">
                                                         <a onclick="RemoveComment({{ comment.id }})" style="background-color: transparent;margin-bottom: 10px;" class="a">
                                                             <i class="fa fa-trash text-danger mr-4"></i>    
                                                         </a>
-                                                        <p class="comment-date-time text-danger">{{ comment.get_time_diff }}</p>
+                                                        <p class="comment-date-time text-danger">{{ comment.created_at|naturaltime }}</p>
                                                     {% endif %}
 
                                                 </div>

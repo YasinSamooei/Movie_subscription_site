@@ -27,11 +27,10 @@ class VideoAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('title',)}
 
 
-
 @admin.register(Notification)
 class NotificationAdmin(admin.ModelAdmin):
-    list_display = ('user','video')
-    search_fields = ['video']
+    search_fields = ['message']
+    list_display = ('user','all_user', 'created_at')
 
 
 @admin.register(Serial)

@@ -13,3 +13,11 @@ def category(request):
     context['tags']=Tag.objects.all()
 
     return context
+
+
+def show_general_notification(request):
+    """
+    render all general notification in header
+    """
+    notifications = Notification.objects.filter(all_user=True)
+    return {'notifications': notifications}
