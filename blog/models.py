@@ -83,24 +83,5 @@ class Comment(models.Model):
         verbose_name_plural = 'کامنت‌ها'
         ordering = ["-blog__id", "parent__id"]
 
-    def get_time_diff(self):
-
-        if self.created_at:
-            now = datetime.datetime.utcnow().replace(tzinfo=utc)
-            timediff = now - self.created_at
-
-            if timediff.days > 365:
-                return f'{timediff.days // 365} سال پیش'
-            elif timediff.days > 30:
-                return f'{timediff.days // 30} ماه پیش'
-            elif timediff.days > 0:
-                return f'{timediff.days} روز پیش '
-            elif timediff.seconds > 3600:
-                return f'{timediff.seconds // 3600} ساعت پیش'
-            elif timediff.seconds > 60:
-                return f'{timediff.seconds // 60} دقیقه پیش'
-            else:
-                return f'{timediff.seconds} ثانیه پیش'
-
     def show_body(self):
         return self.body[:25]
