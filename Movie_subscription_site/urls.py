@@ -31,8 +31,4 @@ urlpatterns = [
     path('hitcount/', include(('hitcount.urls', 'hitcount'), namespace='hitcount')),
     path('ratings/', include('star_ratings.urls', namespace='ratings')),
     
-]
-
-
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL , document_root = settings.MEDIA_ROOT)
+]+static(settings.MEDIA_URL , document_root = settings.MEDIA_ROOT)
