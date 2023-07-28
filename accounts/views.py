@@ -130,7 +130,7 @@ class UserSettingsView(RequiredLoginMixin, generic.View):
 
 class ManageProfileView(FieldsMixin, generic.UpdateView):
     model = User
-    fields=['language', 'gender', 'full_name','image']
+    fields=['language', 'gender', 'full_name','image','bio']
     template_name = 'accounts/manage-profile.html'
     success_url = reverse_lazy('account:user-setting')
 
