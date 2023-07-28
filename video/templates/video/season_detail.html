@@ -3,11 +3,11 @@
 {% load hitcount_tags %}
 {% load social_share %}
 {% block title %}
-      لیست ویدئو ها
+{{season.name}}
 {% endblock %}
 
 {% block meta %}
-   <meta name="robots" content="index , follow"/>
+<meta name="robots" content="index , follow"/>
 {% endblock %}
 
 {% block main %}
@@ -17,30 +17,17 @@ style="background-image: url({% static 'Theme/images/about-us/01.jpg' %});">
     <div class="row align-items-center">
         <div class="col-sm-12">
             <nav aria-label="breadcrumb" class="text-center iq-breadcrumb-two">
-                <h2 class="title">لیست ویدئو ها</h2>
+                <h2 class="title">{{season.name}}</h2>
                 <ol class="breadcrumb main-bg">
                     <li class="breadcrumb-item"><a href="{% url 'home:main' %}">خانه</a></li>
-                    <li class="breadcrumb-item active">لیست ویدئو ها</li>
+                    <li class="breadcrumb-item active"><a href="{% url 'video:serial_detail' season.seasons.first.slug %}">{{season.seasons.first.name}}</a></li>
+                    <li class="breadcrumb-item active">{{season.name}}</li>
                 </ol>
-                <div class="dropdown genres-box">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-                       aria-haspopup="true" aria-expanded="false">
-                       فیلتر ها
-                    </button>
-                    <div class="dropdown-menu three-column" aria-labelledby="dropdownMenuButton">
-                        <a href="{% url "video:video-list" %}?filter=most-viewed">ویدئوهای پربازدید</a>
-                            <a href="{% url "video:video-list" %}?filter=most-liked">ویدئوهای محبوب</a>
-                            <a href="{% url "video:video-list" %}?filter=most-recent">ویدئو‌های اخیر</a>
-                    </div>
-                 </div>
             </nav>
         </div>
     </div>
 </div>
 </div>
-
-
-
 
     <!-- MainContent -->
         <section id="iq-upcoming-movie">
@@ -51,7 +38,7 @@ style="background-image: url({% static 'Theme/images/about-us/01.jpg' %});">
                      </div>
                      <div class="upcoming-contens">
                         <ul class="favorites-slider list-inline row p-0 mb-0 iq-rtl-direction">
-                           {% for video in object_list %}
+                           {% for video in videos %}
                            {% if video %}
                           <li class="slide-item">
                               

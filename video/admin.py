@@ -39,3 +39,11 @@ class SerialAdmin(admin.ModelAdmin):
     list_display = ['name', 'show_image','year']
     ordering = ['-created_at']
     prepopulated_fields = {'slug': ('name',)}
+
+
+@admin.register(Season)
+class SeasonAdmin(admin.ModelAdmin):
+    search_fields = ['name']
+    list_display = ['name', 'show_image']
+    ordering = ['-created_at']
+    prepopulated_fields = {'slug': ('name',)}

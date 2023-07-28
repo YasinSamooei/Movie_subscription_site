@@ -128,13 +128,55 @@ class Like(models.Model):
         ordering = ('created_at',)  
 
 
+
+
+class Season(models.Model):
+    SEASON_CHOICES = (
+        ('فصل1','فصل1' ),		
+        ('فصل2','فصل2' ),	
+        ('فصل3', 'فصل3'),
+        ('فصل4', 'فصل4'),
+    )
+    name=models.CharField(max_length=10, choices=SEASON_CHOICES, verbose_name="شماره فصل",null=True, blank=True)
+    video = models.ManyToManyField(Video , related_name='videos' , verbose_name='ویدیوها')
+    image = models.ImageField(upload_to='serial/season' , verbose_name='تصویر جلد فصل')
+    slug = models.SlugField('اسلاگ', unique=True, null=True, blank=True, allow_unicode=True)
+    created_at = models.DateTimeField('تاریخ آپلود فصل ',auto_now_add=True )
+
+    def __str__(self) :
+        return self.name
+
+    def get_jalali_date(self):
+        return JalaliDate(self.created_at, locale=('fa')).strftime("%c")
+    
+    def show_image(self):
+        if self.image:
+            return format_html(f'<img src="{self.image.url}" width="60px" height="50px">')
+        else:
+            return format_html('<h3 style="color: red">بدون تصویر</h3>')
+
+    show_image.short_description = 'تصویر'
+    
+    def get_absolute_url(self):
+        return reverse('video:season_detail', kwargs={'slug': self.slug})
+
+    class Meta:
+        verbose_name = 'فصل'
+        verbose_name_plural = 'فصل ها'
+        ordering = ["-created_at"]
+
+
+
 class Serial(models.Model):
     AGE_CHOICES = (
         ('20','+20' ),		
         ('14','+14' ),	
         ('10', '+10'),
     )
-    video = models.ManyToManyField(Video , related_name='playes' , verbose_name='ویدیوها')
+    video = models.ManyToManyField(Video , related_name='playes' , verbose_name='ویدیوها',null=True, blank=True,)
+    season = models.ManyToManyField(Season, null=True, blank=True,
+                            related_name='seasons',
+                            verbose_name='فصل')
     name = models.CharField(max_length=120 , null=True , blank=True , verbose_name='نام سریال')
     image = models.ImageField(upload_to='serial' , verbose_name='تصویر جلد سریال')
     slug = models.SlugField('اسلاگ', unique=True, null=True, blank=True, allow_unicode=True)
@@ -164,6 +206,7 @@ class Serial(models.Model):
         verbose_name = 'سریال'
         verbose_name_plural = 'سریال ها'
         ordering = ["-created_at"]
+
 
 
 

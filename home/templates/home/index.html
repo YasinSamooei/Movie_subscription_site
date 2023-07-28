@@ -318,7 +318,11 @@
                                  <div class="block-description">
                                     <h6 class="iq-title"><a href="{% url 'video:serial_detail' ser.slug %}">{{ser.name}}</a></h6>
                                     <div class="movie-time d-flex align-items-center my-2 iq-ltr-direction">
+                                       {% if ser.season.all %}
+                                       <div class="badge badge-primary p-1 mr-2">شمار فصل ها: {{ser.season.all.count}}</div>
+                                       {% else %}
                                        <div class="badge badge-primary p-1 mr-2">شمار قسمت ها: {{ser.video.all.count}}</div>
+                                       {% endif %}
                                        <div class="badge badge-secondary p-1 mr-2">{{ser.age}}+</div>
                                        <span class="text-white p-1 btn btn-danger">{{ser.year}}</span>
                                     </div>

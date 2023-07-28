@@ -6,7 +6,7 @@ from django.shortcuts import *
 from hitcount.views import HitCountDetailView
 from django.core.paginator import Paginator
 from django.http import JsonResponse
-from django.views.generic import ListView
+from django.views.generic import ListView,DetailView
 # local 
 from video.models import *
 
@@ -140,11 +140,17 @@ class SerialDetailView(HitCountDetailView):
         context = super().get_context_data(**kwargs)
 
         serial = self.get_object()
-        videos = serial.video.all()
+        if serial.season:
+            videos = serial.season.all()
+            season=True
+        else:
+            videos = serial.video.all()
+            season=False
 
         context = {
                 "serial": serial,
                 "videos": videos,
+                "season":season,
             }
         return context
 
@@ -154,8 +160,40 @@ class SerialListView(ListView):
     paginate_by = 10
 
 
+class SeasonDetailView(DetailView):
+    """
+    View for season detail view
+    with videos of each season
+    """
+    model = Season
+    slug_field = 'slug'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        season = self.get_object()
+        videos = season.video.all()
+
+        context = {
+                "season": season,
+                "videos": videos,
+            }
+        return context
+
+
 class VideoListView(ListView):
     template_name = 'video/video_list.html'
     model = Video
     paginate_by = 10
+
+    def get_queryset(self):
+        # Return queryset based on filter
+        filter = self.request.GET.get("filter")
+        videos = Video.objects.all()
+        if not filter or filter=="most-viewed":
+            return Video.objects.order_by('-hit_count_generic__hits')
+        elif filter == "most-liked":
+            return Video.objects.all().order_by("-likes")
+        elif filter == "most-recent":
+            return Video.objects.all().order_by("-created_at")
 
