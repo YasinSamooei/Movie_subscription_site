@@ -32,7 +32,7 @@ class SignInView(generic.FormView):
                 return redirect('home:main')
             else:
                 form.add_error('email', message.Wrong_Email_Or_Password)
-        return render(request, 'account/sign-in.html', context={'form': form})
+        return render(request, 'accounts/sign-in.html', context={'form': form})
 
 
 class SignUpView(generic.FormView):
