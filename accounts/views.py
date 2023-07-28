@@ -28,7 +28,7 @@ class SignInView(generic.FormView):
             clean_data = form.cleaned_data
             user = authenticate(username=clean_data['email'], password=clean_data['password'])
             if  user is not None:
-                login(self.request, user, backend='django.contrib.auth.backends.ModelBackend')
+                login(self.request, user)
                 return redirect('home:main')
             else:
                 form.add_error('email', message.Wrong_Email_Or_Password)
@@ -66,7 +66,7 @@ class CheckOTPView(generic.View):
             try:
                 if otp_obj.verify_otp(otp=data['code'], data=data_cache['email']):
                     user = User.objects.create_user(email=data_cache['email'], full_name=data_cache['full_name'], password=data_cache['password'])
-                    login(request, user, backend='django.contrib.auth.backends.ModelBackend')
+                    login(request, user)
                     return redirect('home:main')
                 else:
                     messages.add_message(request, messages.WARNING, 'کد وجود ندارد یا نامعتبر است')
