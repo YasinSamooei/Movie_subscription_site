@@ -109,7 +109,7 @@ class Notification(models.Model):
         return JalaliDate(self.created_at, locale=('fa')).strftime("%c")
 
     def __str__(self):
-        return f"{self.user} , {self.video.title}"
+        return f"{self.user} , {self.message[:10]}"
 
 
 class Like(models.Model):
