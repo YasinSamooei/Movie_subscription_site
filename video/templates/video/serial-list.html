@@ -48,8 +48,8 @@ style="background-image: url({% static 'Theme/images/about-us/01.jpg' %});">
                                  <div class="block-description">
                                     <h6 class="iq-title"><a href="{% url 'video:serial_detail' serial.slug %}">{{serial.name}}</a></h6>
                                     <div class="movie-time d-flex align-items-center my-2 iq-ltr-direction">
-                                    {% if serial.season.all %}
-                                       <div class="badge badge-primary p-1 mr-2">شمار فصل ها: {{serial.season.all.count}}</div>
+                                    {% if ser.seasons.count %}
+                                       <div class="badge badge-primary p-1 mr-2">شمار فصل ها: {{serial.seasons.count}}</div>
                                        {% else %}
                                        <div class="badge badge-primary p-1 mr-2">شمار قسمت ها: {{serial.video.all.count}}</div>
                                        {% endif %}

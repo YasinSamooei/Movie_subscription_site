@@ -44,6 +44,6 @@ class SerialAdmin(admin.ModelAdmin):
 @admin.register(Season)
 class SeasonAdmin(admin.ModelAdmin):
     search_fields = ['name']
-    list_display = ['name', 'show_image']
+    list_display = ['name', 'show_image','subject']
     ordering = ['-created_at']
-    prepopulated_fields = {'slug': ('name',)}
+    prepopulated_fields = {'slug': ('subject',)}

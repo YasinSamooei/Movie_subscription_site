@@ -1,6 +1,6 @@
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from blog.models import Comment
+from blog.models import Comment,Blog
 from video.models import Notification
 
 
@@ -9,19 +9,18 @@ def create_article_notification_signal(sender, instance, created, *args, **kwarg
     """
     craete notification when user reply comment 
     """
-    if created and instance.parent_id:
-        url = instance.blog.slug
-        image=instance.blog.image
-        message = f'کاربری به کامنت شما در مقاله {instance.blog.title} پاسخ داد'
-        Notification.objects.create(user=instance.parent.user, message=message, url=url,image=image)
+    if created and instance.parent_id :
+        if instance.parent.user != instance.user:
+            message = f'کاربری به کامنت شما در مقاله {instance.blog.title} پاسخ داد'
+            blog=instance.blog
+            Notification.objects.create(user=instance.parent.user, message=message,blog=blog)
 
-@receiver(post_save, sender=Comment)
+@receiver(post_save, sender=Blog)
 def create_blog_notification_signal(sender, instance, created, *args, **kwargs):
     """
     craete notification when add new article
     """
     if created:
-        url = instance.blog.slug
-        image=instance.blog.image
-        message = f'مقاله {instance.blog.title}  منتشرشد'
-        Notification.objects.create(all_user=True, message=message, url=url,image=image)
+        message = f'مقاله {instance.title}  منتشرشد'
+        blog=instance
+        Notification.objects.create(all_user=True, message=message,blog=blog)

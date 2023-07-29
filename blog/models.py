@@ -36,7 +36,7 @@ class Blog(models.Model):
     tag = models.ManyToManyField(Tag, related_name='blogs', verbose_name='برچسب ها')
     description = models.TextField('توضیحات')
     meta_description = models.CharField('متادیسکریپشن', max_length=3000)
-    image = models.ImageField('تصویر ویدئو', upload_to='images/thumbnails', null=True)
+    image = models.ImageField('تصویر مقاله', upload_to='images/blog', null=True)
     hit_count_generic = GenericRelation(HitCount, object_id_field='object_pk',related_query_name='hit_count_generic_relation')
     age=models.CharField(max_length=10, choices=AGE_CHOICES, verbose_name="رده سنی",null=True, blank=True)
     created_at = models.DateTimeField('تاریخ آپلود ویدئو', auto_now_add=True)

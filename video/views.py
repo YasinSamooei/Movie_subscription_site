@@ -92,6 +92,9 @@ def delete_notification(request, pk):
     return redirect(reverse('blog:blog-detail', kwargs={'slug': notif.url}))
 
 
+
+
+
 def like(request, slug, pk):
     if request.user.is_authenticated:
         try:
@@ -140,8 +143,8 @@ class SerialDetailView(HitCountDetailView):
         context = super().get_context_data(**kwargs)
 
         serial = self.get_object()
-        if serial.season:
-            videos = serial.season.all()
+        if serial.seasons:
+            videos = serial.seasons.all()
             season=True
         else:
             videos = serial.video.all()

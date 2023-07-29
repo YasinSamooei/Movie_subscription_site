@@ -20,7 +20,7 @@ style="background-image: url({% static 'Theme/images/about-us/01.jpg' %});">
                 <h2 class="title">{{season.name}}</h2>
                 <ol class="breadcrumb main-bg">
                     <li class="breadcrumb-item"><a href="{% url 'home:main' %}">خانه</a></li>
-                    <li class="breadcrumb-item active"><a href="{% url 'video:serial_detail' season.seasons.first.slug %}">{{season.seasons.first.name}}</a></li>
+                    <li class="breadcrumb-item active"><a href="{% url 'video:serial_detail' season.season.slug %}">{{season.season.name}}</a></li>
                     <li class="breadcrumb-item active">{{season.name}}</li>
                 </ol>
             </nav>

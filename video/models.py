@@ -9,6 +9,8 @@ from star_ratings.models import Rating
 
 # local
 from accounts.models import User
+from blog.models import Blog
+
 
 class Actors(models.Model):
     name= models.CharField('نام', max_length=30)
@@ -93,25 +95,6 @@ class Video(models.Model):
         return reverse('video:video_detail', kwargs={'slug': self.slug})
 
 
-class Notification(models.Model):
-    user=models.ForeignKey(User,on_delete=models.CASCADE, null=True, blank=True, related_name='notifs',verbose_name="کاربر")
-    all_user = models.BooleanField(default=False)
-    created_at=models.DateTimeField(auto_now_add=True,verbose_name="زمان ایجاد")
-    message = models.TextField()
-    image=models.ImageField('عکس',blank=True,null=True)
-    url = models.CharField(max_length=255, null=True, blank=True)
-
-    class Meta:
-        verbose_name="خبر"
-        verbose_name_plural="اخبار"
-        ordering = ('-created_at',)
-
-    def get_jalali_date(self):
-        return JalaliDate(self.created_at, locale=('fa')).strftime("%c")
-
-    def __str__(self):
-        return f"{self.user} , {self.message[:10]}"
-
 
 class Like(models.Model):
     user=models.ForeignKey(User,on_delete=models.CASCADE , related_name='likes',verbose_name="کاربر")
@@ -128,45 +111,6 @@ class Like(models.Model):
         ordering = ('created_at',)  
 
 
-
-
-class Season(models.Model):
-    SEASON_CHOICES = (
-        ('فصل1','فصل1' ),		
-        ('فصل2','فصل2' ),	
-        ('فصل3', 'فصل3'),
-        ('فصل4', 'فصل4'),
-    )
-    name=models.CharField(max_length=10, choices=SEASON_CHOICES, verbose_name="شماره فصل",null=True, blank=True)
-    video = models.ManyToManyField(Video , related_name='videos' , verbose_name='ویدیوها')
-    image = models.ImageField(upload_to='serial/season' , verbose_name='تصویر جلد فصل')
-    slug = models.SlugField('اسلاگ', unique=True, null=True, blank=True, allow_unicode=True)
-    created_at = models.DateTimeField('تاریخ آپلود فصل ',auto_now_add=True )
-
-    def __str__(self) :
-        return self.name
-
-    def get_jalali_date(self):
-        return JalaliDate(self.created_at, locale=('fa')).strftime("%c")
-    
-    def show_image(self):
-        if self.image:
-            return format_html(f'<img src="{self.image.url}" width="60px" height="50px">')
-        else:
-            return format_html('<h3 style="color: red">بدون تصویر</h3>')
-
-    show_image.short_description = 'تصویر'
-    
-    def get_absolute_url(self):
-        return reverse('video:season_detail', kwargs={'slug': self.slug})
-
-    class Meta:
-        verbose_name = 'فصل'
-        verbose_name_plural = 'فصل ها'
-        ordering = ["-created_at"]
-
-
-
 class Serial(models.Model):
     AGE_CHOICES = (
         ('20','+20' ),		
@@ -174,9 +118,6 @@ class Serial(models.Model):
         ('10', '+10'),
     )
     video = models.ManyToManyField(Video , related_name='playes' , verbose_name='ویدیوها',null=True, blank=True,)
-    season = models.ManyToManyField(Season, null=True, blank=True,
-                            related_name='seasons',
-                            verbose_name='فصل')
     name = models.CharField(max_length=120 , null=True , blank=True , verbose_name='نام سریال')
     image = models.ImageField(upload_to='serial' , verbose_name='تصویر جلد سریال')
     slug = models.SlugField('اسلاگ', unique=True, null=True, blank=True, allow_unicode=True)
@@ -207,6 +148,63 @@ class Serial(models.Model):
         verbose_name_plural = 'سریال ها'
         ordering = ["-created_at"]
 
+class Season(models.Model):
+    SEASON_CHOICES = (
+        ('فصل1','فصل1' ),		
+        ('فصل2','فصل2' ),	
+        ('فصل3', 'فصل3'),
+        ('فصل4', 'فصل4'),
+    )
+    name=models.CharField(max_length=10, choices=SEASON_CHOICES, verbose_name="شماره فصل",null=True, blank=True)
+    season=models.ForeignKey(Serial,on_delete=models.CASCADE , related_name='seasons',verbose_name="سریال",null=True,blank=True)
+    subject=models.CharField(max_length=10, verbose_name="موضوع فصل",null=True, blank=True)
+    video = models.ManyToManyField(Video , related_name='videos' , verbose_name='ویدیوها')
+    image = models.ImageField(upload_to='serial/season' , verbose_name='تصویر جلد فصل')
+    slug = models.SlugField('اسلاگ', unique=True, null=True, blank=True, allow_unicode=True)
+    created_at = models.DateTimeField('تاریخ آپلود فصل ',auto_now_add=True )
+
+    def __str__(self) :
+        return self.name
+
+    def get_jalali_date(self):
+        return JalaliDate(self.created_at, locale=('fa')).strftime("%c")
+    
+    def show_image(self):
+        if self.image:
+            return format_html(f'<img src="{self.image.url}" width="60px" height="50px">')
+        else:
+            return format_html('<h3 style="color: red">بدون تصویر</h3>')
+
+    show_image.short_description = 'تصویر'
+    
+    def get_absolute_url(self):
+        return reverse('video:season_detail', kwargs={'slug': self.slug})
+
+    class Meta:
+        verbose_name = 'فصل'
+        verbose_name_plural = 'فصل ها'
+        ordering = ["-created_at"]
 
 
+
+class Notification(models.Model):
+    user=models.ForeignKey(User,on_delete=models.CASCADE, null=True, blank=True, related_name='notifs',verbose_name="کاربر")
+    all_user = models.BooleanField(default=False)
+    created_at=models.DateTimeField(auto_now_add=True,verbose_name="زمان ایجاد")
+    message = models.TextField()
+    video=models.ForeignKey(Video,on_delete=models.CASCADE, null=True, blank=True, related_name='notifs',verbose_name="ویدئو")
+    blog=models.ForeignKey(Blog,on_delete=models.CASCADE, null=True, blank=True, related_name='notifs',verbose_name="مقاله")
+    serial=models.ForeignKey(Serial,on_delete=models.CASCADE, null=True, blank=True, related_name='notifs',verbose_name="سریال")
+    season=models.ForeignKey(Season,on_delete=models.CASCADE, null=True, blank=True, related_name='notifs',verbose_name="فصل")
+
+    class Meta:
+        verbose_name="خبر"
+        verbose_name_plural="اخبار"
+        ordering = ('-created_at',)
+
+    def get_jalali_date(self):
+        return JalaliDate(self.created_at, locale=('fa')).strftime("%c")
+
+    def __str__(self):
+        return f"{self.user} , {self.message[:10]}"
 
