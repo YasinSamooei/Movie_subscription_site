@@ -1,6 +1,6 @@
 ## 🌐 Movie_subscription_site
 Open source video sharing site 
-### auther:`Yasin samooei`
+### programmer:`Yasin samooei`
 ## 🔴 description:
 
 The video subscription purchase website project includes the following sections:
@@ -12,9 +12,12 @@ The video subscription purchase website project includes the following sections:
 ### 6) Special panel for authors of articles and owners of videos
 ### 7) share in social madia
 ### 8) notification system with `signals`
-### 9) hit-count and star ratings system for videos
+### 9) hit-count system for videos
 ### 10) mysql settings
 ### 11) file_storage(S3Storage)
+### 12) meta tags related to `CEO`
+### 13) comment and reply with `ajax`
+### 14) like and save with ajax
 
 ## 🌐 Socials:
 [![Instagram](https://img.shields.io/badge/Instagram-%23E4405F.svg?logo=Instagram&logoColor=white)](https://instagram.com/y.electrocode) [![LinkedIn](https://img.shields.io/badge/LinkedIn-%230077B5.svg?logo=linkedin&logoColor=white)](https://linkedin.com/in/yasin-samooei)
