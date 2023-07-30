@@ -135,7 +135,11 @@
                                       <div class="iq-sub-dropdown iq-user-dropdown">
                                          <div class="iq-card shadow-none m-0">
                                             <div class="iq-card-body p-0 pl-3 pr-3">
+                                             {% if request.user.superuser or request.user.is_staff %}
+                                             <a href="{% url 'panel:profile' %}" class="iq-sub-card setting-dropdown">
+                                             {% else %}
                                                <a href="{% url 'account:manage-profile' %}" class="iq-sub-card setting-dropdown">
+                                             {% endif %}
                                                   <div class="media align-items-center">
                                                      <div class="right-icon">
                                                         <i class="ri-file-user-line text-primary"></i>
@@ -362,7 +366,11 @@
                                 <div class="iq-sub-dropdown iq-user-dropdown">
                                    <div class="iq-card shadow-none m-0">
                                       <div class="iq-card-body p-0 pl-3 pr-3">
+                                       {% if request.user.superuser or request.user.is_staff %}
+                                       <a href="{% url 'panel:profile' %}" class="iq-sub-card setting-dropdown">
+                                       {% else %}
                                          <a href="{% url 'account:manage-profile' %}" class="iq-sub-card setting-dropdown">
+                                       {% endif %}
                                             <div class="media align-items-center">
                                                <div class="right-icon">
                                                   <i class="ri-file-user-line text-primary"></i>

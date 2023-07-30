@@ -1,0 +1,66 @@
+{% load static %}
+
+  <!-- Main Sidebar Container -->
+  <aside class="main-sidebar sidebar elevation-4" style="background-color: #dc3545;">
+    <!-- Brand Logo -->
+    <a href="" class="brand-link">
+      <img src="{% static 'Theme/images/elco-black.png' %}" alt="Logo" class="brand-image img-circle elevation-2"
+           style="opacity: .8">
+      <span class="brand-text text-white">پنل کارمندان</span>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <!-- Sidebar user panel (optional) -->
+      <div class=" mt-3 pb-3 mb-3 d-flex">
+        <div class="image">
+          {% if user.image %}
+          <a href="{{request.user.image.url}}" target="_blank"><img src="{{request.user.image.url}}" class="img-circle elevation-2" alt="userimage" width="50px" height="50px"></a>
+          {% else %}
+          <img src="{% static 'Theme/images/user/user.jpg' %}" alt="profile image" class="img-circle elevation-2" alt="userimage" width="50px" height="50px">
+          {% endif %}
+        </div>
+        <div class="info">
+          <a href="" class="d-block mx-3 my-3 text-white">
+              {{user.full_name}}
+          </a>
+        </div>
+      </div>
+
+      <!-- Sidebar Menu -->
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+               {% if user.is_superuser or user.is_staff %}
+               <li class="nav-item has-treeview menu-open">
+                 <a href="#" class="nav-link bg-light">
+                   <i class="nav-icon fas fa-book"></i>
+                   <p>
+                      بخش مقالات
+                     <i class="right fas fa-angle-left"></i>
+                   </p>
+                 </a>
+                 <ul class="nav nav-treeview">
+                   <li class="nav-item">
+                     <a href="{% url 'panel:article-list' %}" class="nav-link text-light {% if request.resolver_match.url_name == 'article-list' %}active{% endif %}">
+                       <i class="fa fa-list nav-icon"></i>
+                       <p>
+                         لیست  مقالات
+                       </p>
+                     </a>
+                   </li>
+                 </ul>
+                 <li class="nav-item ">
+                  <a href="{% url 'panel:profile' %}" class="nav-link text-light {% if request.resolver_match.url_name == 'profile' %}active{% endif %}">
+                    <i class="fa fa-list nav-icon"></i>
+                    <p>
+                        پروفایل
+                    </p>
+                  </a>
+                </li>
+              {% endif %}
+      </nav>
+      <!-- /.sidebar-menu -->
+    </div>
+  </aside>

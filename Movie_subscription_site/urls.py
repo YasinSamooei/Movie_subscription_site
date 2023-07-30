@@ -27,6 +27,7 @@ urlpatterns = [
     path('', include('info.urls')),
     path('', include('video.urls')),
     path('', include('blog.urls')),
+    path('', include('panel.urls')),
     # additional apps
     path('hitcount/', include(('hitcount.urls', 'hitcount'), namespace='hitcount')),
     path('ratings/', include('star_ratings.urls', namespace='ratings')),

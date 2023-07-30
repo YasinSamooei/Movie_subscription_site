@@ -1,0 +1,56 @@
+{% extends 'panel/base.html' %}
+{% block title %}{% block title-meta %}
+	لیست مقالات
+{% endblock %}{% endblock %}
+{% load hitcount_tags %}
+{% block main %}
+		<div class="row">
+          <div class="col-12">
+            {% if object_list %}
+              <div class="card">
+                <!-- /.card-header -->
+                <div class="card-body table-responsive p-0">
+                  <table class="table table-hover  bg-danger">
+                    <thead>
+                      <tr style="background-color: black;">
+                        <th>عنوان مقاله</th>
+                        <th>تصویر مقاله</th>
+                        <th>برچسب ها</th>
+                        <th>نویسنده</th>
+                        <th>خلاصه متن</th>
+                        <th>زمان انتشار</th>
+                        <th>تعداد بازدید</th>
+                        <th>سن</th>
+                        <th>تعداد نظرات</th>
+                        <th>حذف و ویرایش</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for article in object_list %}
+                        <tr>
+                          <td>{{article.title}}</td>
+                          <td><img src="{{article.image.url}}" width="120"></td>
+                          <td>{% for tag in article.tag.all %}{{tag.title}}<br>{% endfor %}</td>
+                          <td>{{article.author.full_name}}</td>
+                          <td>{{article.description|truncatewords:10|safe}}</td>
+                          <td>{{article.get_jalali_date}}</td>
+                          <td>{% get_hit_count for article %}+</td>
+                          <td>{{article.age}}+</td>
+                          <td>{{article.comments.count}}</td>
+                          <td>
+
+                          </td>
+                        </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+                <!-- /.card-body -->
+              </div>
+              <!-- /.card -->
+              {% else %}
+              <h3>محتوایی برای نمایش وجود ندارد.</h3>
+              {% endif %}
+          </div>
+        </div>
+{% endblock %}

@@ -10,9 +10,9 @@ class CategoryAdmin(admin.ModelAdmin):
 
 
 @admin.register(Blog)
-class VideoAdmin(admin.ModelAdmin):
-    search_fields = ['title', 'description', 'auther']
-    list_display = ['title', 'auther', 'show_image']
+class BlogAdmin(admin.ModelAdmin):
+    search_fields = ['title', 'description', 'author']
+    list_display = ['title', 'author', 'show_image']
     list_filter = ['tag']
     ordering = ['-created_at']
     exclude = ['hit_count_generic']

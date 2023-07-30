@@ -1,0 +1,57 @@
+{% extends 'panel/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}{% block title-meta %}
+	پروفایل کاربری
+{% endblock %}{% endblock %}
+
+{% block main %}
+<div class="col-md-12 bg">
+  <div class="card card-danger">
+    <div class="card-header">
+      <h3 class="card-title mb-0 float-left">پروفایل کاربری</h3>
+    </div>
+		<div class="card-body bg-dark">
+			<form method="post" enctype="multipart/form-data">{% csrf_token %}
+		    <div class="row">
+		      <div class="col-6">
+				<h5>ایمیل فعلی:</h5>
+		        {{user.email}}
+		      </div>
+		      <div class="container">
+				<div class="alert bg-success my-2 text-dark">
+					<label>تغییر ایمیل</label>
+					<p class="mb-0">برای تغییر ایمیل <a class="alert-link text-dark" href="{% url 'account:change-email' %}">کلیک</a> کنید.</p>
+			  	</div>
+		      	<div class="alert  bg-warning ">
+			      	<label>گذرواژه</label>
+			      	<p class="mb-0">برای تغییر گذرواژه <a class="alert-link text-dark" href="{% url 'account:change-password' %}">کلیک</a> کنید.</p>
+		        </div>
+				<a class="nav-link btn btn-danger mx-1 my-2" data-widget="control-sidebar" data-slide="true" href="{% url 'account:logout' %}">
+					خروج ازحساب
+					<i class="fas fa-sign-out-alt"></i>
+				</a>
+		      </div>
+			  <div class="col-12">    
+				
+				{{ form.image|as_crispy_field }}
+		      </div>
+			  <div class="col-6">
+		        {{ form.full_name|as_crispy_field }}
+		      </div>
+			  <div class="col-12">
+		        {{ form.bio|as_crispy_field }}
+		      </div>
+			  <div class="col-6">
+		        {{ form.is_staff|as_crispy_field }}
+		      </div>
+			  <div class="col-6 text-danger h5">
+				تاریخ عضویت:
+		        {{user.get_jalali_date}}
+		      </div>
+		    </div>
+				<button class="btn btn-success">ویرایش اطلاعات</button>
+			</form>
+		</div>
+</div>
+{% endblock %}

@@ -41,7 +41,7 @@ class Blog(models.Model):
     age=models.CharField(max_length=10, choices=AGE_CHOICES, verbose_name="رده سنی",null=True, blank=True)
     created_at = models.DateTimeField('تاریخ آپلود ویدئو', auto_now_add=True)
     updated_at = models.DateTimeField('تاریخ به روز رسانی ویدئو', auto_now=True, null=True)
-    auther = models.ForeignKey(User, on_delete=models.CASCADE,
+    author = models.ForeignKey(User, on_delete=models.CASCADE,
                                 related_name='blogs',
                                 verbose_name='نویسنده مقاله')
     slug = models.SlugField('اسلاگ', unique=True, null=True, blank=True, allow_unicode=True)
