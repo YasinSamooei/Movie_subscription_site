@@ -66,27 +66,27 @@
                                             <div class="iq-card-body">
                                              {% for notif in notifications %}
                                                    {% if notif.blog %}
-                                                   <a href="{% url 'blog:blog-detail' notif.blog.slug %}" class="iq-sub-card" onclick="delete_notif('{{notif.id}}')">
+                                                   <a href="{% url 'blog:blog-detail' notif.blog.slug %}" class="iq-sub-card" onclick="delete_public_notif('{{notif.id}}')">
                                                    <div class="media align-items-center">
                                                    <img src="{{notif.blog.image.url}}" class="img-fluid mr-3"
                                                       alt="streamit"  width="50px" height="50px">
                                                  {% elif notif.video %}
-                                                 <a href="{% url 'video:video_detail' notif.video.slug %}" class="iq-sub-card" onclick="delete_notif('{{notif.id}}')">
+                                                 <a href="{% url 'video:video_detail' notif.video.slug %}" class="iq-sub-card" onclick="delete_public_notif('{{notif.id}}')">
                                                    <div class="media align-items-center">
                                                     <img src="{{notif.video.image.url}}" class="img-fluid mr-3"
                                                     alt="streamit"  width="50px" height="50px">
                                                    {% elif notif.serial %}
-                                                   <a href="{% url 'video:serial_detail' notif.serial.slug %}" class="iq-sub-card" onclick="delete_notif('{{notif.id}}')">
+                                                   <a href="{% url 'video:serial_detail' notif.serial.slug %}" class="iq-sub-card" onclick="delete_public_notif('{{notif.id}}')">
                                                    <div class="media align-items-center">
                                                    <img src="{{notif.serial.image.url}}" class="img-fluid mr-3"
                                                       alt="streamit"  width="50px" height="50px">
                                                    {% elif notif.season %}
-                                                   <a href="{% url 'video:season_detail' notif.season.slug %}" class="iq-sub-card" onclick="delete_notif('{{notif.id}}')">
+                                                   <a href="{% url 'video:season_detail' notif.season.slug %}" class="iq-sub-card" onclick="delete_public_notif('{{notif.id}}')">
                                                    <div class="media align-items-center">
                                                    <img src="{{notif.season.image.url}}" class="img-fluid mr-3"
                                                       alt="streamit"  width="50px" height="50px">
                                                  {% else %}
-                                                 <a href="" class="iq-sub-card" onclick="delete_notif('{{notif.id}}')">
+                                                 <a href="" class="iq-sub-card" onclick="delete_public_notif('{{notif.id}}')">
                                                    <div class="media align-items-center">
                                                     <img src="{% static 'Theme/images/notif.png' %}" class="img-fluid mr-3"
                                                     alt="streamit"  width="50px" height="50px">
@@ -292,27 +292,27 @@
                                     <div class="iq-card-body">
                                      {% for notif in notifications %}
                                      {% if notif.blog %}
-                                     <a href="{% url 'blog:blog-detail' notif.blog.slug %}" class="iq-sub-card" onclick="delete_notif('{{notif.id}}')">
+                                     <a href="{% url 'blog:blog-detail' notif.blog.slug %}" class="iq-sub-card" onclick="delete_public_notif('{{notif.id}}')">
                                      <div class="media align-items-center">
                                      <img src="{{notif.blog.image.url}}" class="img-fluid mr-3"
                                         alt="streamit"  width="50px" height="50px">
                                     {% elif notif.video %}
-                                   <a href="{% url 'video:video_detail' notif.video.slug %}" class="iq-sub-card" onclick="delete_notif('{{notif.id}}')">
+                                   <a href="{% url 'video:video_detail' notif.video.slug %}" class="iq-sub-card" onclick="delete_public_notif('{{notif.id}}')">
                                      <div class="media align-items-center">
                                       <img src="{{notif.video.image.url}}" class="img-fluid mr-3"
                                       alt="streamit"  width="50px" height="50px">
                                      {% elif notif.serial %}
-                                     <a href="{% url 'video:serial_detail' notif.serial.slug %}" class="iq-sub-card" onclick="delete_notif('{{notif.id}}')">
+                                     <a href="{% url 'video:serial_detail' notif.serial.slug %}" class="iq-sub-card" onclick="delete_public_notif('{{notif.id}}')">
                                      <div class="media align-items-center">
                                      <img src="{{notif.serial.image.url}}" class="img-fluid mr-3"
                                         alt="streamit"  width="50px" height="50px">
                                      {% elif notif.season %}
-                                     <a href="{% url 'video:season_detail' notif.season.slug %}" class="iq-sub-card" onclick="delete_notif('{{notif.id}}')">
+                                     <a href="{% url 'video:season_detail' notif.season.slug %}" class="iq-sub-card" onclick="delete_public_notif('{{notif.id}}')">
                                      <div class="media align-items-center">
                                      <img src="{{notif.season.image.url}}" class="img-fluid mr-3"
                                         alt="streamit"  width="50px" height="50px">
                                    {% else %}
-                                   <a href="" class="iq-sub-card" onclick="delete_notif('{{notif.id}}')">
+                                   <a href="" class="iq-sub-card" onclick="delete_public_notif('{{notif.id}}')">
                                      <div class="media align-items-center">
                                       <img src="{% static 'Theme/images/notif.png' %}" class="img-fluid mr-3"
                                       alt="streamit"  width="50px" height="50px">
@@ -429,5 +429,10 @@
       function delete_notif(id){
       $.get(`/delete-notif/${id}`).then(response=>{"delete-notif"})
       }
+      function delete_public_notif(id) {
+        $.get(`/delete-public-notif/${id}`).then(
+            location.reload(),
+        )
+    }
   </script>
      <!-- Header End -->

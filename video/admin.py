@@ -30,7 +30,19 @@ class VideoAdmin(admin.ModelAdmin):
 @admin.register(Notification)
 class NotificationAdmin(admin.ModelAdmin):
     search_fields = ['message']
-    list_display = ('user','all_user', 'created_at')
+    list_display = ('user', 'created_at')
+
+
+@admin.register(PublicNotification)
+class PublicNotificationAdmin(admin.ModelAdmin):
+    search_fields = ['message']
+    list_display = ('created_at','video','blog','serial','season')
+
+
+
+class SeasonAdmin(admin.StackedInline):
+    model=Season
+    prepopulated_fields = {'slug': ('subject',)}
 
 
 @admin.register(Serial)
@@ -39,11 +51,5 @@ class SerialAdmin(admin.ModelAdmin):
     list_display = ['name', 'show_image','year']
     ordering = ['-created_at']
     prepopulated_fields = {'slug': ('name',)}
+    inlines=(SeasonAdmin,)
 
-
-@admin.register(Season)
-class SeasonAdmin(admin.ModelAdmin):
-    search_fields = ['name']
-    list_display = ['name', 'show_image','subject']
-    ordering = ['-created_at']
-    prepopulated_fields = {'slug': ('subject',)}

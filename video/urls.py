@@ -13,7 +13,8 @@ urlpatterns = [
     path("add-favorite/<int:pk>", views.AddFavoriteView.as_view(), name="favorite_add"),
     path('search', views.SearchView.as_view(), name='search'),
     path("watch", views.WatchListView.as_view(), name="watch"),
-    path('delete-notif/<int:pk>',views.delete_notification,name="delete-notif"),
+    path('delete-notif/<int:pk>',views.DeleteNotif.as_view(),name="delete-notif"),
+    path('delete-public-notif/<int:pk>',views.DeletePublicNotif.as_view(),name="delete-public-notif"),
     re_path(r"like/(?P<slug>[-\w]+)/(?P<pk>[-\w]+)",views.like,name="like"),
 
 ]

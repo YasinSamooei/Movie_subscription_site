@@ -4,7 +4,7 @@ from django.shortcuts import *
 
 def category(request):
     """
-    To have categories and tags
+    To have categories and tags and public notification
     """
     
     categories = Category.objects.all()
@@ -12,12 +12,8 @@ def category(request):
     context['latest_blogs'] = Blog.objects.all()[:6]
     context['tags']=Tag.objects.all()
 
+    if request.user.is_authenticated:
+        notifications = PublicNotification.objects.filter(user=request.user)
+        context.update({'notifications': notifications})
+
     return context
-
-
-def show_general_notification(request):
-    """
-    render all general notification in header
-    """
-    notifications = Notification.objects.filter(all_user=True)
-    return {'notifications': notifications}

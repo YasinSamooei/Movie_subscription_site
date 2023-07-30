@@ -86,12 +86,19 @@ class WatchListView(ListView):
         return Video.objects.filter(favorites=self.request.user)
 
 
-def delete_notification(request, pk):
-    notif = Notification.objects.get(id=pk)
-    notif.delete()
-    return redirect(reverse('blog:blog-detail', kwargs={'slug': notif.url}))
+class DeleteNotif(View):
+    def get(self, req, pk):
+        notif = Notification.objects.get(id=pk)
+        notif.delete()
+        pass
 
 
+class DeletePublicNotif(View):
+    def get(self, req, pk):
+        notif = PublicNotification.objects.get(id=pk)
+        notif.user.remove(req.user)
+        notif.save()
+        pass
 
 
 

@@ -1,8 +1,8 @@
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from blog.models import Comment,Blog
-from video.models import Notification
-
+from video.models import Notification,PublicNotification
+from accounts.models import User
 
 @receiver(post_save, sender=Comment)
 def create_article_notification_signal(sender, instance, created, *args, **kwargs):
@@ -23,4 +23,6 @@ def create_blog_notification_signal(sender, instance, created, *args, **kwargs):
     if created:
         message = f'مقاله {instance.title}  منتشرشد'
         blog=instance
-        Notification.objects.create(all_user=True, message=message,blog=blog)
+        user=User.objects.all()
+        public=PublicNotification.objects.create(message=message,blog=blog)
+        public.user.set(user)

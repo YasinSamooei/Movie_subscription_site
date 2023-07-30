@@ -189,13 +189,9 @@ class Season(models.Model):
 
 class Notification(models.Model):
     user=models.ForeignKey(User,on_delete=models.CASCADE, null=True, blank=True, related_name='notifs',verbose_name="کاربر")
-    all_user = models.BooleanField(default=False)
     created_at=models.DateTimeField(auto_now_add=True,verbose_name="زمان ایجاد")
     message = models.TextField()
-    video=models.ForeignKey(Video,on_delete=models.CASCADE, null=True, blank=True, related_name='notifs',verbose_name="ویدئو")
     blog=models.ForeignKey(Blog,on_delete=models.CASCADE, null=True, blank=True, related_name='notifs',verbose_name="مقاله")
-    serial=models.ForeignKey(Serial,on_delete=models.CASCADE, null=True, blank=True, related_name='notifs',verbose_name="سریال")
-    season=models.ForeignKey(Season,on_delete=models.CASCADE, null=True, blank=True, related_name='notifs',verbose_name="فصل")
 
     class Meta:
         verbose_name="خبر"
@@ -208,3 +204,24 @@ class Notification(models.Model):
     def __str__(self):
         return f"{self.user} , {self.message[:10]}"
 
+
+
+class PublicNotification(models.Model):
+    user=models.ManyToManyField(User, related_name='public',verbose_name="کاربر")
+    created_at=models.DateTimeField(auto_now_add=True,verbose_name="زمان ایجاد")
+    message = models.TextField()
+    video=models.ForeignKey(Video,on_delete=models.CASCADE, null=True, blank=True, related_name='public',verbose_name="ویدئو")
+    blog=models.ForeignKey(Blog,on_delete=models.CASCADE, null=True, blank=True, related_name='public',verbose_name="مقاله")
+    serial=models.ForeignKey(Serial,on_delete=models.CASCADE, null=True, blank=True, related_name='public',verbose_name="سریال")
+    season=models.ForeignKey(Season,on_delete=models.CASCADE, null=True, blank=True, related_name='public',verbose_name="فصل")
+
+    class Meta:
+        verbose_name=" خبر عمومی"
+        verbose_name_plural="اخبار عمومی"
+        ordering = ('-created_at',)
+
+    def get_jalali_date(self):
+        return JalaliDate(self.created_at, locale=('fa')).strftime("%c")
+
+    def __str__(self):
+        return f"{self.user} , {self.message[:10]}"
