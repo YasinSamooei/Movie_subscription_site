@@ -7,8 +7,10 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from blog.models import Blog
 from accounts.models import User
 from .forms import ProfileForm
+from .mixins import*
 
-class Profile(LoginRequiredMixin ,UpdateView):
+
+class Profile(AuthorsAccessMixin,LoginRequiredMixin ,UpdateView):
     model = User
     template_name = "panel/profile.html"
     form_class = ProfileForm
@@ -33,3 +35,26 @@ class ArticleList(ListView):
     template_name="panel/article-list.html"
     def get_queryset(self):
         return Blog.objects.filter(author=self.request.user)
+
+
+class ArticleCreate(FormValidMixin,FieldsMixin,CreateView):
+    model=Blog
+    fields=['author','tag','title','description','meta_description','created_at','image','age','slug']
+    template_name="panel/article-create-update.html"
+    success_url=reverse_lazy("panel:article-list")
+
+
+
+class ArticleUpdate(AuthorAccessMixin,UpdateFormMixin,FieldsMixin, UpdateView):
+    model = Blog
+    template_name = "panel/article-create-update.html"
+    success_url=reverse_lazy("panel:article-list")
+
+
+
+class ArticleDelete(DeleteView):
+    model = Blog
+    success_url = reverse_lazy('panel:article-list')
+    template_name = "panel/article_confirm_delete.html"
+
+

@@ -50,6 +50,14 @@
                        </p>
                      </a>
                    </li>
+                   <li class="nav-item">
+                    <a href="{% url 'panel:article-create' %}" class="nav-link text-light {% if request.resolver_match.url_name == 'article-create' %}active{% endif %}">
+                      <i class="fa fa-edit nav-icon"></i>
+                      <p>
+                        افزودن مقاله
+                      </p>
+                    </a>
+                  </li>
                  </ul>
                  <li class="nav-item ">
                   <a href="{% url 'panel:profile' %}" class="nav-link text-light {% if request.resolver_match.url_name == 'profile' %}active{% endif %}">

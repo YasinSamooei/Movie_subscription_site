@@ -38,7 +38,8 @@
                           <td>{{article.age}}+</td>
                           <td>{{article.comments.count}}</td>
                           <td>
-
+                              <a class="badge btn-warning" href="{% url 'panel:article-delete' article.pk %}">حذف</a>
+                              <a class="badge btn-primary" href="{% url 'panel:article-update' article.pk %}">ویرایش</a>
                           </td>
                         </tr>
                       {% endfor %}
