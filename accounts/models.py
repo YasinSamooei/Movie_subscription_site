@@ -43,9 +43,9 @@ class User(AbstractBaseUser):
     date_joined = models.DateTimeField('تاریخ عضویت', auto_now_add=True)
     is_active = models.BooleanField('فعال', default=True)
     is_staff = models.BooleanField('کارمند', default=False)
-
+    is_author = models.BooleanField(default=False)
+    is_video_publisher = models.BooleanField(default=False)
     is_superuser = models.BooleanField('ادمین', default=False)
-
     objects = UserManager()
 
     USERNAME_FIELD = 'email'

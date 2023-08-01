@@ -117,7 +117,7 @@ class Serial(models.Model):
         ('14','+14' ),	
         ('10', '+10'),
     )
-    video = models.ManyToManyField(Video , related_name='playes' , verbose_name='ویدیوها',null=True, blank=True,)
+    video = models.ManyToManyField(Video , related_name='playes' , verbose_name='ویدیوها', blank=True,)
     name = models.CharField(max_length=120 , null=True , blank=True , verbose_name='نام سریال')
     image = models.ImageField(upload_to='serial' , verbose_name='تصویر جلد سریال')
     slug = models.SlugField('اسلاگ', unique=True, null=True, blank=True, allow_unicode=True)
