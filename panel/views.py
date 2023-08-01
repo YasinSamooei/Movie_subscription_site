@@ -1,13 +1,15 @@
-from typing import Any, Dict
-from django.urls import reverse, reverse_lazy
-from django.views.generic import ListView,CreateView,DeleteView,UpdateView,DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
-# Local apps
+from django.urls import reverse, reverse_lazy
+from django.views.generic import (CreateView, DeleteView, DetailView, ListView,
+                                  UpdateView)
 
-from blog.models import Blog
 from accounts.models import User
+from blog.models import Blog
+from video.models import Video
+
 from .forms import ProfileForm
-from .mixins import*
+from .mixins import *
+
 
 
 class Profile(AuthorsAccessMixin,LoginRequiredMixin ,UpdateView):
@@ -58,3 +60,8 @@ class ArticleDelete(DeleteView):
     template_name = "panel/article_confirm_delete.html"
 
 
+class VideoListView(ListView):
+    template_name = 'panel/video-list.html'
+
+    def get_queryset(self):
+        return Video.objects.filter(creator=self.request.user)

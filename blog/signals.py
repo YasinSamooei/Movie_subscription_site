@@ -5,7 +5,7 @@ from video.models import Notification,PublicNotification
 from accounts.models import User
 
 @receiver(post_save, sender=Comment)
-def create_article_notification_signal(sender, instance, created, *args, **kwargs):
+def create_reply_notification_signal(sender, instance, created, *args, **kwargs):
     """
     craete notification when user reply comment 
     """

@@ -9,4 +9,6 @@ urlpatterns = [
     path('update/article/<int:pk>', views.ArticleUpdate.as_view(), name="article-update"),
     path('delete/article/<int:pk>', views.ArticleDelete.as_view(), name="article-delete"),
 
+    # video URLs
+    path('video-list', views.VideoListView.as_view(), name='video-list'),
 ]
