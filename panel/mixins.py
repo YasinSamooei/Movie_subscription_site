@@ -67,4 +67,17 @@ class AuthorsAccessMixin():
 			else:
 				return redirect("account:manage-profile")
 		else:
-			return redirect("account:login")
+			return redirect("account:login")\
+                  
+
+class VideoFormValidMixin():
+    """
+    mixin that validates on 
+    the video creation form
+    """
+
+    def form_valid(self, form):
+        self.obj = form.save(commit=False)
+        self.obj.creator = self.request.user
+        self.obj.slug = slugify(self.obj.title, allow_unicode=True)
+        return super().form_valid(form)

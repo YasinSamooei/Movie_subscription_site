@@ -11,4 +11,6 @@ urlpatterns = [
 
     # video URLs
     path('video-list', views.VideoListView.as_view(), name='video-list'),
+    path("video-create",views.CreateVideoView.as_view(),name="video-create"),
+
 ]

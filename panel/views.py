@@ -65,3 +65,11 @@ class VideoListView(ListView):
 
     def get_queryset(self):
         return Video.objects.filter(creator=self.request.user)
+    
+
+class CreateVideoView(VideoFormValidMixin, CreateView):
+    model = Video
+    fields = ['title', 'category', 'actors', 'description', 'meta_description', 'image', 'video', 'trailer', 'age', 'time']
+    template_name = 'panel/video-create-update.html'
+    success_url=reverse_lazy("panel:video-list")
+    
