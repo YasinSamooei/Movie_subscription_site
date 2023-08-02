@@ -14,9 +14,9 @@ from .mixins import *
 
 class Profile(AuthorsAccessMixin,LoginRequiredMixin ,UpdateView):
     model = User
-    template_name = "panel/profile.html"
+    template_name = 'panel/profile.html'
     form_class = ProfileForm
-    success_url = reverse_lazy("panel:profile")
+    success_url = reverse_lazy('panel:profile')
 
     def get_object(self):
         return User.objects.get(pk = self.request.user.pk)
@@ -34,7 +34,7 @@ class ArticleList(ListView):
     view that returns the list 
     of article of each author
     """
-    template_name="panel/article-list.html"
+    template_name='panel/article-list.html'
     def get_queryset(self):
         return Blog.objects.filter(author=self.request.user)
 
@@ -42,22 +42,22 @@ class ArticleList(ListView):
 class ArticleCreate(FormValidMixin,FieldsMixin,CreateView):
     model=Blog
     fields=['author','tag','title','description','meta_description','created_at','image','age','slug']
-    template_name="panel/article-create-update.html"
-    success_url=reverse_lazy("panel:article-list")
+    template_name= 'panel/article-create-update.html'
+    success_url = reverse_lazy('panel:article-list')
 
 
 
 class ArticleUpdate(AuthorAccessMixin,UpdateFormMixin,FieldsMixin, UpdateView):
     model = Blog
-    template_name = "panel/article-create-update.html"
-    success_url=reverse_lazy("panel:article-list")
+    template_name = 'panel/article-create-update.html'
+    success_url=reverse_lazy('panel:article-list')
 
 
 
 class ArticleDelete(DeleteView):
     model = Blog
     success_url = reverse_lazy('panel:article-list')
-    template_name = "panel/article_confirm_delete.html"
+    template_name = 'panel/article_confirm_delete.html'
 
 
 class VideoListView(ListView):
@@ -71,12 +71,17 @@ class CreateVideoView(VideoFormValidMixin, CreateView):
     model = Video
     fields = ['title', 'category', 'actors', 'description', 'meta_description', 'image', 'video', 'trailer', 'age', 'time']
     template_name = 'panel/video-create-update.html'
-    success_url=reverse_lazy("panel:video-list")
+    success_url=reverse_lazy('panel:video-list')
 
 
 class VideoUpdateView(CreatorAccessMixin, UpdateView):
     model = Video
     fields = ['title', 'category', 'actors', 'description', 'meta_description', 'image', 'video', 'trailer', 'age', 'time']
     template_name = 'panel/video-create-update.html'
-    success_url=reverse_lazy("panel:video-list")
+    success_url=reverse_lazy('panel:video-list')
     
+
+class VideoDeleteView(DeleteView):
+    model = Video
+    success_url = reverse_lazy('panel:video-list')
+    template_name = 'panel/video_confirm_delete.html'
