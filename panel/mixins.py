@@ -3,6 +3,7 @@ from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect
 # Local apps
 from blog.models import Blog
+from video.models import Video
 
 
 class FieldsMixin():
@@ -81,3 +82,19 @@ class VideoFormValidMixin():
         self.obj.creator = self.request.user
         self.obj.slug = slugify(self.obj.title, allow_unicode=True)
         return super().form_valid(form)
+    
+
+class CreatorAccessMixin():
+    """
+    mixin that validates on 
+    the request.user for
+    update video
+    """
+
+    def dispatch(self, request, pk, *args, **kwargs):
+        video = get_object_or_404(Video, pk=pk)
+        if video.creator == request.user or \
+                request.user.is_superuser:
+            return super().dispatch(request, *args, **kwargs)
+        else:
+            raise Http404("شما نمی توانید این صفحه را مشاهده کنید.")

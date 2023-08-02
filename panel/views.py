@@ -72,4 +72,11 @@ class CreateVideoView(VideoFormValidMixin, CreateView):
     fields = ['title', 'category', 'actors', 'description', 'meta_description', 'image', 'video', 'trailer', 'age', 'time']
     template_name = 'panel/video-create-update.html'
     success_url=reverse_lazy("panel:video-list")
+
+
+class VideoUpdateView(CreatorAccessMixin, UpdateView):
+    model = Video
+    fields = ['title', 'category', 'actors', 'description', 'meta_description', 'image', 'video', 'trailer', 'age', 'time']
+    template_name = 'panel/video-create-update.html'
+    success_url=reverse_lazy("panel:video-list")
     

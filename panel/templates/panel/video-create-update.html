@@ -41,6 +41,9 @@
 					<div class="col-6">
 						{{ form.age|as_crispy_field }}
 					</div>
+					<div class="col-6">
+						{{ form.time|as_crispy_field }}
+					</div>
 				</div>
 				<input class="btn btn-success" type="submit" value="ارسال مقاله"> 
 				{% if user.is_superuser and request.resolver_match.kwargs.pk %}

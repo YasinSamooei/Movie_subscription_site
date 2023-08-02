@@ -21,7 +21,7 @@
                         <th>زمان انتشار</th>
                         <th>تعداد بازدید</th>
                         <th>سن</th>
-                        <!-- <th>حذف و ویرایش</th> -->
+                        <th>حذف و ویرایش</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -35,8 +35,10 @@
                           <td>{{video.get_jalali_date}}</td>
                           <td>{% get_hit_count for video %}+</td>
                           <td>{{video.age}}+</td>
-                          <!-- <td>
-                          </td> -->
+                          <td>
+                            <a class="badge btn-warning" href="{% url 'panel:article-delete' video.pk %}">حذف</a>
+                            <a class="badge btn-primary" href="{% url 'panel:video-update' video.pk %}">ویرایش</a>
+                          </td>
                         </tr>
                       {% endfor %}
                     </tbody>
