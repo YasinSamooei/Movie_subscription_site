@@ -52,7 +52,7 @@ class ArticleUpdate(AuthorAccessMixin,UpdateFormMixin,FieldsMixin, UpdateView):
 
 
 
-class ArticleDelete(DeleteView):
+class ArticleDelete(AuthorAccessMixin,DeleteView):
     model = Blog
     success_url = reverse_lazy('panel:article-list')
     template_name = "panel/article_confirm_delete.html"

@@ -51,7 +51,11 @@
                         {% for user in object_list %}
                         <div class="col-md-3 mb-4">
                            <div class="image-box">
+                           {% if user.image %}
                               <img width="265" height="345" src="{{user.image.url}}" class="img-fluid attachment-large size-large" alt="" loading="lazy">
+                           {% else %}
+                           <img width="265" height="345" src="{% static 'Theme/images/elco-black' %}" class="img-fluid attachment-large size-large" alt="" loading="lazy">
+                           {% endif %}
                            </div>
 
                            <div class="icon-box-content">
