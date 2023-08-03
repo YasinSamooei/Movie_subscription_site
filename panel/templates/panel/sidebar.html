@@ -32,7 +32,6 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-               {% if user.is_superuser or user.is_staff %}
                <li class="nav-item has-treeview menu-open">
                  <li class="nav-item ">
                   <a href="{% url 'panel:profile' %}" class="nav-link text-light {% if request.resolver_match.url_name == 'profile' %}active{% endif %}">
@@ -41,6 +40,7 @@
                         پروفایل
                     </p>
                   </a>
+                  {% if request.user.is_superuser or request.user.is_video_publisher %}
                   <a href="" class="nav-link bg-light">
                     <i class="nav-icon fas fa-video"></i>
                     <p>
@@ -66,8 +66,9 @@
                      </a>
                    </li>
                   </ul>
+                  {% endif %}
                 </li>
-                
+                {% if request.user.is_superuser or request.user.is_author %}
                 <li class="nav-item has-treeview menu-open">
                   <li class="nav-item ">
                     <a href="#" class="nav-link bg-light">
@@ -96,7 +97,9 @@
                      </li>
                     </ul>
                  </li>
-              {% endif %}
+                </li>
+                {% endif %}
+
       </nav>
       <!-- /.sidebar-menu -->
     </div>

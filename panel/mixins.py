@@ -68,7 +68,7 @@ class AuthorsAccessMixin():
 			else:
 				return redirect("account:manage-profile")
 		else:
-			return redirect("account:login")\
+			return redirect("account:sign-in")
                   
 
 class VideoFormValidMixin():
@@ -98,3 +98,25 @@ class CreatorAccessMixin():
             return super().dispatch(request, *args, **kwargs)
         else:
             raise Http404("شما نمی توانید این صفحه را مشاهده کنید.")
+
+
+class VideoPublisherAccessMixin():
+	def dispatch(self, request, *args, **kwargs):
+		if request.user.is_authenticated:
+			if request.user.is_superuser or request.user.is_video_publisher:
+				return super().dispatch(request, *args, **kwargs)
+			else:
+				return redirect("panel:profile")
+		else:
+			return redirect("account:sign-in")
+
+
+class BlogAuthorAccessMixin():
+	def dispatch(self, request, *args, **kwargs):
+		if request.user.is_authenticated:
+			if request.user.is_superuser or request.user.is_author:
+				return super().dispatch(request, *args, **kwargs)
+			else:
+				return redirect("panel:profile")
+		else:
+			return redirect("account:sign-in")
