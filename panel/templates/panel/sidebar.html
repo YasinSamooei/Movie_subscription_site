@@ -32,33 +32,7 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-               {% if user.is_superuser or user.is_staff %}
                <li class="nav-item has-treeview menu-open">
-                 <a href="#" class="nav-link bg-light">
-                   <i class="nav-icon fas fa-book"></i>
-                   <p>
-                      بخش مقالات
-                     <i class="right fas fa-angle-left"></i>
-                   </p>
-                 </a>
-                 <ul class="nav nav-treeview">
-                   <li class="nav-item">
-                     <a href="{% url 'panel:article-list' %}" class="nav-link text-light {% if request.resolver_match.url_name == 'article-list' %}active{% endif %}">
-                       <i class="fa fa-list nav-icon"></i>
-                       <p>
-                         لیست  مقالات
-                       </p>
-                     </a>
-                   </li>
-                   <li class="nav-item">
-                    <a href="{% url 'panel:article-create' %}" class="nav-link text-light {% if request.resolver_match.url_name == 'article-create' %}active{% endif %}">
-                      <i class="fa fa-edit nav-icon"></i>
-                      <p>
-                        افزودن مقاله
-                      </p>
-                    </a>
-                  </li>
-                 </ul>
                  <li class="nav-item ">
                   <a href="{% url 'panel:profile' %}" class="nav-link text-light {% if request.resolver_match.url_name == 'profile' %}active{% endif %}">
                     <i class="fa fa-user nav-icon"></i>
@@ -66,8 +40,66 @@
                         پروفایل
                     </p>
                   </a>
+                  {% if request.user.is_superuser or request.user.is_video_publisher %}
+                  <a href="" class="nav-link bg-light">
+                    <i class="nav-icon fas fa-video"></i>
+                    <p>
+                       بخش فیلم ها
+                      <i class="right fas fa-angle-left"></i>
+                    </p>
+                  </a>
+                  <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                      <a href="{% url 'panel:video-list' %}" class="nav-link text-light {% if request.resolver_match.url_name == 'video-list' %}active{% endif %}">
+                        <i class="fa fa-list nav-icon"></i>
+                        <p>
+                          لیست فیلم ها
+                        </p>
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                     <a href="{% url 'panel:video-create' %}" class="nav-link text-light {% if request.resolver_match.url_name == 'video-create' %}active{% endif %}">
+                       <i class="fa fa-edit nav-icon"></i>
+                       <p>
+                         افزودن فیلم
+                       </p>
+                     </a>
+                   </li>
+                  </ul>
+                  {% endif %}
                 </li>
-              {% endif %}
+                {% if request.user.is_superuser or request.user.is_author %}
+                <li class="nav-item has-treeview menu-open">
+                  <li class="nav-item ">
+                    <a href="#" class="nav-link bg-light">
+                      <i class="nav-icon fas fa-book"></i>
+                      <p>
+                         بخش مقالات
+                        <i class="right fas fa-angle-left"></i>
+                      </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                      <li class="nav-item">
+                        <a href="{% url 'panel:article-list' %}" class="nav-link text-light {% if request.resolver_match.url_name == 'article-list' %}active{% endif %}">
+                          <i class="fa fa-list nav-icon"></i>
+                          <p>
+                            لیست  مقالات
+                          </p>
+                        </a>
+                      </li>
+                      <li class="nav-item">
+                       <a href="{% url 'panel:article-create' %}" class="nav-link text-light {% if request.resolver_match.url_name == 'article-create' %}active{% endif %}">
+                         <i class="fa fa-edit nav-icon"></i>
+                         <p>
+                           افزودن مقاله
+                         </p>
+                       </a>
+                     </li>
+                    </ul>
+                 </li>
+                </li>
+                {% endif %}
+
       </nav>
       <!-- /.sidebar-menu -->
     </div>

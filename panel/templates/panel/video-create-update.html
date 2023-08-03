@@ -1,0 +1,55 @@
+{% extends 'panel/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}{% block title-meta %}
+	افزودن ویدئو
+{% endblock %}{% endblock %}
+
+{% block main %}
+<div class="col-md-12">
+	<div class="card card-primary">
+		<div class="card-header bg-danger">
+			<h3 class="card-title mb-0 float-left">افزودن ویدئو</h3>
+		</div>
+		<div class="card-body bg-dark">
+			<form method="post" enctype="multipart/form-data">{% csrf_token %}
+				<div class="row">
+					<div class="col-6">
+						{{ form.title|as_crispy_field }}
+					</div>
+					<div class="col-12">
+						{{ form.description|as_crispy_field }}
+					</div>
+					<div class="col-12">
+						{{ form.meta_description|as_crispy_field }}
+					</div>
+					<div class="col-6">
+						{{ form.category|as_crispy_field }}
+					</div>
+					<div class="col-6">
+						{{ form.video|as_crispy_field }}
+					</div>
+					<div class="col-6">
+						{{ form.trailer|as_crispy_field }}
+					</div>
+					<div class="col-6">
+						{{ form.actors|as_crispy_field }}
+					</div>
+					<div class="col-6">
+						{{ form.image|as_crispy_field }}
+					</div>
+					<div class="col-6">
+						{{ form.age|as_crispy_field }}
+					</div>
+					<div class="col-6">
+						{{ form.time|as_crispy_field }}
+					</div>
+				</div>
+				<input class="btn btn-success" type="submit" value="ارسال ویدئو"> 
+				{% if user.is_superuser and request.resolver_match.kwargs.pk %}
+				<a href="{% url 'panel:video-delete' request.resolver_match.kwargs.pk %}" class="btn btn-warning">حذف</a>
+				{% endif %}
+			</form>
+		</div>
+</div>
+{% endblock %}

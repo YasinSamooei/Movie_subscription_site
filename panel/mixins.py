@@ -3,6 +3,7 @@ from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect
 # Local apps
 from blog.models import Blog
+from video.models import Video
 
 
 class FieldsMixin():
@@ -66,5 +67,57 @@ class AuthorsAccessMixin():
 				return super().dispatch(request, *args, **kwargs)
 			else:
 				return redirect("account:manage-profile")
+		else:
+
+			return redirect("account:sign-in")
+                  
+
+class VideoFormValidMixin():
+    """
+    mixin that validates on 
+    the video creation form
+    """
+
+    def form_valid(self, form):
+        self.obj = form.save(commit=False)
+        self.obj.creator = self.request.user
+        self.obj.slug = slugify(self.obj.title, allow_unicode=True)
+        return super().form_valid(form)
+    
+
+class CreatorAccessMixin():
+    """
+    mixin that validates on 
+    the request.user for
+    update video
+    """
+
+    def dispatch(self, request, pk, *args, **kwargs):
+        video = get_object_or_404(Video, pk=pk)
+        if video.creator == request.user or \
+                request.user.is_superuser:
+            return super().dispatch(request, *args, **kwargs)
+        else:
+            raise Http404("شما نمی توانید این صفحه را مشاهده کنید.")
+
+
+class VideoPublisherAccessMixin():
+	def dispatch(self, request, *args, **kwargs):
+		if request.user.is_authenticated:
+			if request.user.is_superuser or request.user.is_video_publisher:
+				return super().dispatch(request, *args, **kwargs)
+			else:
+				return redirect("panel:profile")
+		else:
+			return redirect("account:sign-in")
+
+
+class BlogAuthorAccessMixin():
+	def dispatch(self, request, *args, **kwargs):
+		if request.user.is_authenticated:
+			if request.user.is_superuser or request.user.is_author:
+				return super().dispatch(request, *args, **kwargs)
+			else:
+				return redirect("panel:profile")
 		else:
 			return redirect("account:sign-in")

@@ -1,13 +1,12 @@
-from django.core.validators import FileExtensionValidator
-from persiantools.jdatetime import JalaliDate
-from django.utils.html import format_html
-from django.urls import reverse
-from django.db import models
-from hitcount.models import HitCount
 from django.contrib.contenttypes.fields import GenericRelation
+from django.core.validators import FileExtensionValidator
+from django.db import models
+from django.urls import reverse
+from django.utils.html import format_html
+from hitcount.models import HitCount
+from persiantools.jdatetime import JalaliDate
 from star_ratings.models import Rating
 
-# local
 from accounts.models import User
 from blog.models import Blog
 
@@ -117,7 +116,7 @@ class Serial(models.Model):
         ('14','+14' ),	
         ('10', '+10'),
     )
-    video = models.ManyToManyField(Video , related_name='playes' , verbose_name='ویدیوها',null=True, blank=True,)
+    video = models.ManyToManyField(Video , related_name='playes' , verbose_name='ویدیوها', blank=True,)
     name = models.CharField(max_length=120 , null=True , blank=True , verbose_name='نام سریال')
     image = models.ImageField(upload_to='serial' , verbose_name='تصویر جلد سریال')
     slug = models.SlugField('اسلاگ', unique=True, null=True, blank=True, allow_unicode=True)

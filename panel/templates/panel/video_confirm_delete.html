@@ -1,0 +1,20 @@
+{% extends 'panel/base.html' %}
+
+{% block title %}{% block title-meta %}
+	حذف فیلم
+{% endblock %}{% endblock %}
+
+{% block main %}
+<div class="col-md-8 text-center mx-auto">
+  <div class="card card-danger">
+    <div class="card-header">
+      <h3 class="card-title mb-0 float-left">حذف فیلم</h3>
+    </div>
+		<div class="card-body py-4">
+			<form method="post">{% csrf_token %}
+			    <p class="py-2">آیا از حذف فیلم «{{object}}» از «{{object.creator.full_name}}» مطمئن هستید؟</p>
+			    <input type="submit" value="حذف" class="btn btn-danger">
+			</form>
+		</div>
+</div>
+{% endblock %}
