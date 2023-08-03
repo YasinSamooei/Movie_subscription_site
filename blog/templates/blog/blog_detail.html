@@ -27,7 +27,7 @@ style="background-image: url({% static 'Theme/images/about-us/01.jpg' %});">
                 <ol class="breadcrumb main-bg">
                     <li class="breadcrumb-item"><a href="{% url 'home:main' %}">خانه</a></li>
                     <li class="breadcrumb-item"><a
-                        href="">{{ blog.tag.last }}</a>
+                        href="{% url 'blog:tag-detail' blog.tag.last.slug %}">{{ blog.tag.last }}</a>
                     </li>
                     <li class="breadcrumb-item"><a
                         href="{% url 'blog:blog-detail' blog.slug %}">{{ blog.slug }}</a>

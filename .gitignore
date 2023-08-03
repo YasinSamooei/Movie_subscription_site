@@ -4,7 +4,7 @@ __pycache__/
 *$py.class
 
 # custom ignore
-media/
+media
 .idea
 # C extensions
 

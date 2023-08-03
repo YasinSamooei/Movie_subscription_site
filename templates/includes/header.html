@@ -228,9 +228,9 @@
                                        aria-haspopup="true" aria-expanded="false">
                                        ژانرها
                                  </a>
-                                    <div class="dropdown-menu three-column" aria-labelledby="dropdownMenuButton">
+                                    <div class="dropdown-menu three-column bg-dark" aria-labelledby="dropdownMenuButton">
                                         {% for category in categories %}
-                                       <a class="dropdown-item" href="{% url 'video:category_detail' category.slug %}">{{category.title}}</a>
+                                       <a class=" text-white" href="{% url 'video:category_detail' category.slug %}">{{category.title}}</a>
                                        {% endfor %}
                                     </div>
                                 </li> 

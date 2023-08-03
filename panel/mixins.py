@@ -68,6 +68,7 @@ class AuthorsAccessMixin():
 			else:
 				return redirect("account:manage-profile")
 		else:
+
 			return redirect("account:sign-in")
                   
 
