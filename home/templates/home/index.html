@@ -28,7 +28,7 @@
                               </div>
                            </a>
                            <h1 class="slider-text big-title title text-uppercase" data-animation-in="fadeInLeft"
-                              data-delay-in="0.6">{{video.title}}</h1>
+                              data-delay-in="0.6" id="title">{{video.title}}</h1>
 
                               <div class="d-flex flex-wrap align-items-center fadeInLeft animated" data-animation-in="fadeInLeft" style="opacity: 1;">
                                 <div class="slider-ratting d-flex align-items-center mr-4 mt-2 mt-md-3">
@@ -44,7 +44,7 @@
                               <span class="badge badge-secondary p-2">18+</span>
                               <span class="ml-3">2 Seasons</span>
                            </div> -->
-                           <p data-animation-in="fadeInUp" data-delay-in="1.2">
+                           <p data-animation-in="fadeInUp" data-delay-in="1.2" id="description">
                             {{video.description|safe}}
                            </p>
                            <div class="trending-list" data-wp_object-in="fadeInUp" data-delay-in="1.2">
@@ -61,7 +61,7 @@
                            <div class="d-flex align-items-center r-mb-23" data-animation-in="fadeInUp" data-delay-in="1.2">
                               <a href="{% url 'video:video_detail' video.slug %}" class="btn btn-hover iq-button"><i class="fa fa-play mr-2"
                                  aria-hidden="true"></i>الان تماشا کن</a>
-                              <a href="show-details.html" class="btn btn-link">جزئیات بیشتر</a>
+                              <a class="btn btn-link" onclick="show()" id="show">جزئیات بیشتر</a>
                            </div>
                         </div>
                         <div class="col-xl-5 col-lg-12 col-md-12 trailor-video text-center">
@@ -366,5 +366,20 @@
             </div>
          </section>
       </div>
+      <script>
+         function show() {
+            var title=document.getElementById("title").innerText
+            var description = document.getElementById("description").innerText
+        Swal.fire({
+            title: title,
+            text: description,
+            icon: 'info',
+            showCancelButton: false,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'قبوله',
+        })
+      }
+      </script>
       <!-- MainContent End-->
 {% endblock %}

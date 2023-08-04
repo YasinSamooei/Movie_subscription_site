@@ -638,7 +638,7 @@ video { display: block; width: 100%; height: 100%; }
   footer.footer-one input[type=email] { background: var(--iq-white-color); border-color: var(--iq-white-light-color); border-radius: 90px; color: var(--iq-secondary); }
   .mc4wp-form-fields input[type="submit"] { position: absolute; right: 15px; }
   footer.footer-one .footer-top .info-share li { margin-right: 15px; margin-bottom: 15px; }
-  footer.footer-one .footer-top .info-share li:last-child { margin-right: 0px; }
+
   .iq-bg-dark { position: relative; }
   footer.iq-over-dark-90:before { display: none !important; }
   footer .footer_top_block { padding-bottom: 100px; }

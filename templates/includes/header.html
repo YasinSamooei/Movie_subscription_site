@@ -21,7 +21,7 @@
                              <span class="navbar-menu-icon navbar-menu-icon--bottom"></span>
                           </div>
                        </a>
-                       <a class="navbar-brand" href="index.html"> <img class="img-fluid logo" src="{% static 'Theme/images/logo.png' %}"
+                       <a class="navbar-brand" href="{% url 'home:main' %}"> <img class="img-fluid logo" src="{% static 'Theme/images/logo.png' %}"
                           alt="streamit" /> </a>
                        
                        <div class="mobile-more-menu">
@@ -223,17 +223,13 @@
                                 <li class="menu-item">
                                    <a href="{% url 'home:main' %}">خانه</a>
                                 </li>
-                                <li class="menu-item">
-                                    <a class="" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-                                       aria-haspopup="true" aria-expanded="false">
-                                       ژانرها
-                                 </a>
-                                    <div class="dropdown-menu three-column bg-dark" aria-labelledby="dropdownMenuButton">
-                                        {% for category in categories %}
-                                       <a class=" text-white" href="{% url 'video:category_detail' category.slug %}">{{category.title}}</a>
+                                 <li class="menu-item"><a>ژانرها</a>
+                                    <ul class="sub-menu">
+                                       {% for category in categories %}
+                                       <li class="menu-item"><a href="{% url 'video:category_detail' category.slug %}">{{category.title}}</a></li>
                                        {% endfor %}
-                                    </div>
-                                </li> 
+                                    </ul>
+                                 </li>
                                 <li class="menu-item">
                                    <a href="{% url 'video:serial_list' %}">سریال ها</a>
                                 </li>                                                              
@@ -251,11 +247,7 @@
                                       <li class="menu-item "><a href="{% url 'info:contact' %}">تماس با ما</a></li>
                                       <li class="menu-item"><a href="{% url 'info:faq' %}">سوالات متداول</a></li>
                                       <li class="menu-item"><a href="{% url 'info:privacy-policy' %}">قوانین</a></li>
-                                      <li class="menu-item"><a href="#">قیمت گذاری</a>
-                                      <ul class="sub-menu">
-                                         <li class="menu-item"><a href="{% url 'account:pricing-plan' %}">طرح قیمت گذاری </a></li>
-                                      </ul>
-                                   </li>
+                                      <li class="menu-item"><a href="{% url 'account:pricing-plan' %}">قیمت گذاری</a></li>
                                    </ul>
                                 </li>
                              </ul>
