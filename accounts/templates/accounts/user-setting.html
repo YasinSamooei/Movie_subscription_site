@@ -108,33 +108,39 @@ style="background-image: url({% static 'Theme/images/about-us/01.jpg' %});">
                                 <a href="{% url 'account:manage-profile' %}" class="text-primary">ویرایش</a>
                             </div>
                         </div>
+                        {% if request.user.subs.all %}
                         <h5 class="mb-3 mt-4 pb-3 a-border">جزئیات صورتحساب</h5>
                         <div class="row justify-content-between mb-3">
                             <div class="col-md-8 r-mb-15">
-                                <p>تاریخ بعدی صورت حساب شما 28 شهریور 1400 می باشد</p>
-                                <a href="#" class="btn btn-hover">لغو عضویت</a>
-                            </div>
-                            <div class="col-md-4 text-md-right text-left">
-                                <a href="#" class="text-primary">به روز رسانی اطلاعات پرداخت</a>
+                                {% for sub in request.user.subs.all %}
+                                <p>تاریخ انقضا طرح اشتراکی حساب شما <a class="text-danger">{{sub.get_jalali_date}}</a> می باشد</p>
+                                {% endfor %}
                             </div>
                         </div>
+                        {% endif %}       
                         <h5 class="mb-3 mt-4 pb-3 a-border">جزئیات طرح</h5>
                         <div class="row justify-content-between mb-3">
                             <div class="col-md-8">
-                                <p>{{user.Subscription_plan.title}}</p>                                
-                            </div>
-                            <div class="col-md-4 text-md-right text-left">
-                                <a href="pricing-plan-1.html" class="text-primary">ویرایش طرح</a>
+                                {% if request.user.subs.all %}
+                                    {% for sub in request.user.subs.all %}
+                                <p> نام طرح: {{sub.Subscription_plan.title}}</p> 
+                                    {% endfor %}
+                                {% else %}
+                                <p>لطفا یک طرح اشتراک انتخاب کنید</p>  
+                                <div class="col-md-4 text-md-right text-left">
+                                    <a href="{% url 'account:select-plan' %}" class="text-primary">انتخاب طرح</a>
+                                </div>   
+                                {% endif %}                          
                             </div>
                         </div>
-                        <h5 class="mb-3 pb-3 mt-4 a-border">تنظیمات</h5>
+                        <!-- <h5 class="mb-3 pb-3 mt-4 a-border">تنظیمات</h5>
                         <div class="row">
                             <div class="col-12 setting">
                                 <a href="#" class="text-body d-block mb-1">فعالیت جاری دستگاه اخیر</a>
                                 <a href="#" class="text-body d-block mb-1">خروج از سیستم همه دستگاه ها</a>
                                 <a href="#" class="text-body d-block">اطلاعات شخص خود را بارگیری کنید</a>
                             </div>                            
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>

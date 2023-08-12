@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import Group
-from .models import User , Subscription,Otp
+from .models import User , Subscription,Otp,SelectedSubscription
 
 from .forms import SignUpForm,UserChangeForm
 
@@ -21,13 +21,13 @@ class UserAdmin(BaseUserAdmin):
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
         ('اطلاعات شخصی', {'fields': ('full_name', 'image', 'gender',
-                                      'language', 'Subscription_plan')}),
+                                      'language')}),
         ('دسترسی‌ها', {'fields': ('is_active', 'is_staff', 'is_superuser')}),
     )
     add_fieldsets = (
         (None, {'fields': ('email', 'password')}),
         ('اطلاعات شخصی', {'fields': ('full_name', 'image', 'gender',
-                                    'language', 'Subscription_plan')}),
+                                    'language')}),
         ('دسترسی‌ها', {'fields': ('is_active', 'is_staff', 'is_superuser')}),
 
     )
@@ -81,3 +81,5 @@ admin.site.unregister(Group)
 
 admin.site.register(Subscription)
 admin.site.register(Otp)
+
+admin.site.register(SelectedSubscription)

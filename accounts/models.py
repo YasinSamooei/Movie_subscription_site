@@ -8,10 +8,10 @@ from django.db import models
 class Subscription(models.Model):
     title=models.CharField('عنوان', max_length=100,default="رایگان")
     price=models.PositiveIntegerField('قیمت',default=0)
-    time=models.PositiveSmallIntegerField('مدت زمان',default=None)
+    time=models.IntegerField(null=True, blank=True,verbose_name="مدت زمان(ماهانه)")
     quality=models.CharField('کیفیت فیلم ها', max_length=10,default='SD(480p)')
     advertise=models.BooleanField('دارای تبلیغ',default=True)
-    new_films=models.BooleanField('دسترسی به فیلم های جدید',default=False)
+    new_films=models.BooleanField('دسترسی به قسمت  جدید',default=False)
 
     class Meta:
         verbose_name_plural = "طرح اشتراکی"
@@ -19,7 +19,6 @@ class Subscription(models.Model):
 
     def __str__(self):
         return str(self.title)
-
 
 
 class User(AbstractBaseUser):
@@ -37,7 +36,6 @@ class User(AbstractBaseUser):
     image = models.ImageField('تصویر', upload_to='images/users', null=True, blank=True)
     gender = models.CharField(max_length=10, choices=GENDER_CHOICES, verbose_name="جنسیت",null=True, blank=True)
     language=models.CharField(max_length=10, choices=LANGUAGE_CHOICES, verbose_name="زبان",null=True, blank=True)
-    Subscription_plan=models.ForeignKey(Subscription, related_name="Subscription",on_delete=models.CASCADE,default=None,null=True, blank=True,verbose_name="طرح اشتراک")
     bio = models.CharField('بیوگرافی', null=True, blank=True , max_length=500)
 
     date_joined = models.DateTimeField('تاریخ عضویت', auto_now_add=True)
@@ -70,6 +68,22 @@ class User(AbstractBaseUser):
     def has_module_perms(self, app_label):
         return True
 
+
+
+class SelectedSubscription(models.Model):
+    user = models.ForeignKey(User, related_name="subs",on_delete=models.CASCADE,default=None,null=True, blank=True,verbose_name="کاربر")
+    Subscription_plan=models.ForeignKey(Subscription, related_name="sub",on_delete=models.CASCADE,default=None,null=True, blank=True,verbose_name="طرح اشتراک")
+    expiration=models.DateTimeField(null=True, blank=True,verbose_name="زمان انقضا")
+    created=models.DateTimeField(auto_now_add=True)
+    class Meta:
+        verbose_name_plural = "طرح انتخاب شده"
+        verbose_name = "طرح های انتخاب شده"
+
+    def __str__(self):
+        return str(self.user.full_name)
+
+    def get_jalali_date(self):
+        return JalaliDate(self.expiration, locale=('fa')).strftime('%c')
 
 class Otp(models.Model):
     email = models.CharField('آدرس ایمیل', max_length=50)

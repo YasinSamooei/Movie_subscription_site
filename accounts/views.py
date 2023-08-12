@@ -170,3 +170,11 @@ class PasswordResetConfirm(PasswordResetConfirmView):
 class PasswordResetComplete(PasswordResetCompleteView):
     template_name="accounts/password_reset_complete.html"
 
+
+# select pricing plan
+
+class SelectPricingPlanView(PricingFieldsMixin,FormValidMixin, generic.CreateView):
+    model = SelectedSubscription
+    fields=['Subscription_plan']
+    template_name = 'accounts/selection_pricing_plan.html'
+    success_url = reverse_lazy('account:user-setting')

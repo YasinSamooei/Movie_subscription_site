@@ -6,12 +6,12 @@ from django.shortcuts import *
 from hitcount.views import HitCountDetailView
 from django.core.paginator import Paginator
 from django.http import JsonResponse
-from django.views.generic import ListView,DetailView
+from django.views.generic import ListView,DetailView,TemplateView
 # local 
 from video.models import *
+from .mixins import UserWatchAccessMixin
 
-
-class VideoDetailView(HitCountDetailView):
+class VideoDetailView(UserWatchAccessMixin,HitCountDetailView):
     """
     View for video detail view
     with comment and reply capability
@@ -61,7 +61,7 @@ class SearchView(ListView):
             Q(title__icontains=q) | Q(description__icontains=q))
 
 
-class AddFavoriteView(View):
+class AddFavoriteView(UserWatchAccessMixin,View):
     """
     Add or remove a video from favorites
     """
@@ -77,7 +77,7 @@ class AddFavoriteView(View):
             return JsonResponse({"response": "added"})
 
 
-class WatchListView(ListView):
+class WatchListView(UserWatchAccessMixin,ListView):
     template_name = 'video/watch.html'
     model = Video
     paginate_by = 10
@@ -137,7 +137,7 @@ class CategoryDetailView(View):
         return render(request, 'video/video_category.html', context)
 
 
-class SerialDetailView(HitCountDetailView):
+class SerialDetailView(UserWatchAccessMixin,HitCountDetailView):
     """
     View for serial detail view
     with parts of serial
@@ -170,7 +170,7 @@ class SerialListView(ListView):
     paginate_by = 10
 
 
-class SeasonDetailView(DetailView):
+class SeasonDetailView(UserWatchAccessMixin,DetailView):
     """
     View for season detail view
     with videos of each season
@@ -191,7 +191,7 @@ class SeasonDetailView(DetailView):
         return context
 
 
-class VideoListView(ListView):
+class VideoListView(UserWatchAccessMixin,ListView):
     template_name = 'video/video_list.html'
     model = Video
     paginate_by = 10
@@ -207,3 +207,7 @@ class VideoListView(ListView):
         elif filter == "most-recent":
             return Video.objects.all().order_by("-created_at")
 
+
+
+class NoSubscriptionPlan(TemplateView):
+    template_name="video/no-subscription-plan.html"

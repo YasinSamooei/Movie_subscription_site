@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+لطفا طرح اشتراکی را انتخاب کنید
+{% endblock %}
+
+{% block meta %}
+    <meta name="robots" content="noindex"/>
+{% endblock %}
+
+{% block main %}
+<div class="iq-breadcrumb-one  iq-bg-over iq-over-dark-50"
+style="background-image: url({% static 'Theme/images/about-us/01.jpg' %});">
+<div class="container-fluid">
+    <div class="row align-items-center">
+        <div class="col-sm-12">
+            <nav aria-label="breadcrumb" class="text-center iq-breadcrumb-two">
+                <h2 class="title">لطفا طرح اشتراکی را انتخاب کنید</h2>
+                <ol class="breadcrumb main-bg">
+                    <li class="breadcrumb-item"><a href="{% url 'home:main' %}">خانه</a></li>
+                    <li class="breadcrumb-item active">لطفا طرح اشتراکی را انتخاب کنید</li>
+                    
+                </ol>
+            </nav>
+        </div>
+    </div>
+</div>
+</div>
+
+    <!-- MainContent -->
+        <section id="iq-favorites">
+            <div class="container-fluid">
+               <div class="row">
+                  <div class="col-sm-12 overflow-hidden">
+                     <div class="favorites-contens">
+
+                         <h4 class="main-title my-2">برای مشاهده ویدئو ها لطفا طرح اشتراکی انتخاب کنید </h4>
+                         <a href="{% url 'account:select-plan' %}" class="btn btn-danger my-2">انتخاب طرح</a>
+                </div>
+            </div>
+        </div>
+    </div>
+        </section>
+
+</div>
+{% endblock %}

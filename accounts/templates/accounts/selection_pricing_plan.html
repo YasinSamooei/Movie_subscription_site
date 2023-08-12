@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{% block title %}
+      انتخاب طرح
+{% endblock %}
+
+{% block meta %}
+    <meta name="robots" content="noindex"/>
+{% endblock %}
+
+{% block main %}
+<div class="iq-breadcrumb-one  iq-bg-over iq-over-dark-50"
+style="background-image: url({% static 'Theme/images/about-us/01.jpg' %});">
+<div class="container-fluid">
+    <div class="row align-items-center">
+        <div class="col-sm-12">
+            <nav aria-label="breadcrumb" class="text-center iq-breadcrumb-two">
+                <h2 class="title">انتخاب طرح اشتراکی</h2>
+                <ol class="breadcrumb main-bg">
+                    <li class="breadcrumb-item"><a href="{% url 'home:main' %}">خانه</a></li>
+                    <li class="breadcrumb-item active"><a href="{% url 'account:user-setting' %}">تنظیمات حساب کاربری</a></li>
+                    <li class="breadcrumb-item active">انتخاب طرح اشتراکی</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+</div>
+</div>
+
+    <!-- MainContent -->
+    <section class="sign-in-page">
+        <div class="container">
+           <div class="row justify-content-center align-items-center height-self-center">
+              <div class="col-lg-7 col-md-12 align-self-center">
+                 <div class="sign-user_card ">                    
+                    <div class="sign-in-page-data">
+                       <div class="sign-in-from w-100 m-auto">
+                          {% for message in messages %}
+                          {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+                              <div class="alert-danger rounded"
+                                   style="padding: 5px">
+                                  {{ message }}
+                              </div>
+                          {% else %}
+                              <div class="alert-success rounded"
+                                   style="padding: 5px">
+                                  {{ message }}
+                              </div>
+                          {% endif %}
+                          {% endfor %}
+                          <form class=""  method="post">
+                             {% csrf_token %}
+                             <div class="row">
+                                <div class="col-md-6">
+                                   <div class="form-group">   
+                                      <label>طرح انتخابی</label>                              
+                                      {{form.Subscription_plan|attr:'form-control'}}
+                                   </div>
+                                </div>    
+                             </div>
+                          
+                             <button type="submit" class="btn btn-hover my-2">ثبت طرح</button>
+                                                                 
+                          </form>
+                       </div>
+                    </div>    
+                 </div>
+              </div>
+           </div>
+        </div>
+     </section>
+      <!-- MainContent End-->
+      <!-- back-to-top -->
+      <div id="back-to-top">
+         <a class="top" href="#top" id="top"> <i class="fa fa-angle-up"></i> </a>
+      </div>
+      <!-- back-to-top End -->
+{% endblock %}

@@ -16,5 +16,6 @@ urlpatterns = [
     path('delete-notif/<int:pk>',views.DeleteNotif.as_view(),name="delete-notif"),
     path('delete-public-notif/<int:pk>',views.DeletePublicNotif.as_view(),name="delete-public-notif"),
     re_path(r"like/(?P<slug>[-\w]+)/(?P<pk>[-\w]+)",views.like,name="like"),
+    path("no-plan",views.NoSubscriptionPlan.as_view(),name="no-plan")
 
 ]
