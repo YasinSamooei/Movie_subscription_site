@@ -113,7 +113,13 @@ style="background-image: url({% static 'Theme/images/about-us/01.jpg' %});">
                         <div class="row justify-content-between mb-3">
                             <div class="col-md-8 r-mb-15">
                                 {% for sub in request.user.subs.all %}
-                                <p>تاریخ انقضا طرح اشتراکی حساب شما <a class="text-danger">{{sub.get_jalali_date}}</a> می باشد</p>
+                                    {% if not sub.Subscription_plan.price %}
+                                    <p>تاریخ انقضا طرح اشتراکی حساب شما <a class="text-danger">{{sub.get_jalali_date}}</a> می باشد</p>
+                                    <p>هم اکنون حساب شما رایگان است <a class="btn btn-danger" onclick="delete_pricing({{sub.id}})" href="{% url 'account:select-plan' %}">ارتقا به پلن پولی</a></p>
+                                    {% else %}
+                                    <p>تاریخ انقضا طرح اشتراکی حساب شما <a class="text-danger">{{sub.get_jalali_date}}</a> می باشد</p>
+                                    {% endif%}
+                               
                                 {% endfor %}
                             </div>
                         </div>
@@ -151,5 +157,10 @@ style="background-image: url({% static 'Theme/images/about-us/01.jpg' %});">
       <div id="back-to-top">
          <a class="top" href="#top" id="top"> <i class="fa fa-angle-up"></i> </a>
       </div>
+      <script>
+        function delete_pricing(id){
+        $.get(`/delete-pricing-plan/${id}`).then(response=>{"delete-notif"})
+        }
+        </script>
       <!-- back-to-top End -->
 {% endblock %}

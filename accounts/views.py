@@ -178,3 +178,9 @@ class SelectPricingPlanView(PricingFieldsMixin,FormValidMixin, generic.CreateVie
     fields=['Subscription_plan']
     template_name = 'accounts/selection_pricing_plan.html'
     success_url = reverse_lazy('account:user-setting')
+
+class PricingPlanDeleteView(generic.View):
+    def get(self, req, pk):
+        pricing = SelectedSubscription.objects.get(id=pk)
+        pricing.delete()
+        return render("accounts/selection_pricing_plan")

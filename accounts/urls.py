@@ -16,6 +16,7 @@ urlpatterns = [
     path('manage/profile',views.ManageProfileView.as_view(),name="manage-profile"),
     path('pricing/plan',views.PricingPlanView.as_view(),name="pricing-plan"),
     path('select-plan',views.SelectPricingPlanView.as_view(),name="select-plan"),
+    path('delete-pricing-plan/<int:pk>',views.PricingPlanDeleteView.as_view(),name="delete-pricing-plan"),
     path('change-email/', views.ChangeEmailView.as_view(), name='change-email'),
     path('change-otp/', views.ChangeOTPView.as_view(), name='change-otp'),
 

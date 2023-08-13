@@ -57,7 +57,7 @@ style="background-image: url({% static 'Theme/images/about-us/01.jpg' %});">
     </video>
  </div>
  <!-- Banner End -->
-
+ {% if request.user.subs.first.Subscription_plan.new_films %}
  <!-- MainContent -->
  <div class="main-content movi">
     <section class="movie-detail container-fluid">
@@ -134,6 +134,7 @@ style="background-image: url({% static 'Theme/images/about-us/01.jpg' %});">
           </div>
        </div>
     </section>
+   {% endif %}
     <section id="iq-favorites" class="s-margin iq-rtl-direction">
        <div class="container-fluid">
           <div class="row">
