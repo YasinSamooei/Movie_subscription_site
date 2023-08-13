@@ -1,0 +1,14 @@
+#pageflip {
+	position: relative;
+}
+.show img {
+	width: 1500px; height: 900px;
+	z-index: 99;
+	position: absolute;
+	right: 0; top: 0;
+	-ms-interpolation-mode: bicubic;
+}
+
+.close {
+    opacity: 0;
+}

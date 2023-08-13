@@ -14,6 +14,7 @@
 
 {% block meta %}
    <meta name="robots" content="index , follow"/>
+   <link rel="stylesheet" href="{% static 'Theme/css/box.css' %}">
 {% endblock %}
 
 {% block main %}
@@ -44,7 +45,14 @@ style="background-image: url({% static 'Theme/images/about-us/01.jpg' %});">
 
  <!-- Banner Start -->
  <div class="video-container iq-main-slider">
-    <video class="video d-block" controls loop>
+   {% if request.user.subs.first.Subscription_plan.advertise %}
+   <div id="pageflip" class="show">
+      <a href="#" onclick="remove_add()">
+         <img src="{% static 'Theme/images/advertise.jpg' %}" alt="" />
+      </a>
+   </div>
+   {% endif %}
+    <video class="video d-block" controls loop >
        <source src="{{ video.video.url }}" type="video/mp4">
     </video>
  </div>
@@ -192,4 +200,12 @@ style="background-image: url({% static 'Theme/images/about-us/01.jpg' %});">
        </div>
     </section>
  </div>
+<script>
+function remove_add(){
+   element=document.getElementById('pageflip').classList.add("close")
+}
+function show(){
+   element=document.getElementById('pageflip').classList.add("show")
+}
+</script>
 {% endblock %}
