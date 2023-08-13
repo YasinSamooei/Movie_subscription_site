@@ -113,13 +113,21 @@ style="background-image: url({% static 'Theme/images/about-us/01.jpg' %});">
                         <div class="row justify-content-between mb-3">
                             <div class="col-md-8 r-mb-15">
                                 {% for sub in request.user.subs.all %}
+                                {% if endtime %}
+                                    <p>مهلت اشتراک شما تمام شده</p>  
+                                    <div class="col-md-4 text-md-right text-left">
+                                    <a onclick="delete_pricing({{sub.id}})" href="{% url 'account:select-plan' %}" class="text-primary">انتخاب طرح جدید</a>
+                                    </div>   
+                                {% else %}
+
                                     {% if not sub.Subscription_plan.price %}
                                     <p>تاریخ انقضا طرح اشتراکی حساب شما <a class="text-danger">{{sub.get_jalali_date}}</a> می باشد</p>
                                     <p>هم اکنون حساب شما رایگان است <a class="btn btn-danger" onclick="delete_pricing({{sub.id}})" href="{% url 'account:select-plan' %}">ارتقا به پلن پولی</a></p>
                                     {% else %}
                                     <p>تاریخ انقضا طرح اشتراکی حساب شما <a class="text-danger">{{sub.get_jalali_date}}</a> می باشد</p>
                                     {% endif%}
-                               
+
+                                {% endif %}
                                 {% endfor %}
                             </div>
                         </div>
@@ -128,9 +136,18 @@ style="background-image: url({% static 'Theme/images/about-us/01.jpg' %});">
                         <div class="row justify-content-between mb-3">
                             <div class="col-md-8">
                                 {% if request.user.subs.all %}
+                                    {% if endtime %}
+                                    <p>مهلت اشتراک شما تمام شده</p>  
+                                    <div class="col-md-4 text-md-right text-left">
+                                    <a onclick="delete_pricing({{sub.id}})" href="{% url 'account:select-plan' %}" class="text-primary">انتخاب طرح جدید</a>
+                                    </div>   
+                                    {% else %}
+
                                     {% for sub in request.user.subs.all %}
-                                <p> نام طرح: {{sub.Subscription_plan.title}}</p> 
+                                    <p> نام طرح: {{sub.Subscription_plan.title}}</p> 
                                     {% endfor %}
+
+                                    {% endif %}
                                 {% else %}
                                 <p>لطفا یک طرح اشتراک انتخاب کنید</p>  
                                 <div class="col-md-4 text-md-right text-left">

@@ -9,7 +9,8 @@ from django.core.cache import cache
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.views import generic
-
+import datetime
+import pytz
 
 from . import message
 from .forms import *
@@ -125,7 +126,15 @@ class ChangeOTPView(generic.View):
 
 class UserSettingsView(RequiredLoginMixin, generic.View):
     def get(self, request):
-        return render(request, 'accounts/user-setting.html', {'user': request.user})
+        utc = pytz.UTC
+        if request.user.subs.all():
+            if request.user.subs.first().expiration.replace(tzinfo=utc) <= datetime.datetime.now().replace(tzinfo=utc):
+                endtime=True
+            else:
+                endtime=False
+        else:
+            endtime=False
+        return render(request, 'accounts/user-setting.html', {'user': request.user,'endtime':endtime})
 
 
 class ManageProfileView(FieldsMixin, generic.UpdateView):

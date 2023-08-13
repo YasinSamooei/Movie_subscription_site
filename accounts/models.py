@@ -8,7 +8,9 @@ from django.db import models
 class Subscription(models.Model):
     title=models.CharField('عنوان', max_length=100,default="رایگان")
     price=models.PositiveIntegerField('قیمت',default=0)
-    time=models.IntegerField(null=True, blank=True,verbose_name="مدت زمان(ماهانه)")
+    month=models.IntegerField(null=True, blank=True,verbose_name="مدت زمان(ماهانه)",default=0)
+    day=models.IntegerField(null=True, blank=True,verbose_name="مدت زمان(روزانه)",default=0)
+    week=models.IntegerField(null=True, blank=True,verbose_name="مدت زمان(هفتگی)",default=0)
     quality=models.CharField('کیفیت فیلم ها', max_length=10,default='SD(480p)')
     advertise=models.BooleanField('دارای تبلیغ',default=True)
     new_films=models.BooleanField('دسترسی به قسمت  جدید',default=False)
