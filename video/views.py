@@ -47,6 +47,16 @@ class VideoDetailView(UserWatchAccessMixin,HitCountDetailView):
             context["is_fav"] = True
         else:
             context["is_fav"] = False
+        sub=self.request.user.subs.first()
+
+        if not sub.Subscription_plan.new_films:
+            if video.created_at > sub.created:
+                context["allow"]=False
+            else:
+                context["allow"]=True
+        else:
+            context["allow"]=True
+
         return context
 
 

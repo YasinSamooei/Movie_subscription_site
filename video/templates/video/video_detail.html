@@ -44,6 +44,7 @@ style="background-image: url({% static 'Theme/images/about-us/01.jpg' %});">
 {% endif %}
 
  <!-- Banner Start -->
+{% if allow %}
  <div class="video-container iq-main-slider">
    {% if request.user.subs.first.Subscription_plan.advertise %}
    <div id="pageflip" class="show">
@@ -56,10 +57,11 @@ style="background-image: url({% static 'Theme/images/about-us/01.jpg' %});">
        <source src="{{ video.video.url }}" type="video/mp4">
     </video>
  </div>
+
  <!-- Banner End -->
- {% if request.user.subs.first.Subscription_plan.new_films %}
+
  <!-- MainContent -->
- <div class="main-content movi">
+      <div class="main-content movie">
     <section class="movie-detail container-fluid">
        <div class="row">
           <div class="col-lg-12">
@@ -134,7 +136,10 @@ style="background-image: url({% static 'Theme/images/about-us/01.jpg' %});">
           </div>
        </div>
     </section>
-   {% endif %}
+{% else %}
+<p class="mx-3 my-2">بدلیل محدودیت پنل اشتراکی شما ، قادر به مشاهده فیلم های جدید نیستید </p>
+<a href="{% url 'account:user-setting' %}" class="btn btn-danger mx-3 my-4">ارتقا پلن</a>
+{% endif %}
     <section id="iq-favorites" class="s-margin iq-rtl-direction">
        <div class="container-fluid">
           <div class="row">
