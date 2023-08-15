@@ -34,7 +34,6 @@ THIRD_PARTY_APPS = [
     'django_social_share',
     'django_cleanup.apps.CleanupConfig',
     'hitcount',
-    'star_ratings',
 ]
 
 INSTALLED_APPS = [
@@ -183,8 +182,6 @@ LOGOUT_URL = 'account/logout'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
-STAR_RATINGS_STAR_HEIGHT=20
-STAR_RATINGS_RERATE = True
 
 """FILE_STORAGE_SETTINGS"""
 
