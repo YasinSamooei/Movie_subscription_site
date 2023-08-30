@@ -5,7 +5,6 @@ from django.urls import reverse
 from django.utils.html import format_html
 from hitcount.models import HitCount
 from persiantools.jdatetime import JalaliDate
-from star_ratings.models import Rating
 
 from accounts.models import User
 from blog.models import Blog
@@ -58,7 +57,6 @@ class Video(models.Model):
         FileExtensionValidator(allowed_extensions=['MOV', 'avi', 'mp4', 'webm', 'mkv'])])
     trailer=models.FileField('تریلر', upload_to='videos/', null=True, validators=[
         FileExtensionValidator(allowed_extensions=['MOV', 'avi', 'mp4', 'webm', 'mkv'])])
-    ratings = GenericRelation(Rating, related_query_name='stars')
     hit_count_generic = GenericRelation(HitCount, object_id_field='object_pk',related_query_name='hit_count_generic_relation')
     favorites = models.ManyToManyField(User, default=None, blank=None, related_name="favorites",
                                        verbose_name="مورد علاقه‌ها")
