@@ -34,7 +34,7 @@
                <div class="col-lg-12 col-sm-12">
 
                   <div class="iq-accordion iq-accordion-square">
-
+                     {% for question in object_list %}
                      <div class="iq-accordion-block iq-active 1">
                         <div class="iq-accordion-title">
                            <div class="iq-icon-right">
@@ -42,69 +42,15 @@
                               <i aria-hidden="true" class="fa fa-plus inactive"></i>
                            </div>
                            <h4 class="mb-0 accordion-title iq-heading-title">         
-                            لورم ایپسوم متن ساختگی با تولید سادگی     
+                            {{question.question}}   
                            </h4>
                         </div>                   
                         <div class="iq-accordion-details" style="display: block;">                         
-                           <p class="iq-content-text"> لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد </p>
+                           <p class="iq-content-text">{{question.answer}}</p>
                         </div>
-                     </div>
-                          
-                     <div class="iq-accordion-block 2">
-                        <div class="iq-accordion-title">
-                           <div class="iq-icon-right">
-                              <i aria-hidden="true" class="fa fa-minus active"></i>
-                              <i aria-hidden="true" class="fa fa-plus inactive"></i>
-                           </div>
-                           <h4 class="mb-0 accordion-title iq-heading-title">         
-                            لورم ایپسوم متن ساختگی با تولید سادگی                            </h4>                 
-                        </div>
-
-                       <div class="iq-accordion-details" style="display: none;">                         
-                        <p class="iq-content-text"> لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد </p>
-                    </div>
-                     </div>
-                          
-                     <div class="iq-accordion-block 3">
-                        <div class="iq-accordion-title">
-                           <div class="iq-icon-right">
-                              <i aria-hidden="true" class="fa fa-minus active"></i>
-                              <i aria-hidden="true" class="fa fa-plus inactive"></i></div>
-                              <h4 class="mb-0 accordion-title iq-heading-title">         
-                                لورم ایپسوم متن ساختگی با تولید سادگی                               </h4>
-                           </div>                   
-                           <div class="iq-accordion-details" style="display: none;">                         
-                            <p class="iq-content-text"> لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد </p>
-                        </div>
-                        </div>
-                          
-                        <div class="iq-accordion-block 4">
-                           <div class="iq-accordion-title">
-                              <div class="iq-icon-right">
-                                 <i aria-hidden="true" class="fa fa-minus active"></i>
-                                 <i aria-hidden="true" class="fa fa-plus inactive"></i>
-                              </div>
-                              <h4 class="mb-0 accordion-title iq-heading-title">         
-                                لورم ایپسوم متن ساختگی با تولید سادگی                               </h4>
-                           </div>
-                           <div class="iq-accordion-details" style="display: none;">
-                            <p class="iq-content-text"> لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد </p>
-                        </div>
-                     </div>
-                          
-                     <div class="iq-accordion-block 5">
-                       <div class="iq-accordion-title">
-                           <div class="iq-icon-right">
-                              <i aria-hidden="true" class="fa fa-minus active"></i>
-                              <i aria-hidden="true" class="fa fa-plus inactive"></i></div>
-                              <h4 class="mb-0 accordion-title iq-heading-title">         
-                                لورم ایپسوم متن ساختگی با تولید سادگی                               </h4>
-                           </div>                   
-                           <div class="iq-accordion-details" style="display: none;">                         
-                            <p class="iq-content-text"> لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد </p>
-                        </div>
-                        </div>                        
-                     </div>
+                     </div>  
+                     {% endfor %}                    
+                  </div>
                </div>
             </div>
          </div>   

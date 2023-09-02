@@ -5,7 +5,7 @@ from django.contrib import messages
 # local
 from .forms import ContactForm
 from accounts.models import User
-
+from .models import Question
 class ContactView(CreateView):
     template_name = 'info/contact.html'
     form_class = ContactForm
@@ -23,5 +23,6 @@ class AboutUsView(ListView):
     template_name='info/about-us.html'
     queryset = User.objects.filter(is_staff=True)
 
-class FaqView(TemplateView):
+class FaqView(ListView):
     template_name='info/faq.html'
+    queryset = Question.objects.all()

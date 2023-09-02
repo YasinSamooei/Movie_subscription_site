@@ -12,3 +12,15 @@ class Contact(models.Model):
 
     def __str__(self):
         return str(self.email)
+
+
+class Question(models.Model):
+    question=models.CharField("سوال",max_length=500)
+    answer = models.TextField("پاسخ")
+
+    class Meta:
+        verbose_name_plural = "سوال متداول"
+        verbose_name = "سوالات متداول"
+
+    def __str__(self):
+        return str(self.question)
