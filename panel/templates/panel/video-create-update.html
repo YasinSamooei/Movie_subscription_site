@@ -6,13 +6,18 @@
 {% endblock %}{% endblock %}
 
 {% block main %}
+<style>
+	.not-visible{
+		display: none;
+	}
+</style>
 <div class="col-md-12">
 	<div class="card card-primary">
 		<div class="card-header bg-danger">
 			<h3 class="card-title mb-0 float-left">افزودن ویدئو</h3>
 		</div>
 		<div class="card-body bg-dark">
-			<form method="post" enctype="multipart/form-data">{% csrf_token %}
+			<form method="post" enctype="multipart/form-data" id="upload_form">{% csrf_token %}
 				<div class="row">
 					<div class="col-6">
 						{{ form.title|as_crispy_field }}
@@ -50,6 +55,76 @@
 				<a href="{% url 'panel:video-delete' request.resolver_match.kwargs.pk %}" class="btn btn-warning">حذف</a>
 				{% endif %}
 			</form>
+			<div class="container not-visible progress" id="progress">
+			</div>
 		</div>
 </div>
+{% if not request.resolver_match.kwargs.pk %}
+<script>
+	const uploadForm = document.getElementById('upload_form');
+	const input_file = document.getElementById('id_video');
+	const progress_bar = document.getElementById('progress');
+	
+	$("#upload_form").submit(function(e){
+		e.preventDefault();
+		$form = $(this)
+		var formData = new FormData(this);
+		const media_data = input_file.files[0];
+		if(media_data != null){
+			console.log(media_data);
+			progress_bar.classList.remove("not-visible");
+		}
+
+		$.ajax({
+			type: 'POST',
+			url:'/panel/video-create',
+			data: formData,
+			dataType: 'json',
+			beforeSend: function(){
+
+			},
+			xhr:function(){
+				const xhr = new window.XMLHttpRequest();
+				xhr.upload.addEventListener('progress', e=>{
+					if(e.lengthComputable){
+						const percentProgress = (e.loaded/e.total)*100;
+						console.log(percentProgress);
+						progress_bar.innerHTML = `<div class="progress-bar progress-bar-striped bg-success" 
+				role="progressbar" style="width: ${percentProgress}%" aria-valuenow="${percentProgress}" aria-valuemin="0" 
+				aria-valuemax="100"></div>`
+					}
+				});
+				return xhr
+			},
+			success: function(response){
+				console.log(response);
+				Swal.fire({
+        		icon: 'سعززثسس',
+        		text: "  بارگذاری موفقیت آمیز بود.",
+        		confirmButtonText: 'باشه',
+        		confirmButtonColor: '#112031',
+    			}).then(function () {
+        			location.href = "{% url 'panel:video-list' %}";
+    			})
+			},
+        	
+			error: function(err){
+				console.log(err);
+				Swal.fire({
+        		icon: 'warning',
+        		text: "  بارگذاری انجام شد برای اطمینان بیشتر لیست ویدئو ها را بررسی کنید.",
+        		confirmButtonText:'رفتن به لیست ویدئو ها',
+        		confirmButtonColor: '#112031',
+    			}).then(function () {
+        			location.href = "{% url 'panel:video-list' %}";
+    			})
+			},
+			cache: false,
+			contentType: false,
+			processData: false,
+		});
+	});
+
+</script>
+{% endif %}
 {% endblock %}
