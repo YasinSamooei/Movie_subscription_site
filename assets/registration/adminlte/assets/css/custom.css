@@ -1,9 +1,9 @@
 @font-face {
-    font-family: "dana-regular";
-    src: url("../../../../font-icon/static/Dana-Regular.ttf");
+    font-family: "Btitr";
+    src: url("../../../Btitr.ttf");
 }
 *{
-    font-family:dana-regular;
+    font-family:Btitr;
 }
 
 *{

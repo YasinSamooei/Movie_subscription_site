@@ -29,6 +29,14 @@
     <link rel="stylesheet" href="https://cdn.rtlcss.com/bootstrap/v4.2.1/css/bootstrap.min.css">
     <!-- Custom style for RTL -->
     <link rel="stylesheet" href="{% static 'registration/adminlte/assets/css/custom.css' %}">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+        crossorigin="anonymous"></script>
     {% block style %} {% endblock %}
 </head>
 <body class="hold-transition sidebar-mini layout-fixed" style="overflow-x: hidden!important;">
@@ -114,6 +122,8 @@
 <!-- JQVMap -->
 <script src="{% static 'registration/adminlte/plugins/jqvmap/jquery.vmap.min.js' %}"></script>
 <script src="{% static 'registration/adminlte/plugins/jqvmap/maps/jquery.vmap.world.js' %}"></script>
+<!-- daterangepicker -->
+<script src="{% static 'registration/adminlte/plugins/moment/moment.min.js' %}"></script>
 <!-- Tempusdominus Bootstrap 4 -->
 <script src="{% static 'registration/adminlte/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js' %}"></script>
 <!-- Summernote -->
@@ -122,7 +132,7 @@
 <script src="{% static 'registration/adminlte/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js' %}"></script>
 <!-- AdminLTE App -->
 <script src="{% static 'registration/adminlte/assets/js/adminlte.js' %}"></script>
-<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="{% static 'registration/adminlte/assets/js/pages/dashboard.js' %}"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 </html>
