@@ -18,6 +18,7 @@ The video subscription purchase website project includes the following sections:
 ### 12) meta tags related to `CEO`
 ### 13) comment and reply with `ajax`
 ### 14) like and save with ajax
+### 15) progress bar for upload video and image with `ajax`
 
 ## 🌐 Socials:
 [![Instagram](https://img.shields.io/badge/Instagram-%23E4405F.svg?logo=Instagram&logoColor=white)](https://instagram.com/y.electrocode) [![LinkedIn](https://img.shields.io/badge/LinkedIn-%230077B5.svg?logo=linkedin&logoColor=white)](https://linkedin.com/in/yasin-samooei)
