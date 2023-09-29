@@ -64,7 +64,7 @@ style="background-image: url({% static 'Theme/images/about-us/01.jpg' %});">
                               </h3>
                         </div>
                         <div class="blog-content">
-                           <p>{{blog.description|safe}}</p>
+                           <p>{{blog.description|safe|truncatewords:10}}</p>
                         </div>
                         <div class="blog-button">
                            <a class="button-link" href="{% url 'blog:blog-detail' blog.slug %}">بیشتر بخوانید<i class="fa fa-angle-right" aria-hidden="true"></i></a>
