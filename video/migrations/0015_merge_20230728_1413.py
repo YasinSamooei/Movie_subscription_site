@@ -4,11 +4,9 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('video', '0011_remove_notification_video_notification_all_user_and_more'),
-        ('video', '0014_serial_age_serial_year_alter_serial_created_at_and_more'),
+        ("video", "0011_remove_notification_video_notification_all_user_and_more"),
+        ("video", "0014_serial_age_serial_year_alter_serial_created_at_and_more"),
     ]
 
-    operations = [
-    ]
+    operations = []

@@ -4,29 +4,52 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('video', '0005_alter_video_age'),
+        ("video", "0005_alter_video_age"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Actors',
+            name="Actors",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=30, verbose_name='نام')),
-                ('created_at', models.DateTimeField(auto_now_add=True, null=True, verbose_name='تاریخ آپلود دسته بندی')),
-                ('updated_at', models.DateTimeField(auto_now=True, null=True, verbose_name='تاریخ به روز رسانی دسته بندی')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=30, verbose_name="نام")),
+                (
+                    "created_at",
+                    models.DateTimeField(
+                        auto_now_add=True,
+                        null=True,
+                        verbose_name="تاریخ آپلود دسته بندی",
+                    ),
+                ),
+                (
+                    "updated_at",
+                    models.DateTimeField(
+                        auto_now=True,
+                        null=True,
+                        verbose_name="تاریخ به روز رسانی دسته بندی",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'بازیگر',
-                'verbose_name_plural': 'بازیگران',
-                'ordering': ['-updated_at'],
+                "verbose_name": "بازیگر",
+                "verbose_name_plural": "بازیگران",
+                "ordering": ["-updated_at"],
             },
         ),
         migrations.AddField(
-            model_name='video',
-            name='actors',
-            field=models.ManyToManyField(related_name='videos', to='video.actors', verbose_name='بازیگران'),
+            model_name="video",
+            name="actors",
+            field=models.ManyToManyField(
+                related_name="videos", to="video.actors", verbose_name="بازیگران"
+            ),
         ),
     ]

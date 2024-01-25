@@ -4,26 +4,44 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('accounts', '0002_alter_user_subscription_plan'),
+        ("accounts", "0002_alter_user_subscription_plan"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Otp',
+            name="Otp",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('email', models.CharField(max_length=50, verbose_name='آدرس ایمیل')),
-                ('full_name', models.CharField(max_length=50, verbose_name='نام و نام خانوادگی')),
-                ('password', models.CharField(max_length=1000, verbose_name='گذرواژه')),
-                ('code', models.CharField(max_length=5, verbose_name='کد اعتبارسنجی')),
-                ('token', models.CharField(max_length=50, verbose_name='توکن اعتبار سنجی')),
-                ('expiration', models.DateTimeField(blank=True, null=True, verbose_name='زمان انقضا')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("email", models.CharField(max_length=50, verbose_name="آدرس ایمیل")),
+                (
+                    "full_name",
+                    models.CharField(max_length=50, verbose_name="نام و نام خانوادگی"),
+                ),
+                ("password", models.CharField(max_length=1000, verbose_name="گذرواژه")),
+                ("code", models.CharField(max_length=5, verbose_name="کد اعتبارسنجی")),
+                (
+                    "token",
+                    models.CharField(max_length=50, verbose_name="توکن اعتبار سنجی"),
+                ),
+                (
+                    "expiration",
+                    models.DateTimeField(
+                        blank=True, null=True, verbose_name="زمان انقضا"
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'کد اعتبارسنجی',
-                'verbose_name_plural': 'کدهای اعتبارسنجی',
+                "verbose_name": "کد اعتبارسنجی",
+                "verbose_name_plural": "کدهای اعتبارسنجی",
             },
         ),
     ]

@@ -5,28 +5,67 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('accounts', '0010_user_is_author_user_is_video_publisher'),
+        ("accounts", "0010_user_is_author_user_is_video_publisher"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='user',
-            name='Subscription_plan',
+            model_name="user",
+            name="Subscription_plan",
         ),
         migrations.CreateModel(
-            name='SelectedSubscription',
+            name="SelectedSubscription",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('expiration', models.IntegerField(blank=True, null=True, verbose_name='زمان انقضا')),
-                ('created', models.DateTimeField(auto_now_add=True, verbose_name='تاریخ انتخاب')),
-                ('Subscription_plan', models.ForeignKey(blank=True, default=None, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='sub', to='accounts.subscription', verbose_name='طرح اشتراک')),
-                ('user', models.ForeignKey(blank=True, default=None, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='subs', to='accounts.subscription', verbose_name='کاربر')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "expiration",
+                    models.IntegerField(
+                        blank=True, null=True, verbose_name="زمان انقضا"
+                    ),
+                ),
+                (
+                    "created",
+                    models.DateTimeField(
+                        auto_now_add=True, verbose_name="تاریخ انتخاب"
+                    ),
+                ),
+                (
+                    "Subscription_plan",
+                    models.ForeignKey(
+                        blank=True,
+                        default=None,
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="sub",
+                        to="accounts.subscription",
+                        verbose_name="طرح اشتراک",
+                    ),
+                ),
+                (
+                    "user",
+                    models.ForeignKey(
+                        blank=True,
+                        default=None,
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="subs",
+                        to="accounts.subscription",
+                        verbose_name="کاربر",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'طرح های انتخاب شده',
-                'verbose_name_plural': 'طرح انتخاب شده',
+                "verbose_name": "طرح های انتخاب شده",
+                "verbose_name_plural": "طرح انتخاب شده",
             },
         ),
     ]

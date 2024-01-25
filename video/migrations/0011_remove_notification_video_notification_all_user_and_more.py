@@ -6,36 +6,42 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('video', '0010_remove_video_like_count_remove_video_likes_like'),
+        ("video", "0010_remove_video_like_count_remove_video_likes_like"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='notification',
-            name='video',
+            model_name="notification",
+            name="video",
         ),
         migrations.AddField(
-            model_name='notification',
-            name='all_user',
+            model_name="notification",
+            name="all_user",
             field=models.BooleanField(default=False),
         ),
         migrations.AddField(
-            model_name='notification',
-            name='message',
-            field=models.TextField(default='test'),
+            model_name="notification",
+            name="message",
+            field=models.TextField(default="test"),
             preserve_default=False,
         ),
         migrations.AddField(
-            model_name='notification',
-            name='url',
+            model_name="notification",
+            name="url",
             field=models.CharField(blank=True, max_length=255, null=True),
         ),
         migrations.AlterField(
-            model_name='notification',
-            name='user',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='notifs', to=settings.AUTH_USER_MODEL, verbose_name='کاربر'),
+            model_name="notification",
+            name="user",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="notifs",
+                to=settings.AUTH_USER_MODEL,
+                verbose_name="کاربر",
+            ),
         ),
     ]

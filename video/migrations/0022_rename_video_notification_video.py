@@ -4,15 +4,14 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('video', '0021_remove_notification_image_remove_notification_url_and_more'),
+        ("video", "0021_remove_notification_image_remove_notification_url_and_more"),
     ]
 
     operations = [
         migrations.RenameField(
-            model_name='notification',
-            old_name='Video',
-            new_name='video',
+            model_name="notification",
+            old_name="Video",
+            new_name="video",
         ),
     ]

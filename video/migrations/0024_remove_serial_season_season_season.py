@@ -5,19 +5,25 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('video', '0023_notification_season_notification_serial'),
+        ("video", "0023_notification_season_notification_serial"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='serial',
-            name='season',
+            model_name="serial",
+            name="season",
         ),
         migrations.AddField(
-            model_name='season',
-            name='season',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='seasons', to='video.serial', verbose_name='سریال'),
+            model_name="season",
+            name="season",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="seasons",
+                to="video.serial",
+                verbose_name="سریال",
+            ),
         ),
     ]

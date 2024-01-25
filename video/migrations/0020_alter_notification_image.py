@@ -4,15 +4,16 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('video', '0019_alter_serial_video'),
+        ("video", "0019_alter_serial_video"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='notification',
-            name='image',
-            field=models.ImageField(blank=True, null=True, upload_to='images/comment', verbose_name='عکس'),
+            model_name="notification",
+            name="image",
+            field=models.ImageField(
+                blank=True, null=True, upload_to="images/comment", verbose_name="عکس"
+            ),
         ),
     ]

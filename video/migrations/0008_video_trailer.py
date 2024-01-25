@@ -5,15 +5,23 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('video', '0007_actors_slug'),
+        ("video", "0007_actors_slug"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='video',
-            name='trailer',
-            field=models.FileField(null=True, upload_to='videos/', validators=[django.core.validators.FileExtensionValidator(allowed_extensions=['MOV', 'avi', 'mp4', 'webm', 'mkv'])], verbose_name='تریلر'),
+            model_name="video",
+            name="trailer",
+            field=models.FileField(
+                null=True,
+                upload_to="videos/",
+                validators=[
+                    django.core.validators.FileExtensionValidator(
+                        allowed_extensions=["MOV", "avi", "mp4", "webm", "mkv"]
+                    )
+                ],
+                verbose_name="تریلر",
+            ),
         ),
     ]

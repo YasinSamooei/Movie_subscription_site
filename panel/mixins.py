@@ -1,12 +1,13 @@
 from django.utils.text import slugify
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect
+
 # Local apps
 from blog.models import Blog
 from video.models import Video
 
 
-class FieldsMixin():
+class FieldsMixin:
     """
     mixin that return fields of
     blog model
@@ -14,16 +15,19 @@ class FieldsMixin():
 
     def dispatch(self, request, *args, **kwargs):
         self.fields = [
-            "title", "tag",
-            "description", "image",
-            "age", "meta_description",
+            "title",
+            "tag",
+            "description",
+            "image",
+            "age",
+            "meta_description",
         ]
         return super().dispatch(request, *args, **kwargs)
 
 
-class FormValidMixin():
+class FormValidMixin:
     """
-    mixin that validates on 
+    mixin that validates on
     the blog creation form
     """
 
@@ -33,48 +37,46 @@ class FormValidMixin():
         self.obj.slug = slugify(self.obj.title, allow_unicode=True)
         return super().form_valid(form)
 
-class UpdateFormMixin():
+
+class UpdateFormMixin:
     """
-    mixin that validates on 
-    the blog update 
+    mixin that validates on
+    the blog update
     """
 
     def form_valid(self, form):
         return super().form_valid(form)
 
 
-class AuthorAccessMixin():
+class AuthorAccessMixin:
     """
-    mixin that validates on 
+    mixin that validates on
     the request.user for
     update blog
     """
 
     def dispatch(self, request, pk, *args, **kwargs):
         blog = get_object_or_404(Blog, pk=pk)
-        if blog.author == request.user or \
-                request.user.is_superuser:
+        if blog.author == request.user or request.user.is_superuser:
             return super().dispatch(request, *args, **kwargs)
         else:
             raise Http404("شما نمی توانید این صفحه را مشاهده کنید.")
 
 
+class AuthorsAccessMixin:
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            if request.user.is_superuser or request.user.is_staff:
+                return super().dispatch(request, *args, **kwargs)
+            else:
+                return redirect("account:manage-profile")
+        else:
+            return redirect("account:sign-in")
 
-class AuthorsAccessMixin():
-	def dispatch(self, request, *args, **kwargs):
-		if request.user.is_authenticated:
-			if request.user.is_superuser or request.user.is_staff:
-				return super().dispatch(request, *args, **kwargs)
-			else:
-				return redirect("account:manage-profile")
-		else:
 
-			return redirect("account:sign-in")
-                  
-
-class VideoFormValidMixin():
+class VideoFormValidMixin:
     """
-    mixin that validates on 
+    mixin that validates on
     the video creation form
     """
 
@@ -83,41 +85,40 @@ class VideoFormValidMixin():
         self.obj.creator = self.request.user
         self.obj.slug = slugify(self.obj.title, allow_unicode=True)
         return super().form_valid(form)
-    
 
-class CreatorAccessMixin():
+
+class CreatorAccessMixin:
     """
-    mixin that validates on 
+    mixin that validates on
     the request.user for
     update video
     """
 
     def dispatch(self, request, pk, *args, **kwargs):
         video = get_object_or_404(Video, pk=pk)
-        if video.creator == request.user or \
-                request.user.is_superuser:
+        if video.creator == request.user or request.user.is_superuser:
             return super().dispatch(request, *args, **kwargs)
         else:
             raise Http404("شما نمی توانید این صفحه را مشاهده کنید.")
 
 
-class VideoPublisherAccessMixin():
-	def dispatch(self, request, *args, **kwargs):
-		if request.user.is_authenticated:
-			if request.user.is_superuser or request.user.is_video_publisher:
-				return super().dispatch(request, *args, **kwargs)
-			else:
-				return redirect("panel:profile")
-		else:
-			return redirect("account:sign-in")
+class VideoPublisherAccessMixin:
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            if request.user.is_superuser or request.user.is_video_publisher:
+                return super().dispatch(request, *args, **kwargs)
+            else:
+                return redirect("panel:profile")
+        else:
+            return redirect("account:sign-in")
 
 
-class BlogAuthorAccessMixin():
-	def dispatch(self, request, *args, **kwargs):
-		if request.user.is_authenticated:
-			if request.user.is_superuser or request.user.is_author:
-				return super().dispatch(request, *args, **kwargs)
-			else:
-				return redirect("panel:profile")
-		else:
-			return redirect("account:sign-in")
+class BlogAuthorAccessMixin:
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            if request.user.is_superuser or request.user.is_author:
+                return super().dispatch(request, *args, **kwargs)
+            else:
+                return redirect("panel:profile")
+        else:
+            return redirect("account:sign-in")

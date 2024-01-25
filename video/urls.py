@@ -1,21 +1,28 @@
-from django.urls import path,re_path
+from django.urls import path, re_path
 from . import views
 
-app_name = 'video'
+app_name = "video"
 
 urlpatterns = [
-    path('video-list', views.VideoListView.as_view(), name='video-list'),
-    path('<str:slug>/', views.VideoDetailView.as_view(), name='video_detail'),
-    path('serial/<str:slug>/', views.SerialDetailView.as_view(), name='serial_detail'),
-    path('serial_list', views.SerialListView.as_view(), name='serial_list'),
-    path('season/<str:slug>/', views.SeasonDetailView.as_view(), name='season_detail'),
-    path('category/<str:slug>', views.CategoryDetailView.as_view(), name='category_detail'),
+    path("video-list", views.VideoListView.as_view(), name="video-list"),
+    path("<str:slug>/", views.VideoDetailView.as_view(), name="video_detail"),
+    path("serial/<str:slug>/", views.SerialDetailView.as_view(), name="serial_detail"),
+    path("serial_list", views.SerialListView.as_view(), name="serial_list"),
+    path("season/<str:slug>/", views.SeasonDetailView.as_view(), name="season_detail"),
+    path(
+        "category/<str:slug>",
+        views.CategoryDetailView.as_view(),
+        name="category_detail",
+    ),
     path("add-favorite/<int:pk>", views.AddFavoriteView.as_view(), name="favorite_add"),
-    path('search', views.SearchView.as_view(), name='search'),
+    path("search", views.SearchView.as_view(), name="search"),
     path("watch", views.WatchListView.as_view(), name="watch"),
-    path('delete-notif/<int:pk>',views.DeleteNotif.as_view(),name="delete-notif"),
-    path('delete-public-notif/<int:pk>',views.DeletePublicNotif.as_view(),name="delete-public-notif"),
-    re_path(r"like/(?P<slug>[-\w]+)/(?P<pk>[-\w]+)",views.like,name="like"),
-    path("no-plan",views.NoSubscriptionPlan.as_view(),name="no-plan")
-
+    path("delete-notif/<int:pk>", views.DeleteNotif.as_view(), name="delete-notif"),
+    path(
+        "delete-public-notif/<int:pk>",
+        views.DeletePublicNotif.as_view(),
+        name="delete-public-notif",
+    ),
+    re_path(r"like/(?P<slug>[-\w]+)/(?P<pk>[-\w]+)", views.like, name="like"),
+    path("no-plan", views.NoSubscriptionPlan.as_view(), name="no-plan"),
 ]

@@ -6,33 +6,59 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('video', '0009_notification'),
+        ("video", "0009_notification"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='video',
-            name='like_count',
+            model_name="video",
+            name="like_count",
         ),
         migrations.RemoveField(
-            model_name='video',
-            name='likes',
+            model_name="video",
+            name="likes",
         ),
         migrations.CreateModel(
-            name='Like',
+            name="Like",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created_at', models.DateTimeField(auto_now_add=True, verbose_name='زمان ایجاد')),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='likes', to=settings.AUTH_USER_MODEL, verbose_name='کاربر')),
-                ('video', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='likes', to='video.video', verbose_name='ویدئو')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "created_at",
+                    models.DateTimeField(auto_now_add=True, verbose_name="زمان ایجاد"),
+                ),
+                (
+                    "user",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="likes",
+                        to=settings.AUTH_USER_MODEL,
+                        verbose_name="کاربر",
+                    ),
+                ),
+                (
+                    "video",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="likes",
+                        to="video.video",
+                        verbose_name="ویدئو",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'پسند',
-                'verbose_name_plural': 'پسندها ',
-                'ordering': ('created_at',),
+                "verbose_name": "پسند",
+                "verbose_name_plural": "پسندها ",
+                "ordering": ("created_at",),
             },
         ),
     ]

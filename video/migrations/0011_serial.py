@@ -4,26 +4,58 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('video', '0010_remove_video_like_count_remove_video_likes_like'),
+        ("video", "0010_remove_video_like_count_remove_video_likes_like"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Serial',
+            name="Serial",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(blank=True, max_length=120, null=True, verbose_name='نام سریال')),
-                ('number', models.SmallIntegerField(blank=True, null=True, verbose_name='تعداد قسمت ها')),
-                ('image', models.ImageField(upload_to='videos/playlist', verbose_name='تصویر جلد سریال')),
-                ('created_at', models.DateTimeField(auto_now_add=True, verbose_name='تاریخ ساخت سریال ')),
-                ('video', models.ManyToManyField(related_name='playes', to='video.video', verbose_name='ویدیوها')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "name",
+                    models.CharField(
+                        blank=True, max_length=120, null=True, verbose_name="نام سریال"
+                    ),
+                ),
+                (
+                    "number",
+                    models.SmallIntegerField(
+                        blank=True, null=True, verbose_name="تعداد قسمت ها"
+                    ),
+                ),
+                (
+                    "image",
+                    models.ImageField(
+                        upload_to="videos/playlist", verbose_name="تصویر جلد سریال"
+                    ),
+                ),
+                (
+                    "created_at",
+                    models.DateTimeField(
+                        auto_now_add=True, verbose_name="تاریخ ساخت سریال "
+                    ),
+                ),
+                (
+                    "video",
+                    models.ManyToManyField(
+                        related_name="playes", to="video.video", verbose_name="ویدیوها"
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'سریال',
-                'verbose_name_plural': 'سریال ها',
-                'ordering': ['-created_at'],
+                "verbose_name": "سریال",
+                "verbose_name_plural": "سریال ها",
+                "ordering": ["-created_at"],
             },
         ),
     ]

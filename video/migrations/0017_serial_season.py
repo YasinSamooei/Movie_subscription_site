@@ -5,15 +5,21 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('video', '0016_notification_image'),
+        ("video", "0016_notification_image"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='serial',
-            name='season',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='seasons', to='video.serial', verbose_name='فصل'),
+            model_name="serial",
+            name="season",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="seasons",
+                to="video.serial",
+                verbose_name="فصل",
+            ),
         ),
     ]

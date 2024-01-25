@@ -4,20 +4,19 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('accounts', '0009_alter_user_bio'),
+        ("accounts", "0009_alter_user_bio"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='user',
-            name='is_author',
+            model_name="user",
+            name="is_author",
             field=models.BooleanField(default=False),
         ),
         migrations.AddField(
-            model_name='user',
-            name='is_video_publisher',
+            model_name="user",
+            name="is_video_publisher",
             field=models.BooleanField(default=False),
         ),
     ]

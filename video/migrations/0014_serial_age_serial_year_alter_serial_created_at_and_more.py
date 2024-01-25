@@ -4,30 +4,39 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('video', '0013_serial_slug'),
+        ("video", "0013_serial_slug"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='serial',
-            name='age',
-            field=models.CharField(blank=True, choices=[('20', '+20'), ('14', '+14'), ('10', '+10')], max_length=10, null=True, verbose_name='رده سنی'),
+            model_name="serial",
+            name="age",
+            field=models.CharField(
+                blank=True,
+                choices=[("20", "+20"), ("14", "+14"), ("10", "+10")],
+                max_length=10,
+                null=True,
+                verbose_name="رده سنی",
+            ),
         ),
         migrations.AddField(
-            model_name='serial',
-            name='year',
-            field=models.IntegerField(blank=True, null=True, verbose_name='سال ساخت سریال'),
+            model_name="serial",
+            name="year",
+            field=models.IntegerField(
+                blank=True, null=True, verbose_name="سال ساخت سریال"
+            ),
         ),
         migrations.AlterField(
-            model_name='serial',
-            name='created_at',
-            field=models.DateTimeField(auto_now_add=True, verbose_name='تاریخ آپلود سریال '),
+            model_name="serial",
+            name="created_at",
+            field=models.DateTimeField(
+                auto_now_add=True, verbose_name="تاریخ آپلود سریال "
+            ),
         ),
         migrations.AlterField(
-            model_name='serial',
-            name='image',
-            field=models.ImageField(upload_to='serial', verbose_name='تصویر جلد سریال'),
+            model_name="serial",
+            name="image",
+            field=models.ImageField(upload_to="serial", verbose_name="تصویر جلد سریال"),
         ),
     ]

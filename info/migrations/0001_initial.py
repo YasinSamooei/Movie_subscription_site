@@ -4,25 +4,34 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Contact',
+            name="Contact",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=30, verbose_name='نام')),
-                ('last_name', models.CharField(max_length=30, verbose_name='نام خانوادگی')),
-                ('email', models.EmailField(max_length=254, verbose_name='ایمیل')),
-                ('content', models.TextField(verbose_name='متن پیام')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=30, verbose_name="نام")),
+                (
+                    "last_name",
+                    models.CharField(max_length=30, verbose_name="نام خانوادگی"),
+                ),
+                ("email", models.EmailField(max_length=254, verbose_name="ایمیل")),
+                ("content", models.TextField(verbose_name="متن پیام")),
             ],
             options={
-                'verbose_name': 'پیام ها',
-                'verbose_name_plural': 'پیام',
+                "verbose_name": "پیام ها",
+                "verbose_name_plural": "پیام",
             },
         ),
     ]

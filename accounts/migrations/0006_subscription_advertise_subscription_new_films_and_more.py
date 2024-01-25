@@ -4,40 +4,47 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('accounts', '0005_remove_user_birth_alter_user_gender_and_more'),
+        ("accounts", "0005_remove_user_birth_alter_user_gender_and_more"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='subscription',
-            name='advertise',
-            field=models.BooleanField(default=True, verbose_name='دارای تبلیغ'),
+            model_name="subscription",
+            name="advertise",
+            field=models.BooleanField(default=True, verbose_name="دارای تبلیغ"),
         ),
         migrations.AddField(
-            model_name='subscription',
-            name='new_films',
-            field=models.BooleanField(default=False, verbose_name='دسترسی به فیلم های جدید'),
+            model_name="subscription",
+            name="new_films",
+            field=models.BooleanField(
+                default=False, verbose_name="دسترسی به فیلم های جدید"
+            ),
         ),
         migrations.AddField(
-            model_name='subscription',
-            name='price',
-            field=models.PositiveIntegerField(default=0, verbose_name='قیمت'),
+            model_name="subscription",
+            name="price",
+            field=models.PositiveIntegerField(default=0, verbose_name="قیمت"),
         ),
         migrations.AddField(
-            model_name='subscription',
-            name='quality',
-            field=models.CharField(default='SD(480p)', max_length=10, verbose_name='کیفیت فیلم ها'),
+            model_name="subscription",
+            name="quality",
+            field=models.CharField(
+                default="SD(480p)", max_length=10, verbose_name="کیفیت فیلم ها"
+            ),
         ),
         migrations.AddField(
-            model_name='subscription',
-            name='time',
-            field=models.PositiveSmallIntegerField(default=None, verbose_name='مدت زمان'),
+            model_name="subscription",
+            name="time",
+            field=models.PositiveSmallIntegerField(
+                default=None, verbose_name="مدت زمان"
+            ),
         ),
         migrations.AddField(
-            model_name='subscription',
-            name='title',
-            field=models.CharField(default='رایگان', max_length=100, verbose_name='عنوان'),
+            model_name="subscription",
+            name="title",
+            field=models.CharField(
+                default="رایگان", max_length=100, verbose_name="عنوان"
+            ),
         ),
     ]

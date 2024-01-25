@@ -6,25 +6,34 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('accounts', '0011_remove_user_subscription_plan_selectedsubscription'),
+        ("accounts", "0011_remove_user_subscription_plan_selectedsubscription"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='selectedsubscription',
-            name='created',
+            model_name="selectedsubscription",
+            name="created",
             field=models.DateTimeField(auto_now_add=True),
         ),
         migrations.AlterField(
-            model_name='selectedsubscription',
-            name='expiration',
-            field=models.DateTimeField(blank=True, null=True, verbose_name='زمان انقضا'),
+            model_name="selectedsubscription",
+            name="expiration",
+            field=models.DateTimeField(
+                blank=True, null=True, verbose_name="زمان انقضا"
+            ),
         ),
         migrations.AlterField(
-            model_name='selectedsubscription',
-            name='user',
-            field=models.ForeignKey(blank=True, default=None, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='subs', to=settings.AUTH_USER_MODEL, verbose_name='کاربر'),
+            model_name="selectedsubscription",
+            name="user",
+            field=models.ForeignKey(
+                blank=True,
+                default=None,
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="subs",
+                to=settings.AUTH_USER_MODEL,
+                verbose_name="کاربر",
+            ),
         ),
     ]

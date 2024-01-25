@@ -1,4 +1,4 @@
-"""Movie_subscription_site URL Configuration
+"""core URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/4.1/topics/http/urls/
@@ -14,21 +14,20 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path,include
+from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path("admin/", admin.site.urls),
     # root path
-    path('', include("home.urls")),
+    path("", include("home.urls")),
     # local apps
-    path('', include('accounts.urls')),
-    path('', include('info.urls')),
-    path('', include('video.urls')),
-    path('', include('blog.urls')),
-    path('panel/', include('panel.urls')),
+    path("", include("accounts.urls")),
+    path("", include("info.urls")),
+    path("", include("video.urls")),
+    path("", include("blog.urls")),
+    path("panel/", include("panel.urls")),
     # additional apps
-    path('hitcount/', include(('hitcount.urls', 'hitcount'), namespace='hitcount')),
-    
-]+static(settings.MEDIA_URL , document_root = settings.MEDIA_ROOT)
+    path("hitcount/", include(("hitcount.urls", "hitcount"), namespace="hitcount")),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

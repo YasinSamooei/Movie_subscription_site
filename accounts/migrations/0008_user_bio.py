@@ -4,15 +4,14 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('accounts', '0007_alter_subscription_options_and_more'),
+        ("accounts", "0007_alter_subscription_options_and_more"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='user',
-            name='bio',
-            field=models.TextField(blank=True, null=True, verbose_name='بیوگرافی'),
+            model_name="user",
+            name="bio",
+            field=models.TextField(blank=True, null=True, verbose_name="بیوگرافی"),
         ),
     ]

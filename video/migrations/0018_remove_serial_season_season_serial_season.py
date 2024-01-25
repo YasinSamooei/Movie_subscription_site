@@ -4,35 +4,86 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('video', '0017_serial_season'),
+        ("video", "0017_serial_season"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='serial',
-            name='season',
+            model_name="serial",
+            name="season",
         ),
         migrations.CreateModel(
-            name='Season',
+            name="Season",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(blank=True, choices=[('فصل1', 'فصل1'), ('فصل2', 'فصل2'), ('فصل3', 'فصل3'), ('فصل4', 'فصل4')], max_length=10, null=True, verbose_name='شماره فصل')),
-                ('image', models.ImageField(upload_to='serial/season', verbose_name='تصویر جلد فصل')),
-                ('slug', models.SlugField(allow_unicode=True, blank=True, null=True, unique=True, verbose_name='اسلاگ')),
-                ('created_at', models.DateTimeField(auto_now_add=True, verbose_name='تاریخ آپلود فصل ')),
-                ('video', models.ManyToManyField(related_name='videos', to='video.video', verbose_name='ویدیوها')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "name",
+                    models.CharField(
+                        blank=True,
+                        choices=[
+                            ("فصل1", "فصل1"),
+                            ("فصل2", "فصل2"),
+                            ("فصل3", "فصل3"),
+                            ("فصل4", "فصل4"),
+                        ],
+                        max_length=10,
+                        null=True,
+                        verbose_name="شماره فصل",
+                    ),
+                ),
+                (
+                    "image",
+                    models.ImageField(
+                        upload_to="serial/season", verbose_name="تصویر جلد فصل"
+                    ),
+                ),
+                (
+                    "slug",
+                    models.SlugField(
+                        allow_unicode=True,
+                        blank=True,
+                        null=True,
+                        unique=True,
+                        verbose_name="اسلاگ",
+                    ),
+                ),
+                (
+                    "created_at",
+                    models.DateTimeField(
+                        auto_now_add=True, verbose_name="تاریخ آپلود فصل "
+                    ),
+                ),
+                (
+                    "video",
+                    models.ManyToManyField(
+                        related_name="videos", to="video.video", verbose_name="ویدیوها"
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'فصل',
-                'verbose_name_plural': 'فصل ها',
-                'ordering': ['-created_at'],
+                "verbose_name": "فصل",
+                "verbose_name_plural": "فصل ها",
+                "ordering": ["-created_at"],
             },
         ),
         migrations.AddField(
-            model_name='serial',
-            name='season',
-            field=models.ManyToManyField(blank=True, null=True, related_name='seasons', to='video.season', verbose_name='فصل'),
+            model_name="serial",
+            name="season",
+            field=models.ManyToManyField(
+                blank=True,
+                null=True,
+                related_name="seasons",
+                to="video.season",
+                verbose_name="فصل",
+            ),
         ),
     ]

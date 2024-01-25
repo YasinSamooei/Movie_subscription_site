@@ -4,15 +4,20 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('video', '0004_alter_video_age'),
+        ("video", "0004_alter_video_age"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='video',
-            name='age',
-            field=models.CharField(blank=True, choices=[('20', '+20'), ('14', '+14'), ('10', '+10')], max_length=10, null=True, verbose_name='رده سنی'),
+            model_name="video",
+            name="age",
+            field=models.CharField(
+                blank=True,
+                choices=[("20", "+20"), ("14", "+14"), ("10", "+10")],
+                max_length=10,
+                null=True,
+                verbose_name="رده سنی",
+            ),
         ),
     ]

@@ -4,15 +4,19 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('video', '0026_remove_notification_all_user_and_more'),
+        ("video", "0026_remove_notification_all_user_and_more"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='serial',
-            name='video',
-            field=models.ManyToManyField(blank=True, related_name='playes', to='video.video', verbose_name='ویدیوها'),
+            model_name="serial",
+            name="video",
+            field=models.ManyToManyField(
+                blank=True,
+                related_name="playes",
+                to="video.video",
+                verbose_name="ویدیوها",
+            ),
         ),
     ]

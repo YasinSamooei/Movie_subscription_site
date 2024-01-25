@@ -4,15 +4,16 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('accounts', '0014_alter_subscription_time'),
+        ("accounts", "0014_alter_subscription_time"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='subscription',
-            name='time',
-            field=models.IntegerField(blank=True, null=True, verbose_name='مدت زمان(ماهانه)'),
+            model_name="subscription",
+            name="time",
+            field=models.IntegerField(
+                blank=True, null=True, verbose_name="مدت زمان(ماهانه)"
+            ),
         ),
     ]

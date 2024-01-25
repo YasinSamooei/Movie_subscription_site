@@ -4,25 +4,30 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('accounts', '0016_remove_subscription_time_subscription_day_and_more'),
+        ("accounts", "0016_remove_subscription_time_subscription_day_and_more"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='subscription',
-            name='day',
-            field=models.IntegerField(blank=True, default=0, null=True, verbose_name='مدت زمان(روزانه)'),
+            model_name="subscription",
+            name="day",
+            field=models.IntegerField(
+                blank=True, default=0, null=True, verbose_name="مدت زمان(روزانه)"
+            ),
         ),
         migrations.AlterField(
-            model_name='subscription',
-            name='month',
-            field=models.IntegerField(blank=True, default=0, null=True, verbose_name='مدت زمان(ماهانه)'),
+            model_name="subscription",
+            name="month",
+            field=models.IntegerField(
+                blank=True, default=0, null=True, verbose_name="مدت زمان(ماهانه)"
+            ),
         ),
         migrations.AlterField(
-            model_name='subscription',
-            name='week',
-            field=models.IntegerField(blank=True, default=0, null=True, verbose_name='مدت زمان(هفتگی)'),
+            model_name="subscription",
+            name="week",
+            field=models.IntegerField(
+                blank=True, default=0, null=True, verbose_name="مدت زمان(هفتگی)"
+            ),
         ),
     ]
