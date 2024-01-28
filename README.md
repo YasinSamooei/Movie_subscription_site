@@ -107,6 +107,6 @@ Please read the [Code of Conduct](https://github.com/YasinSamooei/Movie_subscrip
 
 Distributed under the no License. See LICENSE.txt for more information.
 ## 📱 Technologie and tools:
-[![My Skills](https://skillicons.dev/icons?i=python,django,html,css,bootstrap,git,github,blender,aftereffects,photoshop,pr,mysql,vscode)](https://skillicons.dev)
+[![My Skills](https://skillicons.dev/icons?i=python,django,html,css,bootstrap,git,github,docker.nginx.postgrsql,vscode)](https://skillicons.dev)
 
 
